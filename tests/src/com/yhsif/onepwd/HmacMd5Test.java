@@ -28,14 +28,22 @@ public class HmacMd5Test extends TestCase {
 	}
 
 	public void testHmac() throws NoSuchAlgorithmException {
-		String key = "asdf";
+		String key1 = "asdf";
+		String key2 = "1234567890123456789012345678901234567890123456789012345678901234567890";
 		String message = "google";
-		int[] expected = {
+		int[] expected1 = {
 			0x52, 0x24, 0xa1, 0xb5, 0x60, 0xb1, 0xef, 0x5d,
 			0xcf, 0x60, 0x36, 0x98, 0xb1, 0x60, 0xb5, 0x92};
-		byte[] hmac = HmacMd5.hmac(key, message);
-		for (int i = 0; i < expected.length; i++) {
-			assertEquals((byte) expected[i], hmac[i]);
+		int[] expected2 = {
+			0x83, 0x9d, 0xce, 0xbd, 0x94, 0xac, 0x5c, 0x8c,
+			0x12, 0xb3, 0x2a, 0xfe, 0x33, 0x5e, 0x9c, 0x68};
+		byte[] hmac = HmacMd5.hmac(key1, message);
+		for (int i = 0; i < expected1.length; i++) {
+			assertEquals((byte) expected1[i], hmac[i]);
+		}
+		hmac = HmacMd5.hmac(key2, message);
+		for (int i = 0; i < expected2.length; i++) {
+			assertEquals((byte) expected2[i], hmac[i]);
 		}
 	}
 
