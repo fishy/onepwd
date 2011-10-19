@@ -8,7 +8,7 @@
 	<string name="site_key">Sitekey:</string>
 	<string name="length">Length:</string>
 	<string name="password">Password for you:</string>
-	<string name="hint_master">(Your master password here)</string>
+	<string name="hint_master">(Your master password)</string>
 	<string name="hint_site">(e.g. \"google\", \"facebook\")</string>
 	<string name="hint_password">(Click \"Generate\" below to get your password)</string>
 </resources>
