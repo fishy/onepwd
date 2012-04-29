@@ -6,30 +6,18 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 
-public class OnePwd extends Activity
-	implements DialogInterface.OnDismissListener, View.OnClickListener {
+public class OnePwd extends Activity implements View.OnClickListener {
 
 	private Dialog dialog = null;
 
 	@Override public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
 
-		dialog = new Dialog(this);
-		dialog.setTitle(R.string.app_name);
-		dialog.setContentView(R.layout.main);
-
-		dialog.setOnDismissListener(this);
-		dialog.findViewById(R.id.generate).setOnClickListener(this);
-		dialog.findViewById(R.id.settings).setOnClickListener(this);
-		dialog.findViewById(R.id.close).setOnClickListener(this);
-		dialog.findViewById(R.id.length_widget).setOnClickListener(this);
-
-		dialog.show();
-	}
-
-	// for DialogInterface.OnDismissListener
-	@Override public void onDismiss(DialogInterface dialog) {
-		this.finish();
+		findViewById(R.id.generate).setOnClickListener(this);
+		findViewById(R.id.settings).setOnClickListener(this);
+		findViewById(R.id.close).setOnClickListener(this);
+		findViewById(R.id.length_widget).setOnClickListener(this);
 	}
 
 	// for View.OnClickListener
@@ -40,7 +28,7 @@ public class OnePwd extends Activity
 			case R.id.settings:
 				break;
 			case R.id.close:
-				dialog.dismiss();
+				this.finish();
 				break;
 			case R.id.length_widget:
 				break;
