@@ -1,4 +1,6 @@
 local.properties
+tags
+release.keystore
 bin/
 gen/
 libs/
