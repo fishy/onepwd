@@ -42,42 +42,52 @@
 		android:layout_height="1dp"
 		android:background="@android:drawable/divider_horizontal_dark"
 		/>
-	<LinearLayout
-		android:id="@+id/length_widget"
+	<TextView
+		android:text="@string/length"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceMedium"
+		/>
+	<RadioGroup
+		android:id="@+id/length_group"
 		android:orientation="horizontal"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:clickable="true"
-		android:focusable="true"
-		android:background="@android:drawable/list_selector_background"
-		android:gravity="center_vertical"
 		>
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+		<RadioButton
+			android:id="@+id/length1"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			>
-			<TextView
-				android:text="@string/length"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceMedium"
-				/>
-			<TextView
-				android:id="@+id/length"
-				android:text="20"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				/>
-		</LinearLayout>
-		<ImageView
-			android:src="@android:drawable/ic_menu_more"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:text="8"
+			android:textAppearance="?android:attr/textAppearanceSmall"
 			/>
-	</LinearLayout>
+		<RadioButton
+			android:id="@+id/length2"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="10"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			/>
+		<RadioButton
+			android:id="@+id/length3"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="15"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			/>
+		<RadioButton
+			android:id="@+id/length4"
+			android:checked="true"
+			android:layout_width="1dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:text="20"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			/>
+	</RadioGroup>
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="1dp"

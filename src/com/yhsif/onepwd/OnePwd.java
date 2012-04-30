@@ -17,7 +17,6 @@ public class OnePwd extends Activity implements View.OnClickListener {
 		findViewById(R.id.generate).setOnClickListener(this);
 		findViewById(R.id.settings).setOnClickListener(this);
 		findViewById(R.id.close).setOnClickListener(this);
-		findViewById(R.id.length_widget).setOnClickListener(this);
 	}
 
 	// for View.OnClickListener
@@ -29,8 +28,6 @@ public class OnePwd extends Activity implements View.OnClickListener {
 				break;
 			case R.id.close:
 				this.finish();
-				break;
-			case R.id.length_widget:
 				break;
 		}
 	}
