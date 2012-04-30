@@ -99,22 +99,14 @@
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		/>
-	<LinearLayout
-		android:orientation="horizontal"
+	<EditText
+		android:id="@+id/password"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center_vertical"
-		>
-		<EditText
-			android:id="@+id/password"
-			android:layout_width="1dp"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:singleLine="true"
-			android:hint="@string/hint_password"
-			android:editable="false"
-			/>
-	</LinearLayout>
+		android:singleLine="true"
+		android:hint="@string/hint_password"
+		android:editable="false"
+		/>
 	<View
 		android:layout_width="match_parent"
 		android:layout_height="1dp"
@@ -131,7 +123,7 @@
 			android:text="@string/generate"
 			android:layout_width="1dp"
 			android:layout_height="wrap_content"
-			android:lines="1"
+			android:singleLine="true"
 			android:layout_weight="1"
 			/>
 		<Button
@@ -139,7 +131,7 @@
 			android:text="@string/settings"
 			android:layout_width="1dp"
 			android:layout_height="wrap_content"
-			android:lines="1"
+			android:singleLine="true"
 			android:layout_weight="1"
 			/>
 		<Button
@@ -147,7 +139,7 @@
 			android:text="@string/close"
 			android:layout_width="1dp"
 			android:layout_height="wrap_content"
-			android:lines="1"
+			android:singleLine="true"
 			android:layout_weight="1"
 			/>
 	</LinearLayout>
