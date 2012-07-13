@@ -58,6 +58,7 @@ public class OnePwd extends Activity implements View.OnClickListener {
 		String value = Base64.encodeToString(array, Base64.URL_SAFE | Base64.NO_PADDING);
 		value = value.replaceAll("\\+", "");
 		value = value.replaceAll("\\/", "");
+		value = value.replaceAll("_", "");
 		value = value.substring(0, length);
 
 		password.setText(value);
