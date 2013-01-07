@@ -34,6 +34,7 @@
 		android:id="@+id/site_key"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:inputType="textAutoCorrect"
 		android:singleLine="true"
 		android:hint="@string/hint_site"
 		/>

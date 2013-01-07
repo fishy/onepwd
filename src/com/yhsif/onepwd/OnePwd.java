@@ -87,11 +87,14 @@ public class OnePwd extends Activity implements View.OnClickListener {
 	public void doGenerate() {
 		RadioButton button = (RadioButton) findViewById(lengthGroup.getCheckedRadioButtonId());
 		int length = Integer.valueOf(button.getText().toString());
+		String siteStr = site.getText().toString();
+		siteStr = siteStr.trim();
+		site.setText(siteStr);
 		byte[] array;
 		try {
 			array = HmacMd5.hmac(
 					master.getText().toString(),
-					site.getText().toString().trim());
+					siteStr);
 		} catch (java.security.NoSuchAlgorithmException e) {
 			// won't happen
 			return;
