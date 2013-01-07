@@ -1,6 +1,7 @@
 local.properties
 tags
 release.keystore
+proguard-project.txt
 bin/
 gen/
 libs/
