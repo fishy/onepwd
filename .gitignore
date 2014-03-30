@@ -1,7 +1,11 @@
 local.properties
 tags
+debug.keystore
+debug.properties
 release.keystore
-proguard-project.txt
+release.properties
 bin/
 gen/
-libs/
+/buck-cache
+/buck-out
+/.buckd
