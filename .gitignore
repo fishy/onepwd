@@ -4,8 +4,7 @@ debug.keystore
 debug.properties
 release.keystore
 release.properties
-bin/
-gen/
+*.jar
 /buck-cache
 /buck-out
 /.buckd

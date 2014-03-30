@@ -48,3 +48,29 @@ android_binary(
 		':src',
 	],
 )
+
+# Download it yourself at:
+# http://search.maven.org/#artifactdetails%7Corg.hamcrest%7Chamcrest-core%7C1.3%7Cjar
+prebuilt_jar(
+	name = 'hamcrest-core',
+	binary_jar = 'tests/libs/hamcrest-core-1.3.jar',
+)
+
+# Download it yourself at:
+# http://search.maven.org/#artifactdetails%7Cjunit%7Cjunit%7C4.11%7Cjar
+prebuilt_jar(
+	name = 'junit',
+	binary_jar = 'tests/libs/junit-4.11.jar',
+	deps = [
+		":hamcrest-core",
+	],
+)
+
+java_test(
+	name = 'test',
+	srcs = glob(['tests/src/**/*.java']),
+	deps = [
+		":src",
+		":junit",
+	],
+)

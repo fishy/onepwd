@@ -3,6 +3,12 @@ https://github.com/tension7/One-Password/.
 
 icon.png is free for public use with a link to http://pixel-mixer.com/.
 
+junit is used under Common Public License:
+http://opensource.org/licenses/cpl1.0.txt
+
+hamcrest is used under new BSD License:
+http://opensource.org/licenses/BSD-3-Clause
+
 The rest of this software is released under the following license:
 
 Copyright (c) 2011, Yuxuan 'fishy' Wang
