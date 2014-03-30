@@ -50,11 +50,12 @@ public class OnePwd extends Activity implements View.OnClickListener {
 
 		int id = lengthGroup.getCheckedRadioButtonId();
 		int index = radioButtons.size() - 1;
-		for(int i = 0; i < radioButtons.size(); i++)
+		for (int i = 0; i < radioButtons.size(); i++) {
 			if(radioButtons.get(i) == id) {
 				index = i;
 				break;
 			}
+		}
 		editor.putInt(KEY_SELECTED_LENGTH, index);
 
 		editor.commit();
@@ -63,8 +64,9 @@ public class OnePwd extends Activity implements View.OnClickListener {
 	@Override public void onResume() {
 		SharedPreferences pref = getSharedPreferences(PREF, 0);
 		int index = pref.getInt(KEY_SELECTED_LENGTH, radioButtons.size() - 1);
-		if(index >= radioButtons.size() || index < 0)
+		if (index >= radioButtons.size() || index < 0) {
 			index = radioButtons.size() - 1;
+		}
 		lengthGroup.check(radioButtons.get(index));
 
 		super.onResume();
@@ -72,15 +74,12 @@ public class OnePwd extends Activity implements View.OnClickListener {
 
 	// for View.OnClickListener
 	@Override public void onClick(View v) {
-		switch (v.getId()) {
-			case R.id.generate:
-				doGenerate();
-				break;
-			case R.id.settings:
-				break;
-			case R.id.close:
-				this.finish();
-				break;
+		if (v.getId() == R.id.generate) {
+			doGenerate();
+		} else if (v.getId() == R.id.close) {
+			this.finish();
+		} else if (v.getId() == R.id.settings) {
+			// TODO
 		}
 	}
 

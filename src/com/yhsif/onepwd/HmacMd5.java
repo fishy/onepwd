@@ -26,12 +26,14 @@ public class HmacMd5 {
 			utf8 = Charset.forName("UTF-8");
 		} catch (java.nio.charset.UnsupportedCharsetException e) {
 			// TODO: This won't happen on Android, but may happen on other platforms.
+			return null;
 		}
 		byte keys[] = new byte[BLOCK_SIZE];
-		if (key.length() > BLOCK_SIZE)
+		if (key.length() > BLOCK_SIZE) {
 			System.arraycopy(md5(key.getBytes(utf8)), 0, keys, 0, HASH_SIZE);
-		else
+		} else {
 			System.arraycopy(key.getBytes(utf8), 0, keys, 0, key.length());
+		}
 		byte oKeyBuf[] = new byte[BLOCK_SIZE + HASH_SIZE];
 		byte iKeyBuf[] = new byte[BLOCK_SIZE + message.length()];
 		for (int i = 0; i < BLOCK_SIZE; i++) {
