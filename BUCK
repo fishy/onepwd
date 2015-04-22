@@ -31,7 +31,6 @@ keystore(
 android_binary(
 	name = 'onepwd',
 	manifest = 'AndroidManifest.xml',
-	target = 'Google Inc.:Google APIs:17',
 	keystore = ':release',
 	package_type = 'release',
 	proguard_config = 'proguard.cfg',
@@ -44,7 +43,6 @@ android_binary(
 android_binary(
 	name = 'debug',
 	manifest = 'AndroidManifest.xml',
-	target = 'Google Inc.:Google APIs:17',
 	keystore = ':debugkey',
 	package_type = 'debug',
 	proguard_config = 'proguard.cfg',
