@@ -4,12 +4,6 @@ import junit.framework.TestCase;
 
 import java.security.NoSuchAlgorithmException;
 
-/**
- * To run this test, you can type:
- * adb shell am instrument -w \
- * -e class com.yhsif.onepwd.HmacMd5Test \
- * com.yhsif.onepwd.tests/android.test.InstrumentationTestRunner
- */
 public class HmacMd5Test extends TestCase {
 
 	public void testMd5() throws NoSuchAlgorithmException {
