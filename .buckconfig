@@ -1,2 +1,7 @@
+[alias]
+  onepwd = //:onepwd
+  release = //:onepwd
+  debug = //:debug
+
 [android]
   target = android-22
