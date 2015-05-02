@@ -17,7 +17,7 @@ android_library(
 )
 
 keystore(
-	name = "release",
+	name = "releasekey",
 	store = "release.keystore",
 	properties = "release.properties",
 )
@@ -29,9 +29,9 @@ keystore(
 )
 
 android_binary(
-	name = 'onepwd',
+	name = 'release',
 	manifest = 'AndroidManifest.xml',
-	keystore = ':release',
+	keystore = ':releasekey',
 	package_type = 'release',
 	proguard_config = 'proguard.cfg',
 	deps = [
@@ -50,4 +50,9 @@ android_binary(
 		':res',
 		':src',
 	],
+)
+
+python_binary(
+	name = 'onepwd',
+	main = 'onepwd.py',
 )

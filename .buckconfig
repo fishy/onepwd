@@ -1,6 +1,6 @@
 [alias]
   onepwd = //:onepwd
-  release = //:onepwd
+  release = //:release
   debug = //:debug
   test = //tests:test
 
