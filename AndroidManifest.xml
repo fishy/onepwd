@@ -12,7 +12,7 @@
 		<activity
 			android:name="OnePwd"
 			android:label="@string/app_name"
-			android:theme="@android:style/Theme.Material.Dialog.MinWidth"
+			android:theme="@style/DialogMinWidth"
 			>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
