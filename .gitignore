@@ -5,6 +5,7 @@ debug.properties
 release.keystore
 release.properties
 *.jar
+.idea
 /buck-cache
 /buck-out
 /.buckd
