@@ -2,6 +2,7 @@
   onepwd = //:onepwd
   release = //:onepwd
   debug = //:debug
+  test = //tests:test
 
 [android]
   target = android-22

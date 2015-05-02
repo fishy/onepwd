@@ -1,3 +1,5 @@
+# vim:ft=python:noet:ts=8:sw=8
+
 # Download it yourself at:
 # http://search.maven.org/#artifactdetails%7Corg.hamcrest%7Chamcrest-core%7C1.3%7Cjar
 prebuilt_jar(
