@@ -1,11 +1,14 @@
 package com.yhsif.onepwd;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import java.security.NoSuchAlgorithmException;
 
-public class HmacMd5Test extends TestCase {
+public class HmacMd5Test {
 
+	@Test
 	public void testMd5() throws NoSuchAlgorithmException {
 		String str = "asdf";
 		int[] expected = {
@@ -18,6 +21,7 @@ public class HmacMd5Test extends TestCase {
 		}
 	}
 
+	@Test
 	public void testHmac() throws NoSuchAlgorithmException {
 		String key1 = "asdf";
 		String key2 = "1234567890123456789012345678901234567890123456789012345678901234567890";
