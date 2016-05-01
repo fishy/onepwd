@@ -4,6 +4,7 @@ prebuilt_jar(
 	name = 'hamcrest-core',
 	binary_jar = ':hamcrest-core-jar',
 	source_jar = ':hamcrest-core-src',
+	licenses = ["BSD"],
 )
 
 remote_file(
@@ -24,6 +25,7 @@ prebuilt_jar(
 	name = 'junit',
 	binary_jar = ':junit-jar',
 	source_jar = ':junit-src',
+	licenses = ["EPL-10"],
 	deps = [
 		':hamcrest-core',
 	],
