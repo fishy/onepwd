@@ -5,6 +5,8 @@ java_test(
 	srcs = glob(['src/**/*.java']),
 	deps = [
                 '//:src',
+		'//libs:guava',
 		'//libs:junit',
+		'//libs:truth',
 	],
 )
