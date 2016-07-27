@@ -4,7 +4,7 @@ java_test(
 	name = 'test',
 	srcs = glob(['src/**/*.java']),
 	deps = [
-                '//:src',
+		'//:src',
 		'//libs:guava',
 		'//libs:junit',
 		'//libs:truth',
