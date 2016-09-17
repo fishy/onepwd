@@ -1,6 +1,7 @@
 package com.yhsif.onepwd;
 
-import java.nio.charset.Charset;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -21,18 +22,11 @@ public class HmacMd5 {
 	}
 
 	public static byte[] hmac(String key, String message) throws NoSuchAlgorithmException {
-		Charset utf8 = null;
-		try {
-			utf8 = Charset.forName("UTF-8");
-		} catch (java.nio.charset.UnsupportedCharsetException e) {
-			// TODO: This won't happen on Android, but may happen on other platforms.
-			return null;
-		}
 		byte keys[] = new byte[BLOCK_SIZE];
 		if (key.length() > BLOCK_SIZE) {
-			System.arraycopy(md5(key.getBytes(utf8)), 0, keys, 0, HASH_SIZE);
+			System.arraycopy(md5(key.getBytes(UTF_8)), 0, keys, 0, HASH_SIZE);
 		} else {
-			System.arraycopy(key.getBytes(utf8), 0, keys, 0, key.length());
+			System.arraycopy(key.getBytes(UTF_8), 0, keys, 0, key.length());
 		}
 		byte oKeyBuf[] = new byte[BLOCK_SIZE + HASH_SIZE];
 		byte iKeyBuf[] = new byte[BLOCK_SIZE + message.length()];
@@ -40,7 +34,7 @@ public class HmacMd5 {
 			oKeyBuf[i] = (byte) (O_KEY_PAD ^ keys[i]);
 			iKeyBuf[i] = (byte) (I_KEY_PAD ^ keys[i]);
 		}
-		System.arraycopy(message.getBytes(utf8), 0, iKeyBuf, BLOCK_SIZE, message.length());
+		System.arraycopy(message.getBytes(UTF_8), 0, iKeyBuf, BLOCK_SIZE, message.length());
 		System.arraycopy(md5(iKeyBuf), 0, oKeyBuf, BLOCK_SIZE, HASH_SIZE);
 		return md5(oKeyBuf);
 	}
