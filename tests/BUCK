@@ -1,12 +1,10 @@
-# vim:ft=python:noet:ts=8:sw=8
-
 java_test(
-	name = 'test',
-	srcs = glob(['src/**/*.java']),
-	deps = [
-		'//:src',
-		'//libs:guava',
-		'//libs:junit',
-		'//libs:truth',
-	],
+  name = 'test',
+  srcs = glob(['src/**/*.java']),
+  deps = [
+    '//:src',
+    '//libs:guava',
+    '//libs:junit',
+    '//libs:truth',
+  ],
 )
