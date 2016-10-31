@@ -8,6 +8,7 @@ import android.app.usage.UsageStatsManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OnePwd extends Activity implements View.OnClickListener {
+  private final static String TAG = "onepwd";
   private final static int USAGE_TIMEFRAME = 24 * 60 * 60 * 1000; // 24 hours
 
   static final String PREF = "com.yhsif.onepwd";
@@ -126,6 +128,7 @@ public class OnePwd extends Activity implements View.OnClickListener {
   private void prefillSiteKey() {
     String pkg = getForegroundApp();
     if (pkg != null) {
+      Log.v(TAG, String.format("Package is \"%s\"", pkg));
       String[] segments = pkg.split("\\.");
       if (segments.length >= 2) {
         String sitekey = segments[1];
