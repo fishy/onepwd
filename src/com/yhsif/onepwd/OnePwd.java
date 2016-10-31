@@ -1,6 +1,10 @@
 package com.yhsif.onepwd;
 
+import static android.app.usage.UsageStatsManager.INTERVAL_DAILY;
+
 import android.app.Activity;
+import android.app.usage.UsageStats;
+import android.app.usage.UsageStatsManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Base64;
@@ -13,9 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class OnePwd extends Activity implements View.OnClickListener {
+  private final static int USAGE_TIMEFRAME = 24 * 60 * 60 * 1000; // 24 hours
 
-  public static final String PREF = "com.yhsif.onepwd";
-  public static final String KEY_SELECTED_LENGTH = "selected_length";
+  static final String PREF = "com.yhsif.onepwd";
+  static final String KEY_SELECTED_LENGTH = "selected_length";
+  static final String PKG_SELF = "com.yhsif.onepwd";
 
   RadioGroup lengthGroup;
   TextView master;
@@ -74,6 +80,8 @@ public class OnePwd extends Activity implements View.OnClickListener {
     }
     lengthGroup.check(radioButtons.get(index));
 
+    prefillSiteKey();
+
     super.onResume();
   }
 
@@ -113,5 +121,40 @@ public class OnePwd extends Activity implements View.OnClickListener {
             .substring(0, length);
 
     password.setText(value);
+  }
+
+  private void prefillSiteKey() {
+    String pkg = getForegroundApp();
+    if (pkg != null) {
+      String[] segments = pkg.split("\\.");
+      if (segments.length >= 2) {
+        String sitekey = segments[1];
+        site.setText(sitekey);
+      }
+    }
+  }
+
+  private String getForegroundApp() {
+    UsageStatsManager manager =
+      (UsageStatsManager) getSystemService(USAGE_STATS_SERVICE);
+    long time = System.currentTimeMillis();
+    List<UsageStats> apps =
+      manager.queryUsageStats(INTERVAL_DAILY, time - USAGE_TIMEFRAME, time);
+    long max = 0;
+    String result = null;
+    if (apps != null) {
+      for (UsageStats app : apps) {
+        String pkg = app.getPackageName().toLowerCase();
+        long timestamp = app.getLastTimeUsed();
+        if (pkg.equals(PKG_SELF)) {
+          continue;
+        }
+        if (timestamp > max) {
+          max = timestamp;
+          result = pkg;
+        }
+      }
+    }
+    return result;
   }
 }

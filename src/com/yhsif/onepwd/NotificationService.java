@@ -26,7 +26,7 @@ public class NotificationService extends Service {
   }
 
   private void showNotification() {
-    PendingIntent openActivity =
+    PendingIntent activity =
       PendingIntent.getActivity(this, 0, new Intent(this, OnePwd.class), 0);
     Notification notification =
       new Notification.Builder(this)
@@ -34,7 +34,7 @@ public class NotificationService extends Service {
         .setWhen(System.currentTimeMillis())
         .setTicker(getText(R.string.ticker))
         .setContentTitle(getText(R.string.ticker))
-        .setContentIntent(openActivity)
+        .setContentIntent(activity)
         .setPriority(PRIORITY_MIN)
         .build();
     startForeground(NOTIFICATION_ID, notification);
