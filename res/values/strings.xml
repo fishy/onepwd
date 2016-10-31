@@ -11,4 +11,5 @@
   <string name="hint_master">(Your master password)</string>
   <string name="hint_site">(e.g. \"google\", \"facebook\")</string>
   <string name="hint_password">(Click \"Generate\" below to get your password)</string>
+  <string name="ticker">Click to open OnePwd</string>
 </resources>

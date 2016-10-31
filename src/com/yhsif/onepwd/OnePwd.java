@@ -42,6 +42,8 @@ public class OnePwd extends Activity implements View.OnClickListener {
         R.id.length2,
         R.id.length3,
         R.id.length4);
+
+    NotificationService.run(this);
   }
 
   @Override
@@ -112,5 +114,4 @@ public class OnePwd extends Activity implements View.OnClickListener {
 
     password.setText(value);
   }
-
 }
