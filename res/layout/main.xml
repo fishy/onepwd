@@ -49,6 +49,7 @@
           android:inputType="textAutoCorrect"
           android:singleLine="true"
           android:hint="@string/hint_site"
+          android:selectAllOnFocus="true"
         />
       <View
           android:layout_width="match_parent"
