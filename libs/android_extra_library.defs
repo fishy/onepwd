@@ -1,0 +1,30 @@
+def android_extra_jar(name, path, **kwargs) :
+  genrule(
+    name = name + '__jar',
+    out = name + '.jar',
+    cmd = 'cp $ANDROID_HOME/%s $OUT' % path,
+  )
+  prebuilt_jar(
+    name = name,
+    binary_jar = ':%s__jar' % name,
+    **kwargs
+  )
+
+
+def android_extra_res(name, path, package, **kwargs) :
+  cmd = [
+    'mkdir -p $OUT/ &&',
+    'cd $ANDROID_HOME/%s &&' % path,
+    'cp -R * $OUT/',
+  ]
+  genrule(
+    name = name + '__dir',
+    out = name + '_dir',
+    cmd = ' '.join(cmd),
+  )
+  android_resource(
+    name = name,
+    res = ':%s__dir' % name,
+    package = package,
+    **kwargs
+  )
