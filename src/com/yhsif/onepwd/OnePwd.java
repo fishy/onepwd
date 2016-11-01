@@ -5,7 +5,9 @@ import static android.app.usage.UsageStatsManager.INTERVAL_DAILY;
 import android.app.Activity;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -13,13 +15,21 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OnePwd extends Activity implements View.OnClickListener {
   private final static String TAG = "onepwd";
   private final static int USAGE_TIMEFRAME = 24 * 60 * 60 * 1000; // 24 hours
+  private final static Set<String> CHROME_PACKAGES = new HashSet(Arrays.asList(
+        "com.chrome.canary",    // canary
+        "com.chrome.dev",       // dev
+        "com.chrome.beta",      // beta
+        "com.android.chrome")); // stable
 
   static final String PREF = "com.yhsif.onepwd";
   static final String KEY_SELECTED_LENGTH = "selected_length";
@@ -82,7 +92,17 @@ public class OnePwd extends Activity implements View.OnClickListener {
     }
     lengthGroup.check(radioButtons.get(index));
 
-    prefillSiteKey();
+    Intent intent = getIntent();
+    String sitekey = null;
+    if (intent != null && Intent.ACTION_SEND.equals(intent.getAction())) {
+      sitekey = getSiteKeyFromIntent(intent);
+    }
+    if (sitekey == null) {
+      sitekey = getSiteKeyFromForegroundApp();
+    }
+    if (sitekey != null) {
+      site.setText(sitekey);
+    }
 
     super.onResume();
   }
@@ -125,16 +145,22 @@ public class OnePwd extends Activity implements View.OnClickListener {
     password.setText(value);
   }
 
-  private void prefillSiteKey() {
+  private String getSiteKeyFromForegroundApp() {
     String pkg = getForegroundApp();
     if (pkg != null) {
       Log.v(TAG, String.format("Package is \"%s\"", pkg));
-      String[] segments = pkg.split("\\.");
-      if (segments.length >= 2) {
-        String sitekey = segments[1];
-        site.setText(sitekey);
+      if (CHROME_PACKAGES.contains(pkg)) {
+        Toast.makeText(this, R.string.chrome_toast, Toast.LENGTH_LONG).show();
+      } else {
+        String[] segments = pkg.split("\\.");
+        if (segments.length > 1) {
+          return segments[1];
+        } else {
+          return pkg;
+        }
       }
     }
+    return null;
   }
 
   private String getForegroundApp() {
@@ -159,5 +185,23 @@ public class OnePwd extends Activity implements View.OnClickListener {
       }
     }
     return result;
+  }
+
+  private String getSiteKeyFromIntent(Intent intent) {
+    String url = intent.getStringExtra(Intent.EXTRA_TEXT);
+    if (url == null || url.isEmpty()) {
+      return null;
+    }
+    Uri uri = Uri.parse(url);
+    String host = uri.getHost();
+    if (host == null) {
+      return null;
+    }
+    String[] segments = host.split("\\.");
+    if (segments.length > 1) {
+      return segments[segments.length - 2];
+    } else {
+      return host;
+    }
   }
 }
