@@ -2,13 +2,13 @@ package com.yhsif.onepwd;
 
 import static android.app.usage.UsageStatsManager.INTERVAL_DAILY;
 
-import android.app.Activity;
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class OnePwd extends Activity implements View.OnClickListener {
+public class OnePwd extends AppCompatActivity implements View.OnClickListener {
   private final static String TAG = "onepwd";
   private final static int USAGE_TIMEFRAME = 24 * 60 * 60 * 1000; // 24 hours
   private final static Set<String> CHROME_PACKAGES = new HashSet(Arrays.asList(

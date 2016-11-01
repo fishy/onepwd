@@ -1,3 +1,24 @@
+include_defs('//libs/android_extra_library.defs')
+
+android_extra_jar(
+  name = 'android-support-v4',
+  path = 'extras/android/compatibility/v4/android-support-v4.jar',
+  visibility = [ 'PUBLIC' ],
+)
+
+android_extra_jar(
+  name = 'android-support-v7-appcompat',
+  path = 'extras/android/compatibility/v7/appcompat/libs/android-support-v7-appcompat.jar',
+  visibility = [ 'PUBLIC' ],
+)
+
+android_extra_res(
+  name = 'android-support-v7-appcompat-res',
+  path = 'extras/android/compatibility/v7/appcompat/res',
+  package = 'android.support.v7.appcompat',
+  visibility = [ 'PUBLIC' ],
+)
+
 prebuilt_jar(
   name = 'hamcrest-core',
   binary_jar = ':hamcrest-core-jar',

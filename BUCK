@@ -9,6 +9,9 @@ android_library(
   srcs = glob(['src/**/*.java']),
   deps = [
     ':res',
+    '//libs:android-support-v4',
+    '//libs:android-support-v7-appcompat',
+    '//libs:android-support-v7-appcompat-res',
   ],
   visibility = [
     '//tests:',
