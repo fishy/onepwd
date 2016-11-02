@@ -4,11 +4,15 @@ import static android.app.usage.UsageStatsManager.INTERVAL_DAILY;
 
 import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +34,7 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
         "com.chrome.dev",       // dev
         "com.chrome.beta",      // beta
         "com.android.chrome")); // stable
+  private final static ClipData EMPTY_CLIP = ClipData.newPlainText("", "");
 
   static final String PREF = "com.yhsif.onepwd";
   static final String KEY_SELECTED_LENGTH = "selected_length";
@@ -115,7 +120,7 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
     } else if (v.getId() == R.id.close) {
       this.finish();
     } else if (v.getId() == R.id.settings) {
-      // TODO
+      startActivity(new Intent(this, SettingsActivity.class));
     }
   }
 
@@ -135,7 +140,7 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
       // won't happen
       return;
     }
-    String value =
+    final String value =
         Base64.encodeToString(array, Base64.URL_SAFE | Base64.NO_PADDING)
             .replaceAll("\\+", "")
             .replaceAll("\\/", "")
@@ -143,6 +148,41 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
             .substring(0, length);
 
     password.setText(value);
+    SharedPreferences pref =
+      PreferenceManager.getDefaultSharedPreferences(this);
+    if (pref.getBoolean(
+          SettingsActivity.KEY_COPY_CLIPBOARD,
+          SettingsActivity.DEFAULT_COPY_CLIPBOARD)) {
+      final ClipboardManager clip =
+        (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+      ClipData clipData = ClipData.newPlainText("", value);
+      clip.setPrimaryClip(clipData);
+      Toast.makeText(this, R.string.clip_toast, Toast.LENGTH_LONG).show();
+      String timeStr =
+        pref.getString(
+            SettingsActivity.KEY_CLEAR_CLIPBOARD,
+            SettingsActivity.DEFAULT_CLEAR_CLIPBOARD);
+      long time = Long.parseLong(timeStr);
+      if (time > 0) {
+        Runnable runnable = new Runnable() {
+          @Override
+          public void run() {
+            if (clip.hasPrimaryClip()) {
+              ClipData.Item item = clip.getPrimaryClip().getItemAt(0);
+              if (item.getText().toString().equals(value)) {
+                clip.setPrimaryClip(EMPTY_CLIP);
+                Toast.makeText(
+                    OnePwd.this,
+                    R.string.clear_clip_toast,
+                    Toast.LENGTH_LONG).show();
+              }
+            }
+          }
+        };
+        Handler handler = new Handler();
+        handler.postDelayed(runnable, time * 1000);
+      }
+    }
   }
 
   private String getSiteKeyFromForegroundApp() {

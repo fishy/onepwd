@@ -12,6 +12,7 @@ android_library(
     '//libs:android-support-v4',
     '//libs:android-support-v7-appcompat',
     '//libs:android-support-v7-appcompat-res',
+    '//libs:android-support-v7-preference',
   ],
   visibility = [
     '//tests:',

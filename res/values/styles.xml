@@ -4,4 +4,8 @@
       name="DialogMinWidth"
       parent="Theme.AppCompat.Dialog.MinWidth"
     />
+  <style
+      name="Settings"
+      parent="Theme.AppCompat.Light.DarkActionBar"
+    />
 </resources>

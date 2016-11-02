@@ -19,6 +19,12 @@ android_extra_res(
   visibility = [ 'PUBLIC' ],
 )
 
+android_extra_jar(
+  name = 'android-support-v7-preference',
+  path = 'extras/android/compatibility/v7/preference/libs/android-support-v7-preference.jar',
+  visibility = [ 'PUBLIC' ],
+)
+
 prebuilt_jar(
   name = 'hamcrest-core',
   binary_jar = ':hamcrest-core-jar',

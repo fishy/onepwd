@@ -1,0 +1,6 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+  <header
+      android:fragment="com.yhsif.onepwd.SettingsActivity$ClipboardPreferenceFragment"
+      android:title="@string/pref_header_clipboard"
+    />
+</preference-headers>
