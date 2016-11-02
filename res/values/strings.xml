@@ -22,7 +22,33 @@
   <string name="clear_clip_toast">Clipboard cleared (via OnePwd)</string>
 
   <!-- Preference headers -->
+  <string name="pref_header_prefill">Prefill Sitekey</string>
   <string name="pref_header_clipboard">Clipboard</string>
+
+  <!-- Prefill preference -->
+  <string name="pref_title_usage">
+    "From current app"
+  </string>
+  <string name="pref_desc_usage_yes">
+    "Try to prefill the sitekey from"
+    "the package name of the last running app."
+    "\nThis is just a best guess, please use with caution."
+  </string>
+  <string name="pref_desc_usage_no">
+    "Only prefill the sitekey when sharing URL to OnePwd."
+  </string>
+  <string name="pref_title_permission_usage">
+    "Grant OnePwd permission"
+  </string>
+  <string name="pref_desc_permission_usage">
+    "Click here to go to Usage Access System Settings."
+    "\nOnePwd needs this permission in order to"
+    "prefill sitekey from current app."
+  </string>
+  <string name="pref_desc_prefill_share">
+    "ProTip: you can always just share the URL from browser to OnePwd to"
+    "get sitekey prefilled from the URL."
+  </string>
 
   <!-- Clipboard preference -->
   <string name="pref_title_copy_clipboard">

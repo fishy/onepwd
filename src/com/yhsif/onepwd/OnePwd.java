@@ -186,6 +186,14 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
   }
 
   private String getSiteKeyFromForegroundApp() {
+    SharedPreferences pref =
+      PreferenceManager.getDefaultSharedPreferences(this);
+    if (!pref.getBoolean(
+          SettingsActivity.KEY_PREFILL_USAGE,
+          SettingsActivity.DEFAULT_PREFILL_USAGE)) {
+      return null;
+    }
+
     String pkg = getForegroundApp();
     if (pkg != null) {
       Log.v(TAG, String.format("Package is \"%s\"", pkg));

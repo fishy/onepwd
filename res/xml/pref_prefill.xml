@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <SwitchPreference
+      android:defaultValue="false"
+      android:key="prefill_usage"
+      android:title="@string/pref_title_usage"
+      android:summary="@string/pref_desc_usage_no"
+    />
+  <Preference
+      android:key="dummy_settings_intent"
+      android:persistent="false"
+      android:title="@string/pref_title_permission_usage"
+      android:summary="@string/pref_desc_permission_usage"
+      >
+    <intent
+        android:action="android.settings.USAGE_ACCESS_SETTINGS"
+      />
+  </Preference>
+  <Preference
+      android:enabled="false"
+      android:summary="@string/pref_desc_prefill_share"
+    />
+</PreferenceScreen>

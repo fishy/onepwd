@@ -15,6 +15,10 @@ import android.view.MenuItem;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
+  private static final String KEY_SETTINGS_INTENT = "dummy_settings_intent";
+
+  static final String KEY_PREFILL_USAGE = "prefill_usage";
+  static final boolean DEFAULT_PREFILL_USAGE = false;
   static final String KEY_COPY_CLIPBOARD = "copy_clipboard";
   static final boolean DEFAULT_COPY_CLIPBOARD = false;
   static final String KEY_CLEAR_CLIPBOARD = "clear_clipboard";
@@ -79,6 +83,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             preference.setSummary(R.string.pref_desc_copy_clipboard_no);
             clearClip.setEnabled(false);
           }
+        } else if (preference.getKey().equals(KEY_PREFILL_USAGE)) {
+          Preference settings =
+            preference
+                .getPreferenceManager()
+                .findPreference(KEY_SETTINGS_INTENT);
+          if (value.equals(Boolean.TRUE)) {
+            preference.setSummary(R.string.pref_desc_usage_yes);
+            settings.setEnabled(true);
+          } else {
+            preference.setSummary(R.string.pref_desc_usage_no);
+            settings.setEnabled(false);
+          }
         } else {
           // For all other preferences, set the summary to the value's
           // simple string representation.
@@ -113,11 +129,27 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
    */
   protected boolean isValidFragment(String fragmentName) {
     return PreferenceFragment.class.getName().equals(fragmentName)
+        || PrefillPreferenceFragment.class.getName().equals(fragmentName)
         || ClipboardPreferenceFragment.class.getName().equals(fragmentName);
   }
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-  public static class ClipboardPreferenceFragment extends PreferenceFragment {
+  public static class PrefillPreferenceFragment
+      extends BasePreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_prefill);
+      setHasOptionsMenu(true);
+
+      bindPreferenceSummaryToValueBoolean(
+          findPreference(KEY_PREFILL_USAGE), DEFAULT_PREFILL_USAGE);
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class ClipboardPreferenceFragment
+      extends BasePreferenceFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
@@ -128,7 +160,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
           findPreference(KEY_COPY_CLIPBOARD), DEFAULT_COPY_CLIPBOARD);
       bindPreferenceSummaryToValue(findPreference(KEY_CLEAR_CLIPBOARD));
     }
+  }
 
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  private static abstract class BasePreferenceFragment
+      extends PreferenceFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       int id = item.getItemId();
