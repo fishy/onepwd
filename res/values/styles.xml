@@ -6,6 +6,6 @@
     />
   <style
       name="Settings"
-      parent="Theme.AppCompat.Light.DarkActionBar"
+      parent="Theme.AppCompat"
     />
 </resources>
