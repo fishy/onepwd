@@ -20,6 +20,7 @@
   </string>
   <string name="clip_toast">Generated password copied to clipboard</string>
   <string name="clear_clip_toast">Clipboard cleared (via OnePwd)</string>
+  <string name="title_settings">OnePwd Settings</string>
 
   <!-- Preference headers -->
   <string name="pref_header_prefill">Prefill Sitekey</string>
