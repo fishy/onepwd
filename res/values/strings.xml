@@ -25,6 +25,7 @@
   <!-- Preference headers -->
   <string name="pref_header_prefill">Prefill Sitekey</string>
   <string name="pref_header_clipboard">Clipboard</string>
+  <string name="pref_header_lengths">Password Lengths</string>
 
   <!-- Prefill preference -->
   <string name="pref_title_usage">
@@ -76,4 +77,13 @@
     <item>300</item>
     <item>-1</item>
   </string-array>
+
+  <!-- Clipboard preference -->
+  <string name="pref_title_length1">Length 1</string>
+  <string name="pref_title_length2">Length 2</string>
+  <string name="pref_title_length3">Length 3</string>
+  <string name="pref_title_length4">Length 4</string>
+  <string name="pref_desc_length">
+    "ProTip: You don't have to keep them sorted."
+  </string>
 </resources>

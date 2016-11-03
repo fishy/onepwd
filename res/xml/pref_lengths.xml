@@ -1,0 +1,26 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+  <com.yhsif.onepwd.LengthPreference
+      android:defaultValue="8"
+      android:key="length1"
+      android:title="@string/pref_title_length1"
+    />
+  <com.yhsif.onepwd.LengthPreference
+      android:defaultValue="10"
+      android:key="length2"
+      android:title="@string/pref_title_length2"
+    />
+  <com.yhsif.onepwd.LengthPreference
+      android:defaultValue="15"
+      android:key="length3"
+      android:title="@string/pref_title_length3"
+    />
+  <com.yhsif.onepwd.LengthPreference
+      android:defaultValue="20"
+      android:key="length4"
+      android:title="@string/pref_title_length4"
+    />
+  <Preference
+      android:enabled="false"
+      android:summary="@string/pref_desc_length"
+    />
+</PreferenceScreen>

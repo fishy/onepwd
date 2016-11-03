@@ -7,4 +7,8 @@
       android:fragment="com.yhsif.onepwd.SettingsActivity$ClipboardPreferenceFragment"
       android:title="@string/pref_header_clipboard"
     />
+  <header
+      android:fragment="com.yhsif.onepwd.SettingsActivity$LengthsPreferenceFragment"
+      android:title="@string/pref_header_lengths"
+    />
 </preference-headers>

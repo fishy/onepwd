@@ -2,6 +2,7 @@ package com.yhsif.onepwd;
 
 
 import android.annotation.TargetApi;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
@@ -23,6 +27,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   static final boolean DEFAULT_COPY_CLIPBOARD = false;
   static final String KEY_CLEAR_CLIPBOARD = "clear_clipboard";
   static final String DEFAULT_CLEAR_CLIPBOARD = "60";
+  static final String KEY_LENGTH1 = "length1";
+  static final int DEFAULT_LENGTH1 = 8;
+  static final String KEY_LENGTH2 = "length2";
+  static final int DEFAULT_LENGTH2 = 10;
+  static final String KEY_LENGTH3 = "length3";
+  static final int DEFAULT_LENGTH3 = 15;
+  static final String KEY_LENGTH4 = "length4";
+  static final int DEFAULT_LENGTH4 = 20;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +64,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     return (getResources().getConfiguration().screenLayout
         & Configuration.SCREENLAYOUT_SIZE_MASK)
       >= Configuration.SCREENLAYOUT_SIZE_XLARGE;
+  }
+
+  @Override
+  public void onHeaderClick(Header header, int position) {
+    if (header.titleRes == R.string.pref_header_lengths) {
+      sortLengths(getPreferenceManager().getDefaultSharedPreferences(this));
+    }
+    super.onHeaderClick(header, position);
+  }
+
+  @Override
+  protected void onStop() {
+    sortLengths(getPreferenceManager().getDefaultSharedPreferences(this));
+    super.onStop();
+  }
+
+  @Override
+  protected boolean isValidFragment(String fragmentName) {
+    return PreferenceFragment.class.getName().equals(fragmentName)
+        || PrefillPreferenceFragment.class.getName().equals(fragmentName)
+        || ClipboardPreferenceFragment.class.getName().equals(fragmentName)
+        || LengthsPreferenceFragment.class.getName().equals(fragmentName);
   }
 
   @Override
@@ -104,7 +138,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       }
     };
 
-  private static void bindPreferenceSummaryToValue(Preference preference) {
+  private static void bindPreferenceSummaryToString(Preference preference) {
     preference.setOnPreferenceChangeListener(prefBinder);
     prefBinder.onPreferenceChange(
         preference,
@@ -113,7 +147,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             .getString(preference.getKey(), ""));
   }
 
-  private static void bindPreferenceSummaryToValueBoolean(
+  private static void bindPreferenceSummaryToInt(
+      Preference preference, int defaultValue) {
+    preference.setOnPreferenceChangeListener(prefBinder);
+    prefBinder.onPreferenceChange(
+        preference,
+        PreferenceManager
+            .getDefaultSharedPreferences(preference.getContext())
+            .getInt(preference.getKey(), defaultValue));
+  }
+
+  private static void bindPreferenceSummaryToBoolean(
       Preference preference, boolean defaultValue) {
     preference.setOnPreferenceChangeListener(prefBinder);
     prefBinder.onPreferenceChange(
@@ -123,14 +167,25 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             .getBoolean(preference.getKey(), defaultValue));
   }
 
-  /**
-   * This method stops fragment injection in malicious applications.
-   * Make sure to deny any unknown fragments here.
-   */
-  protected boolean isValidFragment(String fragmentName) {
-    return PreferenceFragment.class.getName().equals(fragmentName)
-        || PrefillPreferenceFragment.class.getName().equals(fragmentName)
-        || ClipboardPreferenceFragment.class.getName().equals(fragmentName);
+  static void sortLengths(SharedPreferences pref) {
+    List<Integer> lengths = new ArrayList<>(4);
+    List<String> keys =
+      Arrays.asList(KEY_LENGTH1, KEY_LENGTH2, KEY_LENGTH3, KEY_LENGTH4);
+    List<Integer> defaults =
+      Arrays.asList(
+          DEFAULT_LENGTH1,
+          DEFAULT_LENGTH2,
+          DEFAULT_LENGTH3,
+          DEFAULT_LENGTH4);
+    for (int i = 0; i < 4; i++) {
+      lengths.add(pref.getInt(keys.get(i), defaults.get(i)));
+    }
+    Collections.sort(lengths);
+    SharedPreferences.Editor editor = pref.edit();
+    for (int i = 0; i < 4; i++) {
+      editor.putInt(keys.get(i), lengths.get(i));
+    }
+    editor.commit();
   }
 
   @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -142,7 +197,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       addPreferencesFromResource(R.xml.pref_prefill);
       setHasOptionsMenu(true);
 
-      bindPreferenceSummaryToValueBoolean(
+      bindPreferenceSummaryToBoolean(
           findPreference(KEY_PREFILL_USAGE), DEFAULT_PREFILL_USAGE);
     }
   }
@@ -156,9 +211,24 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       addPreferencesFromResource(R.xml.pref_clipboard);
       setHasOptionsMenu(true);
 
-      bindPreferenceSummaryToValueBoolean(
+      bindPreferenceSummaryToBoolean(
           findPreference(KEY_COPY_CLIPBOARD), DEFAULT_COPY_CLIPBOARD);
-      bindPreferenceSummaryToValue(findPreference(KEY_CLEAR_CLIPBOARD));
+      bindPreferenceSummaryToString(findPreference(KEY_CLEAR_CLIPBOARD));
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class LengthsPreferenceFragment extends BasePreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_lengths);
+      setHasOptionsMenu(true);
+
+      bindPreferenceSummaryToInt(findPreference(KEY_LENGTH1), DEFAULT_LENGTH1);
+      bindPreferenceSummaryToInt(findPreference(KEY_LENGTH2), DEFAULT_LENGTH2);
+      bindPreferenceSummaryToInt(findPreference(KEY_LENGTH3), DEFAULT_LENGTH3);
+      bindPreferenceSummaryToInt(findPreference(KEY_LENGTH4), DEFAULT_LENGTH4);
     }
   }
 

@@ -26,7 +26,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class OnePwd extends AppCompatActivity implements View.OnClickListener {
+public class OnePwd extends AppCompatActivity
+    implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
   private final static String TAG = "onepwd";
   private final static int USAGE_TIMEFRAME = 24 * 60 * 60 * 1000; // 24 hours
   private final static Set<String> CHROME_PACKAGES = new HashSet(Arrays.asList(
@@ -44,7 +45,9 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
   TextView master;
   TextView site;
   TextView password;
-  List<Integer> radioButtons;
+  List<RadioButton> radioButtons;
+  RadioButton checkedLength;
+  int checkedIndex;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -56,15 +59,18 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
     findViewById(R.id.close).setOnClickListener(this);
 
     lengthGroup = (RadioGroup) findViewById(R.id.length_group);
+    lengthGroup.setOnCheckedChangeListener(this);
     master = (TextView) findViewById(R.id.master_key);
     site = (TextView) findViewById(R.id.site_key);
     password = (TextView) findViewById(R.id.password);
 
     radioButtons = Arrays.asList(
-        R.id.length1,
-        R.id.length2,
-        R.id.length3,
-        R.id.length4);
+        (RadioButton) findViewById(R.id.length1),
+        (RadioButton) findViewById(R.id.length2),
+        (RadioButton) findViewById(R.id.length3),
+        (RadioButton) findViewById(R.id.length4));
+    checkedIndex = radioButtons.size() - 1;
+    checkedLength = radioButtons.get(checkedIndex);
 
     NotificationService.run(this);
   }
@@ -74,28 +80,31 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
     super.onPause();
 
     SharedPreferences.Editor editor = getSharedPreferences(PREF, 0).edit();
-
-    int id = lengthGroup.getCheckedRadioButtonId();
-    int index = radioButtons.size() - 1;
-    for (int i = 0; i < radioButtons.size(); i++) {
-      if(radioButtons.get(i) == id) {
-        index = i;
-        break;
-      }
-    }
-    editor.putInt(KEY_SELECTED_LENGTH, index);
-
+    editor.putInt(KEY_SELECTED_LENGTH, checkedIndex);
     editor.commit();
   }
 
   @Override
   public void onResume() {
-    SharedPreferences pref = getSharedPreferences(PREF, 0);
-    int index = pref.getInt(KEY_SELECTED_LENGTH, radioButtons.size() - 1);
-    if (index >= radioButtons.size() || index < 0) {
-      index = radioButtons.size() - 1;
+    SharedPreferences pref =
+      PreferenceManager.getDefaultSharedPreferences(this);
+    SettingsActivity.sortLengths(pref);
+    radioButtons.get(0).setText(Integer.toString(pref.getInt(
+            SettingsActivity.KEY_LENGTH1, SettingsActivity.DEFAULT_LENGTH1)));
+    radioButtons.get(1).setText(Integer.toString(pref.getInt(
+            SettingsActivity.KEY_LENGTH2, SettingsActivity.DEFAULT_LENGTH2)));
+    radioButtons.get(2).setText(Integer.toString(pref.getInt(
+            SettingsActivity.KEY_LENGTH3, SettingsActivity.DEFAULT_LENGTH3)));
+    radioButtons.get(3).setText(Integer.toString(pref.getInt(
+            SettingsActivity.KEY_LENGTH4, SettingsActivity.DEFAULT_LENGTH4)));
+
+    int defaultIndex = radioButtons.size() - 1;
+    int index =
+      getSharedPreferences(PREF, 0).getInt(KEY_SELECTED_LENGTH, defaultIndex);
+    if (index < 0 || index >= radioButtons.size()) {
+      index = defaultIndex;
     }
-    lengthGroup.check(radioButtons.get(index));
+    lengthGroup.check(radioButtons.get(index).getId());
 
     Intent intent = getIntent();
     String sitekey = null;
@@ -124,10 +133,15 @@ public class OnePwd extends AppCompatActivity implements View.OnClickListener {
     }
   }
 
+  // for RadioGroup.OnCheckedChangeListener
+  @Override
+  public void onCheckedChanged(RadioGroup group, int checkedId) {
+    checkedLength = (RadioButton) findViewById(checkedId);
+    checkedIndex = radioButtons.indexOf(checkedLength);
+  }
+
   public void doGenerate() {
-    RadioButton button =
-        (RadioButton) findViewById(lengthGroup.getCheckedRadioButtonId());
-    int length = Integer.valueOf(button.getText().toString());
+    int length = Integer.valueOf(checkedLength.getText().toString());
     String siteStr = site.getText().toString();
     siteStr = siteStr.trim();
     site.setText(siteStr);
