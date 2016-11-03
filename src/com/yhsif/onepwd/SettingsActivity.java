@@ -85,7 +85,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     return PreferenceFragment.class.getName().equals(fragmentName)
         || PrefillPreferenceFragment.class.getName().equals(fragmentName)
         || ClipboardPreferenceFragment.class.getName().equals(fragmentName)
-        || LengthsPreferenceFragment.class.getName().equals(fragmentName);
+        || LengthsPreferenceFragment.class.getName().equals(fragmentName)
+        || AboutPreferenceFragment.class.getName().equals(fragmentName);
   }
 
   @Override
@@ -229,6 +230,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       bindPreferenceSummaryToInt(findPreference(KEY_LENGTH2), DEFAULT_LENGTH2);
       bindPreferenceSummaryToInt(findPreference(KEY_LENGTH3), DEFAULT_LENGTH3);
       bindPreferenceSummaryToInt(findPreference(KEY_LENGTH4), DEFAULT_LENGTH4);
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class AboutPreferenceFragment extends BasePreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_about);
+      setHasOptionsMenu(true);
     }
   }
 

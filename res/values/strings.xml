@@ -26,6 +26,8 @@
   <string name="pref_header_prefill">Prefill Sitekey</string>
   <string name="pref_header_clipboard">Clipboard</string>
   <string name="pref_header_lengths">Password Lengths</string>
+  <string name="pref_header_about">About</string>
+  <string name="pref_header_about_summary">OnePwd v0.1 beta</string>
 
   <!-- Prefill preference -->
   <string name="pref_title_usage">
@@ -85,5 +87,17 @@
   <string name="pref_title_length4">Length 4</string>
   <string name="pref_desc_length">
     "ProTip: You don't have to keep them sorted."
+  </string>
+
+  <!-- About screen -->
+  <string name="about">OnePwd v0.1 beta by Yuxuan \'fishy\' Wang</string>
+  <string name="about_github">This is an Open Source project.</string>
+  <string name="credits">Credits</string>
+  <string name="credit_123_password">
+    "This software is inspired by and compatible to 123 Password by tension7 at"
+    "https://github.com/tension7/One-Password/."
+  </string>
+  <string name="credit_icon">
+    "App icon is free for public use with a link to http://pixel-mixer.com/."
   </string>
 </resources>
