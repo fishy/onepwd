@@ -117,6 +117,8 @@ public class OnePwd extends AppCompatActivity
     if (sitekey != null) {
       site.setText(sitekey);
     }
+    master.setText("");
+    password.setText("");
 
     super.onResume();
   }
