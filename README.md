@@ -1,6 +1,6 @@
 # OnePwd
 
-An Android app and Python companion script to calculate unique passpords
+An Android app and Python companion script to calculate unique passwords
 for different sites/apps. Compatible with and inspired by Chrome
 extension [123 Password](https://chrome.google.com/webstore/detail/pahmlghhaoabdlhnkmmjbkcmdamjccjj)
 
