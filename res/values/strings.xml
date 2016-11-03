@@ -47,7 +47,7 @@
     "prefill sitekey from current app."
   </string>
   <string name="pref_desc_prefill_share">
-    "ProTip: you can always just share the URL from browser to OnePwd to"
+    "ProTip: You can always just share the URL from browser to OnePwd to"
     "get sitekey prefilled from the URL."
   </string>
 
