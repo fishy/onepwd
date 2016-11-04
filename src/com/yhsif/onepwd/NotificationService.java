@@ -30,7 +30,7 @@ public class NotificationService extends Service {
       PendingIntent.getActivity(this, 0, new Intent(this, OnePwd.class), 0);
     Notification notification =
       new Notification.Builder(this)
-        .setSmallIcon(R.mipmap.icon)
+        .setSmallIcon(R.drawable.notify_icon)
         .setWhen(System.currentTimeMillis())
         .setTicker(getText(R.string.ticker))
         .setContentTitle(getText(R.string.ticker))
