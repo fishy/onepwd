@@ -15,7 +15,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -26,8 +28,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class OnePwd extends AppCompatActivity
-    implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class OnePwd extends AppCompatActivity implements
+    View.OnClickListener, View.OnFocusChangeListener,
+    TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
   private final static String TAG = "onepwd";
   private final static int USAGE_TIMEFRAME = 24 * 60 * 60 * 1000; // 24 hours
   private final static Set<String> CHROME_PACKAGES = new HashSet(Arrays.asList(
@@ -61,7 +64,11 @@ public class OnePwd extends AppCompatActivity
     lengthGroup = (RadioGroup) findViewById(R.id.length_group);
     lengthGroup.setOnCheckedChangeListener(this);
     master = (TextView) findViewById(R.id.master_key);
+    master.setOnFocusChangeListener(this);
+    master.setOnEditorActionListener(this);
     site = (TextView) findViewById(R.id.site_key);
+    site.setOnFocusChangeListener(this);
+    site.setOnEditorActionListener(this);
     password = (TextView) findViewById(R.id.password);
 
     radioButtons = Arrays.asList(
@@ -133,6 +140,37 @@ public class OnePwd extends AppCompatActivity
     } else if (v.getId() == R.id.settings) {
       startActivity(new Intent(this, SettingsActivity.class));
     }
+  }
+
+  // for View.OnFocusChangeListener
+  @Override
+  public void onFocusChange(View v, boolean hasFocus) {
+    if (hasFocus) {
+      if (v.getId() == master.getId()) {
+        if (site.getText().toString().trim().isEmpty()) {
+          master.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        } else {
+          master.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        }
+      } else if (v.getId() == site.getId()) {
+        if (master.getText().toString().isEmpty()) {
+          site.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        } else {
+          site.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        }
+      }
+    }
+  }
+
+  // for TextView.OnEditorActionListener
+  @Override
+  public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+    if ((v.getId() == master.getId() || v.getId() == site.getId())
+        && actionId == EditorInfo.IME_ACTION_SEND) {
+      doGenerate();
+      return true;
+    }
+    return false;
   }
 
   // for RadioGroup.OnCheckedChangeListener
