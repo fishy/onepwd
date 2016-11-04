@@ -13,7 +13,7 @@ import android.widget.NumberPicker;
 
 public class LengthPreference extends DialogPreference {
   // The max guaranteed length of Base64 encoding of HMAC-MD5
-  public static final int MAX_VALUE = 22;
+  public static final int MAX_VALUE = 20;
   public static final int MIN_VALUE = 1;
   public static final boolean WRAP_WHEEL = true;
 
