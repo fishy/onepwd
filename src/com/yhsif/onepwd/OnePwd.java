@@ -180,16 +180,21 @@ public class OnePwd extends AppCompatActivity implements
     checkedIndex = radioButtons.indexOf(checkedLength);
   }
 
-  public void doGenerate() {
+  private void doGenerate() {
     int length = Integer.valueOf(checkedLength.getText().toString());
-    String siteStr = site.getText().toString();
-    siteStr = siteStr.trim();
-    site.setText(siteStr);
+    String masterKey = master.getText().toString();
+    if (masterKey.isEmpty()) {
+      Toast
+        .makeText(this, R.string.empty_master_toast, Toast.LENGTH_LONG)
+        .show();
+      return;
+    }
+
+    String siteKey = site.getText().toString().trim();
+    site.setText(siteKey);
     byte[] array;
     try {
-      array = HmacMd5.hmac(
-          master.getText().toString(),
-          siteStr);
+      array = HmacMd5.hmac(masterKey, siteKey);
     } catch (java.security.NoSuchAlgorithmException e) {
       // won't happen
       return;

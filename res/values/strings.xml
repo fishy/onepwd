@@ -21,6 +21,7 @@
   <string name="clip_toast">Generated password copied to clipboard</string>
   <string name="clear_clip_toast">Clipboard cleared (via OneKey)</string>
   <string name="title_settings">OneKey Settings</string>
+  <string name="empty_master_toast">Your master key is empty.</string>
 
   <!-- Preference headers -->
   <string name="pref_header_prefill">Prefill Sitekey</string>
