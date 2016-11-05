@@ -201,8 +201,7 @@ public class OnePwd extends AppCompatActivity implements
     }
     final String value =
         Base64.encodeToString(array, Base64.URL_SAFE | Base64.NO_PADDING)
-            .replaceAll("\\+", "")
-            .replaceAll("\\/", "")
+            .replaceAll("-", "")
             .replaceAll("_", "")
             .substring(0, length);
 
