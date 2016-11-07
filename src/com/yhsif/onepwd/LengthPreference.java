@@ -12,8 +12,12 @@ import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
 public class LengthPreference extends DialogPreference {
-  // The max guaranteed length of Base64 encoding of HMAC-MD5
-  public static final int MAX_VALUE = 20;
+  // Converting 16-byte MD5 to Base64 will get us 8*16/6 = 21.3 characters,
+  // so anything larger than 22 is meaningless.
+  // We are not guaranteed to get 22 characters though. The padding "="s will
+  // be trimmed, and also there might be "+" and "/" in the middle being
+  // stripped out.
+  public static final int MAX_VALUE = 22;
   public static final int MIN_VALUE = 1;
   public static final boolean WRAP_WHEEL = true;
 
