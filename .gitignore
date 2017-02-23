@@ -1,10 +1,9 @@
 local.properties
 tags
-debug.keystore
-debug.properties
-release.keystore
+release.jks
 release.properties
 *.jar
+*.apk
 .idea
 /buck-cache
 /buck-out

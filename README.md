@@ -6,23 +6,28 @@ extension [123 Password](https://chrome.google.com/webstore/detail/pahmlghhaoabd
 
 ## Building
 
-### Buck
+### Bazel
 
-The building system used is [Buck](https://github.com/facebook/buck).
-Please [install Buck manually](https://buckbuild.com/setup/install.html#manual-build),
-then run `buck build release` or `buck build debug` to build the apk.
+The building system used is [Bazel](https://bazel.build).
+Please [install Bazel](https://bazel.build/docs/install.html),
+then run `bazel build java:onepwd --strategy=AndroidAapt=standalone`
+to build the apk.
 
-To run unit tests, run `buck fetch test` once to get third party
-dependencies, then run `buck test test` to run the tests.
+You might need the Bazel source code to get the `workspace_user.sh` script.
+
+Run `./release.sh` to sign the apk with release key.
+
+To run unit tests, run `bazel test ...`.
 
 ### Local files
 
 There are certain files excluded in `.gitignore` file.
 You must supply them locally in order to build:
 
-- `debug.keystore` and `debug.properties` for `debug` target
-- `release.keystore` and `release.properties` for `release` target
-- `ANDROID_HOME` environment variable to specify Android SDK location
+- `WORKSPACE.user.bzl` can be generated from:
+  `/path/to/bazel/scripts/workspace_user.sh`
+- `release.jks` for `release.sh`,
+  [more details](https://developer.android.com/studio/publish/app-signing.html#signing-manually)
 
 ## License
 
