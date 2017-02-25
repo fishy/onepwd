@@ -15,7 +15,7 @@ to build the apk.
 
 You might need the Bazel source code to get the `workspace_user.sh` script.
 
-Run `./release.sh` to sign the apk with release key.
+Run `./tools/release.sh` to sign the apk with release key.
 
 To run unit tests, run `bazel test ...`.
 
