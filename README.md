@@ -10,7 +10,7 @@ extension [123 Password](https://chrome.google.com/webstore/detail/pahmlghhaoabd
 
 The building system used is [Bazel](https://bazel.build).
 Please [install Bazel](https://bazel.build/docs/install.html),
-then run `bazel build java:onepwd --strategy=AndroidAapt=standalone`
+then run `bazel build java:onepwd`
 to build the apk.
 
 You might need the Bazel source code to get the `workspace_user.sh` script.
