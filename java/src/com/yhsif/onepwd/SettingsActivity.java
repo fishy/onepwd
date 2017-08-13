@@ -35,6 +35,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
   static final int DEFAULT_LENGTH3 = 15;
   static final String KEY_LENGTH4 = "length4";
   static final int DEFAULT_LENGTH4 = 20;
+  static final String KEY_USE_SERVICE = "use_service";
+  static final boolean DEFAULT_USE_SERVICE = true;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +88,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         || PrefillPreferenceFragment.class.getName().equals(fragmentName)
         || ClipboardPreferenceFragment.class.getName().equals(fragmentName)
         || LengthsPreferenceFragment.class.getName().equals(fragmentName)
+        || ServicePreferenceFragment.class.getName().equals(fragmentName)
         || AboutPreferenceFragment.class.getName().equals(fragmentName);
   }
 
@@ -130,6 +133,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             preference.setSummary(R.string.pref_desc_usage_no);
             settings.setEnabled(false);
           }
+        } else if (preference.getKey().equals(KEY_USE_SERVICE)) {
+          preference.setSummary(R.string.pref_desc_service);
         } else {
           // For all other preferences, set the summary to the value's
           // simple string representation.
@@ -230,6 +235,19 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       bindPreferenceSummaryToInt(findPreference(KEY_LENGTH2), DEFAULT_LENGTH2);
       bindPreferenceSummaryToInt(findPreference(KEY_LENGTH3), DEFAULT_LENGTH3);
       bindPreferenceSummaryToInt(findPreference(KEY_LENGTH4), DEFAULT_LENGTH4);
+    }
+  }
+
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+  public static class ServicePreferenceFragment extends BasePreferenceFragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+      super.onCreate(savedInstanceState);
+      addPreferencesFromResource(R.xml.pref_service);
+      setHasOptionsMenu(true);
+
+      bindPreferenceSummaryToBoolean(
+          findPreference(KEY_USE_SERVICE), DEFAULT_USE_SERVICE);
     }
   }
 

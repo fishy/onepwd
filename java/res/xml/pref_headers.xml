@@ -12,6 +12,10 @@
       android:title="@string/pref_header_lengths"
     />
   <header
+      android:fragment="com.yhsif.onepwd.SettingsActivity$ServicePreferenceFragment"
+      android:title="@string/pref_header_service"
+    />
+  <header
       android:fragment="com.yhsif.onepwd.SettingsActivity$AboutPreferenceFragment"
       android:title="@string/pref_header_about"
       android:summary="@string/pref_header_about_summary"

@@ -9,7 +9,6 @@ import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -79,11 +78,6 @@ public class OnePwd extends AppCompatActivity implements
         (RadioButton) findViewById(R.id.length4));
     checkedIndex = radioButtons.size() - 1;
     checkedLength = radioButtons.get(checkedIndex);
-
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N
-        || !QSTileService.added()) {
-      NotificationService.run(this);
-    }
   }
 
   @Override
@@ -108,6 +102,14 @@ public class OnePwd extends AppCompatActivity implements
             SettingsActivity.KEY_LENGTH3, SettingsActivity.DEFAULT_LENGTH3)));
     radioButtons.get(3).setText(Integer.toString(pref.getInt(
             SettingsActivity.KEY_LENGTH4, SettingsActivity.DEFAULT_LENGTH4)));
+
+    if (pref.getBoolean(
+          SettingsActivity.KEY_USE_SERVICE,
+          SettingsActivity.DEFAULT_USE_SERVICE)) {
+      NotificationService.run(this);
+    } else {
+      NotificationService.stop(this);
+    }
 
     int defaultIndex = radioButtons.size() - 1;
     int index =

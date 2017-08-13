@@ -27,6 +27,7 @@
   <string name="pref_header_prefill">Prefill Sitekey</string>
   <string name="pref_header_clipboard">Clipboard</string>
   <string name="pref_header_lengths">Password Lengths</string>
+  <string name="pref_header_service">Show Notification</string>
   <string name="pref_header_about">About</string>
   <string name="pref_header_about_summary">OneKey v1.0.1</string>
 
@@ -88,6 +89,16 @@
   <string name="pref_title_length4">Length 4</string>
   <string name="pref_desc_length">
     "ProTip: You don't have to keep them sorted."
+  </string>
+
+  <!-- Service preference -->
+  <string name="pref_title_service">Show notification</string>
+  <string name="pref_desc_service">
+    "Show a notification to quickly access OneKey."
+  </string>
+  <string name="pref_desc_service_tip">
+    "ProTip: If you are on Nougat or newer,"
+    "you can add a QuickTile for quick access to OneKey."
   </string>
 
   <!-- About screen -->
