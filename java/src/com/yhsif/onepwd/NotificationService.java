@@ -44,6 +44,10 @@ public class NotificationService extends Service {
     context.startService(new Intent(context, NotificationService.class));
   }
 
+  public static void stop(Context context) {
+    context.stopService(new Intent(context, NotificationService.class));
+  }
+
   /**
    * Class for clients to access.
    */
