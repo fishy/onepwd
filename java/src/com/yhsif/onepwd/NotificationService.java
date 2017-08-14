@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v7.preference.PreferenceManager;
 
 public class NotificationService extends Service {
   private static final int NOTIFICATION_ID = 1;
@@ -41,11 +42,13 @@ public class NotificationService extends Service {
   }
 
   public static void run(Context context) {
-    context.startService(new Intent(context, NotificationService.class));
-  }
-
-  public static void stop(Context context) {
-    context.stopService(new Intent(context, NotificationService.class));
+    if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+          SettingsActivity.KEY_USE_SERVICE,
+          SettingsActivity.DEFAULT_USE_SERVICE)) {
+      context.startService(new Intent(context, NotificationService.class));
+    } else {
+      context.stopService(new Intent(context, NotificationService.class));
+    }
   }
 
   /**

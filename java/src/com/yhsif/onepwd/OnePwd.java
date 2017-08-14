@@ -103,13 +103,7 @@ public class OnePwd extends AppCompatActivity implements
     radioButtons.get(3).setText(Integer.toString(pref.getInt(
             SettingsActivity.KEY_LENGTH4, SettingsActivity.DEFAULT_LENGTH4)));
 
-    if (pref.getBoolean(
-          SettingsActivity.KEY_USE_SERVICE,
-          SettingsActivity.DEFAULT_USE_SERVICE)) {
-      NotificationService.run(this);
-    } else {
-      NotificationService.stop(this);
-    }
+    NotificationService.run(this);
 
     int defaultIndex = radioButtons.size() - 1;
     int index =

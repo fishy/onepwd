@@ -1,6 +1,5 @@
 package com.yhsif.onepwd;
 
-
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
