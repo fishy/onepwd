@@ -13,10 +13,6 @@ git_repository(
     remote = "https://github.com/fishy/rules_kotlin.git",
     commit = "d8efadbd024b321fd881035d207fd2bdc7f30602",
 )
-# local_repository(
-#     name = "org_pubref_rules_kotlin",
-#     path = "/Users/fishy/work/rules_kotlin",
-# )
 
 load("@org_pubref_rules_kotlin//kotlin:rules.bzl", "kotlin_repositories")
 kotlin_repositories()
