@@ -1,22 +1,22 @@
 <preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
   <header
-      android:fragment="com.yhsif.onepwd.SettingsActivity$PrefillPreferenceFragment"
+      android:fragment="com.yhsif.onepwd.settings.PrefillPreferenceFragment"
       android:title="@string/pref_header_prefill"
     />
   <header
-      android:fragment="com.yhsif.onepwd.SettingsActivity$ClipboardPreferenceFragment"
+      android:fragment="com.yhsif.onepwd.settings.ClipboardPreferenceFragment"
       android:title="@string/pref_header_clipboard"
     />
   <header
-      android:fragment="com.yhsif.onepwd.SettingsActivity$LengthsPreferenceFragment"
+      android:fragment="com.yhsif.onepwd.settings.LengthsPreferenceFragment"
       android:title="@string/pref_header_lengths"
     />
   <header
-      android:fragment="com.yhsif.onepwd.SettingsActivity$ServicePreferenceFragment"
+      android:fragment="com.yhsif.onepwd.settings.ServicePreferenceFragment"
       android:title="@string/pref_header_service"
     />
   <header
-      android:fragment="com.yhsif.onepwd.SettingsActivity$AboutPreferenceFragment"
+      android:fragment="com.yhsif.onepwd.settings.AboutPreferenceFragment"
       android:title="@string/pref_header_about"
       android:summary="@string/pref_header_about_summary"
     />

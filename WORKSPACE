@@ -2,8 +2,24 @@ workspace(name = "onepwd")
 
 android_sdk_repository(
     name = "androidsdk",
-    api_level = 26,
+    api_level = 25,
 )
+
+git_repository(
+    name = "org_pubref_rules_kotlin",
+    # TODO: change to upstream after
+    # https://github.com/pubref/rules_kotlin/pull/32
+    # is merged.
+    remote = "https://github.com/fishy/rules_kotlin.git",
+    commit = "d8efadbd024b321fd881035d207fd2bdc7f30602",
+)
+# local_repository(
+#     name = "org_pubref_rules_kotlin",
+#     path = "/Users/fishy/work/rules_kotlin",
+# )
+
+load("@org_pubref_rules_kotlin//kotlin:rules.bzl", "kotlin_repositories")
+kotlin_repositories()
 
 maven_jar(
     name = "com_google_truth_truth",
