@@ -7,11 +7,8 @@ android_sdk_repository(
 
 git_repository(
     name = "org_pubref_rules_kotlin",
-    # TODO: change to upstream after
-    # https://github.com/pubref/rules_kotlin/pull/32
-    # is merged.
-    remote = "https://github.com/fishy/rules_kotlin.git",
-    commit = "d8efadbd024b321fd881035d207fd2bdc7f30602",
+    remote = "https://github.com/pubref/rules_kotlin.git",
+    tag = "v0.4.0",
 )
 
 load("@org_pubref_rules_kotlin//kotlin:rules.bzl", "kotlin_repositories")
