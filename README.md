@@ -10,10 +10,8 @@ extension [123 Password](https://chrome.google.com/webstore/detail/pahmlghhaoabd
 
 The building system used is [Bazel](https://bazel.build).
 Please [install Bazel](https://bazel.build/docs/install.html),
-then run `bazel build java:onepwd`
+then run `bazel build :app`
 to build the apk.
-
-You might need the Bazel source code to get the `workspace_user.sh` script.
 
 Run `./tools/release.sh` to sign the apk with release key.
 
@@ -24,8 +22,6 @@ To run unit tests, run `bazel test ...`.
 There are certain files excluded in `.gitignore` file.
 You must supply them locally in order to build:
 
-- `WORKSPACE.user.bzl` can be generated from:
-  `/path/to/bazel/scripts/workspace_user.sh`
 - `release.jks` for `release.sh`,
   [more details](https://developer.android.com/studio/publish/app-signing.html#signing-manually)
 

@@ -1,10 +1,9 @@
 workspace(name = "onepwd")
 
-# run /path/to/bazel/scripts/workspace_user.sh to get WORKSPACE.user.bzl file
-# locally
-load("/WORKSPACE.user", "android_repositories")
-
-android_repositories()
+android_sdk_repository(
+    name = "androidsdk",
+    api_level = 26,
+)
 
 maven_jar(
     name = "com_google_truth_truth",

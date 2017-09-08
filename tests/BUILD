@@ -4,7 +4,7 @@ java_test(
     srcs = ["src/com/yhsif/onepwd/HmacMd5Test.java"],
     test_class = "com.yhsif.onepwd.HmacMd5Test",
     deps = [
-        "//java:hmac-md5",
+        "//:hmac-md5",
         "@com_google_guava_guava//jar",
         "@com_google_truth_truth//jar",
         "@junit_junit//jar",
