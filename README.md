@@ -13,6 +13,8 @@ Please [install Bazel](https://bazel.build/docs/install.html),
 then run `bazel build :app`
 to build the apk.
 
+The Bazel rules depends on the `ANDROID_HOME` environment variable.
+
 Run `./tools/release.sh` to sign the apk with release key.
 
 To run unit tests, run `bazel test ...`.
