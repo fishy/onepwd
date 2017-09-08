@@ -4,6 +4,7 @@ import android.app.usage.UsageStatsManager
 import android.app.usage.UsageStatsManager.INTERVAL_DAILY
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -39,6 +40,22 @@ class OnePwd
         "com.chrome.beta",    // beta
         "com.android.chrome") // stable
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
+
+    fun showToast(ctx: Context, text: String) {
+      val toast = Toast.makeText(ctx, text, Toast.LENGTH_LONG)
+      toast.getView()?.findViewById(android.R.id.message)?.let { v ->
+        // Put the icon on the right
+        val tv = v as TextView
+        tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_round, 0)
+        tv.setCompoundDrawablePadding(
+            ctx.getResources().getDimensionPixelSize(R.dimen.toast_padding))
+      }
+      toast.show()
+    }
+
+    fun showToast(ctx: Context, rscId: Int) {
+      showToast(ctx, ctx.getString(rscId))
+    }
   }
 
   var lengthGroup: RadioGroup? = null
@@ -187,9 +204,7 @@ class OnePwd
     val length = checkedLength?.getText().toString().toInt()
     val masterKey = master?.getText().toString()
     if (masterKey.isEmpty()) {
-      Toast
-        .makeText(this, R.string.empty_master_toast, Toast.LENGTH_LONG)
-        .show()
+      showToast(this, R.string.empty_master_toast)
       return
     }
 
@@ -210,7 +225,7 @@ class OnePwd
       val clip = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
       val clipData = ClipData.newPlainText("", value)
       clip.setPrimaryClip(clipData)
-      Toast.makeText(this, R.string.clip_toast, Toast.LENGTH_LONG).show()
+      showToast(this, R.string.clip_toast)
       val time = pref.getString(
           SettingsActivity.KEY_CLEAR_CLIPBOARD,
           SettingsActivity.DEFAULT_CLEAR_CLIPBOARD).toLong()
@@ -221,10 +236,7 @@ class OnePwd
                 val item = clip.getPrimaryClip().getItemAt(0)
                 if (item.getText().toString() == value) {
                   clip.setPrimaryClip(EMPTY_CLIP)
-                  Toast.makeText(
-                      this@OnePwd,
-                      R.string.clear_clip_toast,
-                      Toast.LENGTH_LONG).show()
+                  showToast(this@OnePwd, R.string.clear_clip_toast)
                 }
               }
             },
@@ -243,7 +255,7 @@ class OnePwd
 
     getForegroundApp()?.let { pkg ->
       if (CHROME_PACKAGES.contains(pkg)) {
-        Toast.makeText(this, R.string.chrome_toast, Toast.LENGTH_LONG).show()
+        showToast(this, R.string.chrome_toast)
       } else {
         val segments = pkg.split(".")
         if (segments.size > 1) {

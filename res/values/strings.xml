@@ -16,15 +16,15 @@
   <string name="ticker">Click to generate password</string>
   <string name="chrome_toast">
     "Looks like you are using Chrome."
-    "\nTry share the URL to OneKey to get your Sitekey prefilled."
+    "\nTry share the URL to OneKey to get your SiteKey prefilled."
   </string>
-  <string name="clip_toast">Generated password copied to clipboard</string>
-  <string name="clear_clip_toast">Clipboard cleared (via OneKey)</string>
+  <string name="clip_toast">Generated password copied to clipboard.</string>
+  <string name="clear_clip_toast">Clipboard cleared.</string>
   <string name="title_settings">OneKey Settings</string>
   <string name="empty_master_toast">Your MasterKey is empty.</string>
 
   <!-- Preference headers -->
-  <string name="pref_header_prefill">Prefill Sitekey</string>
+  <string name="pref_header_prefill">Prefill SiteKey</string>
   <string name="pref_header_clipboard">Clipboard</string>
   <string name="pref_header_lengths">Password Lengths</string>
   <string name="pref_header_service">Show Notification</string>
