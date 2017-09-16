@@ -23,6 +23,12 @@
   <string name="title_settings">OneKey Settings</string>
   <string name="empty_master_toast">Your MasterKey is empty.</string>
 
+  <!-- Notification channel -->
+  <string name="channel_name">Quick access</string>
+  <string name="channel_desc">
+    The notification for quick access to OneKey app
+  </string>
+
   <!-- Preference headers -->
   <string name="pref_header_prefill">Prefill SiteKey</string>
   <string name="pref_header_clipboard">Clipboard</string>

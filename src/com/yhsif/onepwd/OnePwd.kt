@@ -1,12 +1,16 @@
 package com.yhsif.onepwd
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.usage.UsageStatsManager
-import android.app.usage.UsageStatsManager.INTERVAL_DAILY
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.app.AppCompatActivity
@@ -29,6 +33,8 @@ class OnePwd
 , TextView.OnEditorActionListener
 , RadioGroup.OnCheckedChangeListener {
   companion object {
+    private const val NOTIFICATION_ID = 1
+    private const val CHANNEL_ID = "quick_access"
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
     private const val PREF = "com.yhsif.onepwd"
     private const val KEY_SELECTED_LENGTH = "selected_length"
@@ -43,9 +49,8 @@ class OnePwd
 
     fun showToast(ctx: Context, text: String) {
       val toast = Toast.makeText(ctx, text, Toast.LENGTH_LONG)
-      toast.getView()?.findViewById(android.R.id.message)?.let { v ->
+      toast.getView()?.findViewById<TextView>(android.R.id.message)?.let { tv ->
         // Put the icon on the right
-        val tv = v as TextView
         tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_round, 0)
         tv.setCompoundDrawablePadding(
             ctx.getResources().getDimensionPixelSize(R.dimen.toast_padding))
@@ -55,6 +60,64 @@ class OnePwd
 
     fun showToast(ctx: Context, rscId: Int) {
       showToast(ctx, ctx.getString(rscId))
+    }
+
+    fun showNotification(ctx: Context) = showNotification(
+        ctx,
+        PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(
+            SettingsActivity.KEY_USE_SERVICE,
+            SettingsActivity.DEFAULT_USE_SERVICE))
+
+    fun showNotification(ctx: Context, show: Boolean) {
+      val manager = ctx.getSystemService(
+          Context.NOTIFICATION_SERVICE) as NotificationManager
+      if (!show) {
+        manager.cancel(NOTIFICATION_ID)
+        return
+      }
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+          && !manager.areNotificationsEnabled()) {
+        return
+      }
+      val existing = manager.getActiveNotifications()
+      if ((existing?.size ?: 0) > 0) {
+        // Already has the notification
+        return
+      }
+      val channelId: String by lazy {
+        // Lazy create the notification channel
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+          val channel = NotificationChannel(
+              CHANNEL_ID,
+              ctx.getString(R.string.channel_name),
+              NotificationManager.IMPORTANCE_MIN)
+          channel.setDescription(ctx.getString(R.string.channel_desc))
+          channel.setShowBadge(false)
+          manager.createNotificationChannel(channel)
+        }
+        CHANNEL_ID
+      }
+      val activity =
+        PendingIntent.getActivity(ctx, 0, Intent(ctx, OnePwd::class.java), 0)
+      val notification: Notification.Builder
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        notification = Notification.Builder(ctx, channelId)
+      } else {
+        @Suppress("DEPRECATION")
+        notification = Notification.Builder(ctx)
+      }
+      notification
+        .setSmallIcon(R.drawable.notify_icon)
+        .setWhen(System.currentTimeMillis())
+        .setTicker(ctx.getText(R.string.ticker))
+        .setContentTitle(ctx.getText(R.string.ticker))
+        .setContentIntent(activity)
+        .setOngoing(true)
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+        @Suppress("DEPRECATION")
+        notification.setPriority(Notification.PRIORITY_MIN)
+      }
+      manager.notify(NOTIFICATION_ID, notification.build())
     }
   }
 
@@ -95,6 +158,8 @@ class OnePwd
         findViewById(R.id.length4) as RadioButton)
     checkedIndex = radioButtons.size - 1
     checkedLength = radioButtons[checkedIndex]
+
+    showNotification(this)
   }
 
   override fun onPause() {
@@ -125,8 +190,6 @@ class OnePwd
         pref.getInt(
             SettingsActivity.KEY_LENGTH4,
             SettingsActivity.DEFAULT_LENGTH4).toString(10))
-
-    NotificationService.run(this)
 
     val defaultIndex = radioButtons.size - 1
     var index =
@@ -271,8 +334,8 @@ class OnePwd
   private fun getForegroundApp(): String? {
     val manager = getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
     val time = System.currentTimeMillis()
-    val apps =
-      manager.queryUsageStats(INTERVAL_DAILY, time - USAGE_TIMEFRAME, time)
+    val apps = manager.queryUsageStats(
+        UsageStatsManager.INTERVAL_DAILY, time - USAGE_TIMEFRAME, time)
     var max: Long = 0
     var result: String? = null
     if (apps != null) {

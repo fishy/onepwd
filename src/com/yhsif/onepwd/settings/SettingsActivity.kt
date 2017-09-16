@@ -11,6 +11,7 @@ import android.preference.PreferenceFragment
 import android.preference.PreferenceManager
 import android.view.MenuItem
 
+import com.yhsif.onepwd.OnePwd
 import com.yhsif.onepwd.R
 
 public class SettingsActivity: AppCompatPreferenceActivity() {
@@ -72,7 +73,10 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
                 settings.setEnabled(false)
               }
             }
-            KEY_USE_SERVICE -> pref.setSummary(R.string.pref_desc_service)
+            KEY_USE_SERVICE -> {
+              pref.setSummary(R.string.pref_desc_service)
+              OnePwd.showNotification(pref.getContext(), value as Boolean)
+            }
             // For all other preferences, set the summary to the value's
             // simple string representation.
             else -> pref.setSummary(value.toString())

@@ -7,6 +7,6 @@ import android.content.Intent
 class BootupReceiver: BroadcastReceiver() {
 
   override fun onReceive(ctx: Context, intent: Intent) {
-    NotificationService.run(ctx)
+    OnePwd.showNotification(ctx)
   }
 }
