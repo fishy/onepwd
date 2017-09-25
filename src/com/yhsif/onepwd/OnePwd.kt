@@ -112,6 +112,7 @@ class OnePwd
         .setTicker(ctx.getText(R.string.ticker))
         .setContentTitle(ctx.getText(R.string.ticker))
         .setContentIntent(activity)
+        .setCategory(Notification.CATEGORY_STATUS)
         .setOngoing(true)
       if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
         @Suppress("DEPRECATION")
