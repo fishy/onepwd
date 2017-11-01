@@ -8,7 +8,7 @@ android_sdk_repository(
 git_repository(
     name = "org_pubref_rules_kotlin",
     remote = "https://github.com/pubref/rules_kotlin.git",
-    tag = "v0.4.0",
+    tag = "v0.4.1",
 )
 
 load("@org_pubref_rules_kotlin//kotlin:rules.bzl", "kotlin_repositories")
