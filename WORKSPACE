@@ -10,9 +10,16 @@ git_repository(
     remote = "https://github.com/pubref/rules_kotlin.git",
     tag = "v0.4.1",
 )
-
 load("@org_pubref_rules_kotlin//kotlin:rules.bzl", "kotlin_repositories")
 kotlin_repositories()
+
+git_repository(
+    name = "gmaven_rules",
+    remote = "https://github.com/aj-michael/gmaven_rules",
+    commit = "ccf6e13ba9357e6845179fe90e78b0fa24bd9f2b",
+)
+load("@gmaven_rules//:gmaven.bzl", "gmaven_rules")
+gmaven_rules()
 
 maven_jar(
     name = "com_google_truth_truth",

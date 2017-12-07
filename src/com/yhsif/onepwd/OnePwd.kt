@@ -135,28 +135,28 @@ class OnePwd
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
 
-    findViewById(R.id.generate).setOnClickListener(this)
-    findViewById(R.id.settings).setOnClickListener(this)
-    findViewById(R.id.close).setOnClickListener(this)
+    findViewById<View>(R.id.generate).setOnClickListener(this)
+    findViewById<View>(R.id.settings).setOnClickListener(this)
+    findViewById<View>(R.id.close).setOnClickListener(this)
 
-    lengthGroup = findViewById(R.id.length_group) as RadioGroup
+    lengthGroup = findViewById<RadioGroup>(R.id.length_group)
     lengthGroup?.setOnCheckedChangeListener(this)
 
-    master = findViewById(R.id.master_key) as TextView
+    master = findViewById<TextView>(R.id.master_key)
     master?.setOnFocusChangeListener(this)
     master?.setOnEditorActionListener(this)
 
-    site = findViewById(R.id.site_key) as TextView
+    site = findViewById<TextView>(R.id.site_key)
     site?.setOnFocusChangeListener(this)
     site?.setOnEditorActionListener(this)
 
-    password = findViewById(R.id.password) as TextView
+    password = findViewById<TextView>(R.id.password)
 
     radioButtons = listOf(
-        findViewById(R.id.length1) as RadioButton,
-        findViewById(R.id.length2) as RadioButton,
-        findViewById(R.id.length3) as RadioButton,
-        findViewById(R.id.length4) as RadioButton)
+        findViewById<RadioButton>(R.id.length1),
+        findViewById<RadioButton>(R.id.length2),
+        findViewById<RadioButton>(R.id.length3),
+        findViewById<RadioButton>(R.id.length4))
     checkedIndex = radioButtons.size - 1
     checkedLength = radioButtons[checkedIndex]
 
@@ -260,7 +260,7 @@ class OnePwd
 
   // for RadioGroup.OnCheckedChangeListener
   override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
-    checkedLength = findViewById(checkedId) as RadioButton
+    checkedLength = findViewById<RadioButton>(checkedId)
     checkedIndex = radioButtons.indexOf(checkedLength!!)
   }
 

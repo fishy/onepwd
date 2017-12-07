@@ -37,8 +37,15 @@ kotlin_android_library(
         ":hmac-md5",
     ],
     aar_deps = [
-        "@androidsdk//com.android.support:appcompat-v7-25.3.1",
-        "@androidsdk//com.android.support:preference-v7-25.3.1",
-        "@androidsdk//com.android.support:support-v4-25.3.1",
+        "@android_arch_core_common_1_0_0//jar",
+        "@android_arch_lifecycle_common_1_0_3//jar",
+        "@android_arch_lifecycle_runtime_1_0_3//aar",
+        "@com_android_support_appcompat_v7_27_0_1//aar",
+        "@com_android_support_preference_v7_27_0_1//aar",
+        "@com_android_support_support_compat_27_0_1//aar",
+        "@com_android_support_support_core_utils_27_0_1//aar",
+        "@com_android_support_support_core_ui_27_0_1//aar",
+        "@com_android_support_support_fragment_27_0_1//aar",
+        "@com_android_support_support_vector_drawable_27_0_1//aar",
     ],
 )
