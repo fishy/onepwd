@@ -292,13 +292,13 @@ class OnePwd
       showToast(this, R.string.clip_toast)
       val time = pref.getString(
           SettingsActivity.KEY_CLEAR_CLIPBOARD,
-          SettingsActivity.DEFAULT_CLEAR_CLIPBOARD).toLong()
+          SettingsActivity.DEFAULT_CLEAR_CLIPBOARD)!!.toLong()
       if (time > 0) {
         Handler().postDelayed(
             Runnable() {
               if (clip.hasPrimaryClip()) {
-                val item = clip.getPrimaryClip().getItemAt(0)
-                if (item.getText().toString() == value) {
+                val item = clip.getPrimaryClip()?.getItemAt(0)
+                if (item?.getText().toString() == value) {
                   clip.setPrimaryClip(EMPTY_CLIP)
                   showToast(this@OnePwd, R.string.clear_clip_toast)
                 }

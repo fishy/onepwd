@@ -1,11 +1,5 @@
-WORKSPACE.user.bzl
-local.properties
-tags
-release.jks
-release.properties
+bazel-*
 *.jar
 *.apk
-.idea
-/buck-cache
-/buck-out
-/.buckd
+local.properties
+release.jks

@@ -35,7 +35,7 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
     public const val KEY_USE_SERVICE = "use_service"
     public const val DEFAULT_USE_SERVICE = true
 
-    val allowedClassNames = setOf<String>(
+    val allowedClassNames = setOf<String?>(
       PreferenceFragment::class.java.canonicalName,
       PrefillPreferenceFragment::class.java.canonicalName,
       ClipboardPreferenceFragment::class.java.canonicalName,
@@ -56,10 +56,10 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
                 pref.getPreferenceManager().findPreference(KEY_CLEAR_CLIPBOARD)
               if (value == true) {
                 pref.setSummary(R.string.pref_desc_copy_clipboard_yes)
-                clearClip.setEnabled(true)
+                clearClip?.setEnabled(true)
               } else {
                 pref.setSummary(R.string.pref_desc_copy_clipboard_no)
-                clearClip.setEnabled(false)
+                clearClip?.setEnabled(false)
               }
             }
             KEY_PREFILL_USAGE -> {
@@ -67,10 +67,10 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
                 pref.getPreferenceManager().findPreference(KEY_SETTINGS_INTENT)
               if (value == true) {
                 pref.setSummary(R.string.pref_desc_usage_yes)
-                settings.setEnabled(true)
+                settings?.setEnabled(true)
               } else {
                 pref.setSummary(R.string.pref_desc_usage_no)
-                settings.setEnabled(false)
+                settings?.setEnabled(false)
               }
             }
             KEY_USE_SERVICE -> {
