@@ -168,7 +168,7 @@ public class SettingsActivity
 
   override fun onPreferenceStartFragment(
       caller: PreferenceFragmentCompat, pref: Preference): Boolean {
-    getSupportFragmentManager()?.beginTransaction()?.let { ft ->
+    getSupportFragmentManager().beginTransaction().let { ft ->
       val key = pref.getKey()
       val args = Bundle()
       args.putString(
