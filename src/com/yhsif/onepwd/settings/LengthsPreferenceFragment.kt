@@ -1,16 +1,13 @@
 package com.yhsif.onepwd.settings
 
-import android.annotation.TargetApi
-import android.os.Build
 import android.os.Bundle
 
 import com.yhsif.onepwd.R
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 class LengthsPreferenceFragment: BasePreferenceFragment() {
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    addPreferencesFromResource(R.xml.pref_lengths)
+  override fun onCreatePreferences(
+      savedInstanceState: Bundle?, rootKey: String?) {
+    setPreferencesFromResource(R.xml.pref_lengths, rootKey)
     setHasOptionsMenu(true)
 
     SettingsActivity.bindPreferenceSummaryToInt(

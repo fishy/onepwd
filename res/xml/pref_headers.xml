@@ -1,23 +1,30 @@
-<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
-  <header
-      android:fragment="com.yhsif.onepwd.settings.PrefillPreferenceFragment"
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <Preference
+      android:key="prefill"
       android:title="@string/pref_header_prefill"
+      android:fragment="com.yhsif.onepwd.settings.PrefillPreferenceFragment"
     />
-  <header
-      android:fragment="com.yhsif.onepwd.settings.ClipboardPreferenceFragment"
+  <Preference
+      android:key="clipboard"
       android:title="@string/pref_header_clipboard"
+      android:fragment="com.yhsif.onepwd.settings.ClipboardPreferenceFragment"
     />
-  <header
-      android:fragment="com.yhsif.onepwd.settings.LengthsPreferenceFragment"
+  <Preference
+      android:key="lengths"
       android:title="@string/pref_header_lengths"
+      android:fragment="com.yhsif.onepwd.settings.LengthsPreferenceFragment"
     />
-  <header
-      android:fragment="com.yhsif.onepwd.settings.ServicePreferenceFragment"
+  <Preference
+      android:key="service"
       android:title="@string/pref_header_service"
+      android:fragment="com.yhsif.onepwd.settings.ServicePreferenceFragment"
     />
-  <header
-      android:fragment="com.yhsif.onepwd.settings.AboutPreferenceFragment"
+  <Preference
+      android:key="about"
       android:title="@string/pref_header_about"
       android:summary="@string/pref_header_about_summary"
+      android:fragment="com.yhsif.onepwd.settings.AboutPreferenceFragment"
     />
-</preference-headers>
+</PreferenceScreen>

@@ -1,4 +1,7 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="prefill"
+    >
   <SwitchPreference
       android:defaultValue="false"
       android:key="prefill_usage"
@@ -6,10 +9,10 @@
       android:summary="@string/pref_desc_usage_no"
     />
   <Preference
-      android:key="dummy_settings_intent"
       android:persistent="false"
       android:title="@string/pref_title_permission_usage"
       android:summary="@string/pref_desc_permission_usage"
+      android:dependency="prefill_usage"
       >
     <intent
         android:action="android.settings.USAGE_ACCESS_SETTINGS"

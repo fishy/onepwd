@@ -8,4 +8,8 @@
       name="Settings"
       parent="Theme.AppCompat"
     />
+  <style
+      name="AlertDialogTheme"
+      parent="Theme.AppCompat.Dialog.Alert"
+    />
 </resources>

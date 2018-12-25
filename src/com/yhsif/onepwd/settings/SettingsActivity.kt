@@ -1,22 +1,24 @@
 package com.yhsif.onepwd.settings
 
-import android.annotation.TargetApi
 import android.content.SharedPreferences
-import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.preference.ListPreference
-import android.preference.Preference
-import android.preference.PreferenceFragment
-import android.preference.PreferenceManager
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.preference.ListPreference
+import android.support.v7.preference.Preference
+import android.support.v7.preference.PreferenceFragmentCompat
+import android.support.v7.preference.PreferenceManager
+import android.support.v7.preference.PreferenceScreen
 import android.view.MenuItem
 
 import com.yhsif.onepwd.OnePwd
 import com.yhsif.onepwd.R
 
-public class SettingsActivity: AppCompatPreferenceActivity() {
+public class SettingsActivity
+: AppCompatActivity()
+, PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+
   companion object {
-    private const val KEY_SETTINGS_INTENT = "dummy_settings_intent";
+    private const val KEY_SETTINGS_INTENT = "dummy_settings_intent"
 
     public const val KEY_PREFILL_USAGE = "prefill_usage"
     public const val DEFAULT_PREFILL_USAGE = false
@@ -34,14 +36,6 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
     public const val DEFAULT_LENGTH4 = 20
     public const val KEY_USE_SERVICE = "use_service"
     public const val DEFAULT_USE_SERVICE = true
-
-    val allowedClassNames = setOf<String?>(
-      PreferenceFragment::class.java.canonicalName,
-      PrefillPreferenceFragment::class.java.canonicalName,
-      ClipboardPreferenceFragment::class.java.canonicalName,
-      LengthsPreferenceFragment::class.java.canonicalName,
-      ServicePreferenceFragment::class.java.canonicalName,
-      AboutPreferenceFragment::class.java.canonicalName)
 
     val prefBinder = object: Preference.OnPreferenceChangeListener {
       override fun onPreferenceChange(
@@ -139,6 +133,19 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setupActionBar()
+    setContentView(R.layout.settings)
+
+    if (savedInstanceState == null) {
+      var frag = getSupportFragmentManager().findFragmentByTag(
+          PrefsFragment.FRAGMENT_TAG)
+      if (frag == null) {
+        frag = PrefsFragment()
+      }
+
+      getSupportFragmentManager().beginTransaction()
+        .replace(R.id.fragment_container, frag, PrefsFragment.FRAGMENT_TAG)
+        .commit()
+    }
   }
 
   fun setupActionBar() {
@@ -153,27 +160,49 @@ public class SettingsActivity: AppCompatPreferenceActivity() {
     return super.onOptionsItemSelected(item)
   }
 
-  override fun onIsMultiPane(): Boolean =
-    ((getResources().getConfiguration().screenLayout
-        and Configuration.SCREENLAYOUT_SIZE_MASK)
-      >= Configuration.SCREENLAYOUT_SIZE_XLARGE)
-
-  override fun onHeaderClick(header: Header, position: Int) {
-    if (header.titleRes == R.string.pref_header_lengths) {
-      sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
-    }
-    super.onHeaderClick(header, position)
-  }
-
   override fun onStop() {
     sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
     super.onStop()
   }
 
-  override fun isValidFragment(fragmentName: String): Boolean =
-    allowedClassNames.contains(fragmentName)
-
-  @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-  override fun onBuildHeaders(target: MutableList<Header>) =
-    loadHeadersFromResource(R.xml.pref_headers, target)
+  override fun onPreferenceStartFragment(
+      caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+    getSupportFragmentManager()?.beginTransaction()?.let { ft ->
+      val key = pref.getKey()
+      val args = Bundle()
+      args.putString(
+          PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, key)
+      when(key) {
+        "about" -> {
+          val frag = AboutPreferenceFragment()
+          frag.setArguments(args)
+          ft.replace(R.id.fragment_container, frag, key)
+        }
+        "clipboard" -> {
+          val frag = ClipboardPreferenceFragment()
+          frag.setArguments(args)
+          ft.replace(R.id.fragment_container, frag, key)
+        }
+        "lengths" -> {
+          val frag = LengthsPreferenceFragment()
+          frag.setArguments(args)
+          ft.replace(R.id.fragment_container, frag, key)
+          sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
+        }
+        "prefill" -> {
+          val frag = PrefillPreferenceFragment()
+          frag.setArguments(args)
+          ft.replace(R.id.fragment_container, frag, key)
+        }
+        "service" -> {
+          val frag = ServicePreferenceFragment()
+          frag.setArguments(args)
+          ft.replace(R.id.fragment_container, frag, key)
+        }
+      }
+      ft.addToBackStack(key)
+      ft.commit()
+    }
+    return true
+  }
 }
