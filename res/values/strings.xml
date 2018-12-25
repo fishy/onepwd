@@ -29,6 +29,13 @@
     The notification for quick access to OneKey app
   </string>
 
+  <!-- Preference tags -->
+  <string name="pref_tag_prefill">pref_prefill</string>
+  <string name="pref_tag_clipboard">pref_clipboard</string>
+  <string name="pref_tag_lengths">pref_lengths</string>
+  <string name="pref_tag_service">pref_service</string>
+  <string name="pref_tag_about">pref_about</string>
+
   <!-- Preference headers -->
   <string name="pref_header_prefill">Prefill SiteKey</string>
   <string name="pref_header_clipboard">Clipboard</string>

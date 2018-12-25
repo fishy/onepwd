@@ -173,28 +173,28 @@ public class SettingsActivity
       args.putString(
           PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, key)
       when(key) {
-        "about" -> {
+        getString(R.string.pref_tag_about) -> {
           val frag = AboutPreferenceFragment()
           frag.setArguments(args)
           ft.replace(R.id.fragment_container, frag, key)
         }
-        "clipboard" -> {
+        getString(R.string.pref_tag_clipboard) -> {
           val frag = ClipboardPreferenceFragment()
           frag.setArguments(args)
           ft.replace(R.id.fragment_container, frag, key)
         }
-        "lengths" -> {
+        getString(R.string.pref_tag_lengths) -> {
           val frag = LengthsPreferenceFragment()
           frag.setArguments(args)
           ft.replace(R.id.fragment_container, frag, key)
           sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
         }
-        "prefill" -> {
+        getString(R.string.pref_tag_prefill) -> {
           val frag = PrefillPreferenceFragment()
           frag.setArguments(args)
           ft.replace(R.id.fragment_container, frag, key)
         }
-        "service" -> {
+        getString(R.string.pref_tag_service) -> {
           val frag = ServicePreferenceFragment()
           frag.setArguments(args)
           ft.replace(R.id.fragment_container, frag, key)

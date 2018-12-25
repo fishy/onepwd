@@ -3,27 +3,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <Preference
-      android:key="prefill"
+      android:key="@string/pref_tag_prefill"
       android:title="@string/pref_header_prefill"
       android:fragment="com.yhsif.onepwd.settings.PrefillPreferenceFragment"
     />
   <Preference
-      android:key="clipboard"
+      android:key="@string/pref_tag_clipboard"
       android:title="@string/pref_header_clipboard"
       android:fragment="com.yhsif.onepwd.settings.ClipboardPreferenceFragment"
     />
   <Preference
-      android:key="lengths"
+      android:key="@string/pref_tag_lengths"
       android:title="@string/pref_header_lengths"
       android:fragment="com.yhsif.onepwd.settings.LengthsPreferenceFragment"
     />
   <Preference
-      android:key="service"
+      android:key="@string/pref_tag_service"
       android:title="@string/pref_header_service"
       android:fragment="com.yhsif.onepwd.settings.ServicePreferenceFragment"
     />
   <Preference
-      android:key="about"
+      android:key="@string/pref_tag_about"
       android:title="@string/pref_header_about"
       android:summary="@string/pref_header_about_summary"
       android:fragment="com.yhsif.onepwd.settings.AboutPreferenceFragment"
