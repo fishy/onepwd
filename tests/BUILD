@@ -11,6 +11,5 @@ kt_jvm_test(
         "@com_google_guava_guava//jar",
         "@com_google_truth_truth//jar",
         "@junit_junit//jar",
-        "@org_hamcrest_hamcrest_core//jar",
     ],
 )
