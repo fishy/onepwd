@@ -14,7 +14,7 @@ class HmacMd5Test {
       0xa5.toByte(), 0x41.toByte(), 0x06.toByte(), 0x8d.toByte(),
       0x49.toByte(), 0x5a.toByte(), 0xb5.toByte(), 0x70.toByte())
     val md5 = HmacMd5.md5(str)
-    assertThat(md5).isEqualTo(expected);
+    assertThat(md5).isEqualTo(expected)
   }
 
   @Test
@@ -36,6 +36,6 @@ class HmacMd5Test {
     val hmac1 = HmacMd5.hmac(key1, message)
     assertThat(hmac1).isEqualTo(expected1)
     val hmac2 = HmacMd5.hmac(key2, message)
-    assertThat(hmac2).isEqualTo(expected2);
+    assertThat(hmac2).isEqualTo(expected2)
   }
 }

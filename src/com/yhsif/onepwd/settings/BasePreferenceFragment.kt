@@ -23,7 +23,7 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat() {
       frag.show(
           getFragmentManager(), "androidx.preference.PreferenceFragment.DIALOG")
     } else {
-      super.onDisplayPreferenceDialog(pref);
+      super.onDisplayPreferenceDialog(pref)
     }
   }
 }

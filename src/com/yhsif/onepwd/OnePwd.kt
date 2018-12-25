@@ -201,16 +201,14 @@ class OnePwd
     }
     lengthGroup?.check(radioButtons[index].getId())
 
-    var siteKey: String? = null
+    var siteKey: String = ""
     if (getIntent()?.getAction() == Intent.ACTION_SEND) {
       siteKey = getSiteKeyFromIntent(intent)
     }
-    if (siteKey == null) {
+    if (siteKey == "") {
       siteKey = getSiteKeyFromForegroundApp()
     }
-    if (siteKey != null) {
-      site?.setText(siteKey)
-    }
+    site?.setText(siteKey)
     master?.setText("")
     password?.setText("")
 
@@ -310,36 +308,34 @@ class OnePwd
     }
   }
 
-  private fun getSiteKeyFromForegroundApp(): String? {
+  private fun getSiteKeyFromForegroundApp(): String {
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     if (!pref.getBoolean(
         SettingsActivity.KEY_PREFILL_USAGE,
         SettingsActivity.DEFAULT_PREFILL_USAGE)) {
-      return null
+      return ""
     }
 
-    getForegroundApp()?.let { pkg ->
+    getForegroundApp().let { pkg ->
       if (CHROME_PACKAGES.contains(pkg)) {
         showToast(this, R.string.chrome_toast)
-      } else {
-        val segments = pkg.split(".")
-        if (segments.size > 1) {
-          return segments[1]
-        } else {
-          return pkg
-        }
       }
+
+      val segments = pkg.split(".")
+      if (segments.size > 1) {
+        return segments[1]
+      }
+      return pkg
     }
-    return null
   }
 
-  private fun getForegroundApp(): String? {
+  private fun getForegroundApp(): String {
     val manager = getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
     val time = System.currentTimeMillis()
     val apps = manager.queryUsageStats(
         UsageStatsManager.INTERVAL_DAILY, time - USAGE_TIMEFRAME, time)
     var max: Long = 0
-    var result: String? = null
+    var result: String = ""
     if (apps != null) {
       for (app in apps) {
         val pkg = app.getPackageName().toLowerCase()
@@ -356,20 +352,19 @@ class OnePwd
     return result
   }
 
-  private fun getSiteKeyFromIntent(intent: Intent): String? {
-    intent.getStringExtra(Intent.EXTRA_TEXT)?.let { url ->
+  private fun getSiteKeyFromIntent(intent: Intent): String {
+    intent.getStringExtra(Intent.EXTRA_TEXT).let { url ->
       if (url.isEmpty()) {
-        return null;
+        return ""
       }
       Uri.parse(url).getHost()?.let { host ->
         val segments = host.split(".")
         if (segments.size > 1) {
           return segments[segments.size - 2]
-        } else {
-          return host
         }
+        return host
       }
     }
-    return null
+    return ""
   }
 }

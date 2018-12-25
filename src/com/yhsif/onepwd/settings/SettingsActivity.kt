@@ -119,7 +119,7 @@ public class SettingsActivity
           DEFAULT_LENGTH3,
           DEFAULT_LENGTH4)
       for (i in 0 until 4) {
-        lengths.add(pref.getInt(keys[i], defaults[i]));
+        lengths.add(pref.getInt(keys[i], defaults[i]))
       }
       val sorted = lengths.sorted()
       pref.edit().let { editor ->
