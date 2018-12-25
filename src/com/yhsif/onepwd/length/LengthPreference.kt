@@ -2,8 +2,9 @@ package com.yhsif.onepwd.length
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.support.v7.preference.DialogPreference
 import android.util.AttributeSet
+
+import androidx.preference.DialogPreference
 
 public class LengthPreference: DialogPreference {
   companion object {

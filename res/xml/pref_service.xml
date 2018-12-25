@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="@string/pref_tag_service"
     >
@@ -13,4 +13,4 @@
       android:enabled="false"
       android:summary="@string/pref_desc_service_tip"
     />
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>

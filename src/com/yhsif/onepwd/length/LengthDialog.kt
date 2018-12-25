@@ -1,13 +1,14 @@
 package com.yhsif.onepwd.length
 
 import android.os.Bundle
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceDialogFragmentCompat
 import android.view.Gravity.CENTER
 import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
 import android.widget.NumberPicker
+
+import androidx.preference.Preference
+import androidx.preference.PreferenceDialogFragmentCompat
 
 import com.yhsif.onepwd.R
 

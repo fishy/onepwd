@@ -1,8 +1,9 @@
 package com.yhsif.onepwd.settings
 
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.MenuItem
+
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 
 import com.yhsif.onepwd.length.LengthDialog
 import com.yhsif.onepwd.length.LengthPreference
@@ -20,8 +21,7 @@ abstract class BasePreferenceFragment: PreferenceFragmentCompat() {
       val frag = LengthDialog.newInstance(pref)
       frag.setTargetFragment(this, 0)
       frag.show(
-          getFragmentManager(),
-          "android.support.v7.preference.PreferenceFragment.DIALOG")
+          getFragmentManager(), "androidx.preference.PreferenceFragment.DIALOG")
     } else {
       super.onDisplayPreferenceDialog(pref);
     }

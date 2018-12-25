@@ -36,15 +36,14 @@ kt_android_library(
     deps = [
         ":hmac_md5",
 
-        "@android_arch_lifecycle_common_1_1_1//jar",
-        "@android_arch_lifecycle_viewmodel_1_1_1//aar",
-        "@com_android_support_appcompat_v7_28_0_0//aar",
-        "@com_android_support_drawerlayout_28_0_0//aar",
-        "@com_android_support_preference_v7_28_0_0//aar",
-        "@com_android_support_support_annotations_28_0_0//jar",
-        "@com_android_support_support_compat_28_0_0//aar",
-        "@com_android_support_support_core_utils_28_0_0//aar",
-        "@com_android_support_support_core_ui_28_0_0//aar",
-        "@com_android_support_support_fragment_28_0_0//aar",
+        "@androidx_appcompat_appcompat_1_0_0//aar",
+        "@androidx_preference_preference_1_0_0//aar",
+
+        # indirect deps:
+        "@androidx_core_core_1_0_0//aar",
+        "@androidx_drawerlayout_drawerlayout_1_0_0//aar",
+        "@androidx_fragment_fragment_1_0_0//aar",
+        "@androidx_lifecycle_lifecycle_common_2_0_0//jar",
+        "@androidx_lifecycle_lifecycle_viewmodel_2_0_0//aar",
     ],
 )

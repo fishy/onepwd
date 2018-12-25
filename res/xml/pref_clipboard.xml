@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
+<androidx.preference.PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="@string/pref_tag_clipboard"
     >
@@ -19,4 +19,4 @@
       android:title="@string/pref_title_clear_time"
       android:dependency="copy_clipboard"
     />
-</PreferenceScreen>
+</androidx.preference.PreferenceScreen>
