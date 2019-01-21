@@ -18,12 +18,41 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         >
-      <TextView
-          android:text="@string/master_key"
+      <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-        />
+          >
+        <TextView
+            android:text="@string/master_key"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextMedium"
+            android:layout_alignParentLeft="true"
+          />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            >
+          <TextView
+              android:id="@+id/master_key_load"
+              android:text="@string/master_key_load"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:paddingRight="10dp"
+              android:textAppearance="@style/TextMedium.Action"
+            />
+          <TextView
+              android:id="@+id/master_key_store"
+              android:text="@string/master_key_store"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:paddingRight="10dp"
+              android:textAppearance="@style/TextMedium.Action"
+            />
+        </LinearLayout>
+      </RelativeLayout>
       <EditText
           android:id="@+id/master_key"
           android:layout_width="match_parent"
@@ -41,7 +70,7 @@
           android:text="@string/site_key"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textAppearance="@style/TextMedium"
         />
       <EditText
           android:id="@+id/site_key"
@@ -61,7 +90,7 @@
           android:text="@string/length"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textAppearance="@style/TextMedium"
         />
       <RadioGroup
           android:id="@+id/length_group"
@@ -75,7 +104,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="8"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextSmall"
           />
         <RadioButton
             android:id="@+id/length2"
@@ -83,7 +112,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="10"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextSmall"
           />
         <RadioButton
             android:id="@+id/length3"
@@ -91,7 +120,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="15"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextSmall"
           />
         <RadioButton
             android:id="@+id/length4"
@@ -100,7 +129,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="20"
-            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textAppearance="@style/TextSmall"
           />
       </RadioGroup>
       <View
@@ -112,7 +141,7 @@
           android:text="@string/password"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textAppearance="@style/TextMedium"
         />
       <EditText
           android:id="@+id/password"

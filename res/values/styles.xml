@@ -3,13 +3,38 @@
   <style
       name="DialogMinWidth"
       parent="Theme.AppCompat.Dialog.MinWidth"
-    />
+      >
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+  </style>
   <style
       name="Settings"
       parent="Theme.AppCompat"
-    />
+      >
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+  </style>
   <style
       name="AlertDialogTheme"
       parent="Theme.AppCompat.Dialog.Alert"
+      >
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+  </style>
+
+  <style
+      name="TextMedium"
+      parent="TextAppearance.AppCompat.Medium"
+    />
+  <style name="TextMedium.Action" >
+    <item name="android:textColor">@color/accent</item>
+  </style>
+
+  <style
+      name="TextSmall"
+      parent="TextAppearance.AppCompat.Small"
     />
 </resources>
