@@ -9,6 +9,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.hardware.biometrics.BiometricPrompt
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -33,6 +34,7 @@ class OnePwd
 , View.OnFocusChangeListener
 , TextView.OnEditorActionListener
 , RadioGroup.OnCheckedChangeListener {
+
   companion object {
     private const val NOTIFICATION_ID = 1
     private const val CHANNEL_ID = "quick_access"
@@ -131,6 +133,8 @@ class OnePwd
   var checkedLength: RadioButton? = null
   var checkedIndex: Int = 0
 
+  var loadButton: TextView? = null
+  var storeButton: TextView? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -139,6 +143,8 @@ class OnePwd
     findViewById<View>(R.id.generate).setOnClickListener(this)
     findViewById<View>(R.id.settings).setOnClickListener(this)
     findViewById<View>(R.id.close).setOnClickListener(this)
+    findViewById<View>(R.id.master_key_load).setOnClickListener(this)
+    findViewById<View>(R.id.master_key_store).setOnClickListener(this)
 
     lengthGroup = findViewById<RadioGroup>(R.id.length_group)
     lengthGroup?.setOnCheckedChangeListener(this)
@@ -150,6 +156,13 @@ class OnePwd
     site = findViewById<TextView>(R.id.site_key)
     site?.setOnFocusChangeListener(this)
     site?.setOnEditorActionListener(this)
+
+    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+      findViewById<View>(R.id.load_store_container).setVisibility(View.VISIBLE)
+    } else {
+      findViewById<View>(R.id.load_store_container).setVisibility(View.GONE)
+    }
 
     password = findViewById<TextView>(R.id.password)
 
@@ -221,6 +234,8 @@ class OnePwd
       R.id.generate -> doGenerate()
       R.id.close -> this.finish()
       R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
+      R.id.master_key_load -> doLoad()
+      R.id.master_key_store -> doStore()
     }
   }
 
@@ -366,5 +381,18 @@ class OnePwd
       }
     }
     return ""
+  }
+
+  private fun doLoad() {
+    // TODO
+  }
+
+  private fun doStore() {
+    val masterKey = master?.getText().toString()
+    if (masterKey.isEmpty()) {
+      showToast(this, R.string.empty_master_toast)
+      return
+    }
+    // TODO
   }
 }
