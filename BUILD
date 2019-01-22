@@ -1,4 +1,5 @@
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_library")
+load("@gmaven_rules//:defs.bzl", "gmaven_artifact")
 
 PACKAGE = "com.yhsif.onepwd"
 MANIFEST = "AndroidManifest.xml"
@@ -36,14 +37,14 @@ kt_android_library(
     deps = [
         ":hmac_md5",
 
-        "@androidx_appcompat_appcompat_1_0_0//aar",
-        "@androidx_preference_preference_1_0_0//aar",
+        gmaven_artifact("androidx.appcompat:appcompat:aar:1.0.0"),
+        gmaven_artifact("androidx.preference:preference:aar:1.0.0"),
 
         # indirect deps:
-        "@androidx_core_core_1_0_0//aar",
-        "@androidx_drawerlayout_drawerlayout_1_0_0//aar",
-        "@androidx_fragment_fragment_1_0_0//aar",
-        "@androidx_lifecycle_lifecycle_common_2_0_0//jar",
-        "@androidx_lifecycle_lifecycle_viewmodel_2_0_0//aar",
+        gmaven_artifact("androidx.core:core:aar:1.0.0"),
+        gmaven_artifact("androidx.drawerlayout:drawerlayout:aar:1.0.0"),
+        gmaven_artifact("androidx.fragment:fragment:aar:1.0.0"),
+        gmaven_artifact("androidx.lifecycle:lifecycle-common:jar:2.0.0"),
+        gmaven_artifact("androidx.lifecycle:lifecycle-viewmodel:aar:2.0.0"),
     ],
 )
