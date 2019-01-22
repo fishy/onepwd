@@ -1,5 +1,17 @@
 package com.yhsif.onepwd
 
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
+import java.util.concurrent.Semaphore
+import java.security.InvalidAlgorithmParameterException
+import java.security.KeyStore
+
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import javax.crypto.spec.IvParameterSpec
+
+import android.app.KeyguardManager
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -8,12 +20,17 @@ import android.app.usage.UsageStatsManager
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.hardware.biometrics.BiometricPrompt
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.os.CancellationSignal
 import android.os.Handler
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
 import android.util.Base64
 import android.view.KeyEvent
 import android.view.View
@@ -36,6 +53,11 @@ class OnePwd
 , RadioGroup.OnCheckedChangeListener {
 
   companion object {
+    private const val ANDROID_KEY_STORE = "AndroidKeyStore"
+    private const val KEY_STORE_KEY = "ONE_KEY_MASTER"
+    private const val KEY_MASTER_ENCRYPTED = "encrypted_master"
+    private const val KEY_IV = "encrypted_iv"
+
     private const val NOTIFICATION_ID = 1
     private const val CHANNEL_ID = "quick_access"
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
@@ -135,6 +157,8 @@ class OnePwd
 
   var loadButton: TextView? = null
   var storeButton: TextView? = null
+
+  var loadedMaster: String = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -280,10 +304,13 @@ class OnePwd
 
   private fun doGenerate() {
     val length = checkedLength?.getText().toString().toInt()
-    val masterKey = master?.getText().toString()
+    var masterKey = master?.getText().toString()
     if (masterKey.isEmpty()) {
-      showToast(this, R.string.empty_master_toast)
-      return
+      if (loadedMaster.isEmpty()) {
+        showToast(this, R.string.empty_master_toast)
+        return
+      }
+      masterKey = loadedMaster
     }
 
     val siteKey = site?.getText().toString().trim()
@@ -383,16 +410,195 @@ class OnePwd
     return ""
   }
 
+  private val executor: Executor by lazy { Executors.newCachedThreadPool() }
+  private val keyguardManager: KeyguardManager by lazy {
+    getSystemService(KeyguardManager::class.java)
+  }
+
   private fun doLoad() {
-    // TODO
+    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+      return
+    }
+
+    if (!keyguardManager.isKeyguardSecure) {
+      showToast(this, R.string.biometric_unsupported)
+      return
+    }
+
+    val pref = getSharedPreferences(PREF, 0)
+    val msgStr = pref.getString(KEY_MASTER_ENCRYPTED, "")
+    val ivStr = pref.getString(KEY_IV, "")
+
+    val msg: ByteArray
+    val iv: ByteArray
+    try {
+      msg = Base64.decode(msgStr, Base64.DEFAULT)
+      iv = Base64.decode(ivStr, Base64.DEFAULT)
+    } catch(e: IllegalArgumentException) {
+      showToast(this, R.string.load_empty)
+      return
+    }
+
+    try {
+      val helper = BioAuthHelper(
+          R.string.load_title,
+          decryptionCipher(KEY_STORE_KEY, iv)) { cipher ->
+            if (cipher != null) {
+              loadedMaster = String(cipher.doFinal(msg))
+              if (!loadedMaster.isEmpty()) {
+                master?.setHint(getString(R.string.hint_master_loaded))
+                master?.setText("")
+              }
+              showToast(this, R.string.load_succeed)
+            } else {
+              showToast(this, R.string.load_empty_or_canceled)
+            }
+          }
+      helper.execute()
+    } catch(e: InvalidAlgorithmParameterException) {
+      showToast(this, R.string.biometric_unset)
+      return
+    }
   }
 
   private fun doStore() {
+    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+      return
+    }
+
+    if (!keyguardManager.isKeyguardSecure) {
+      showToast(this, R.string.biometric_unsupported)
+      return
+    }
     val masterKey = master?.getText().toString()
     if (masterKey.isEmpty()) {
       showToast(this, R.string.empty_master_toast)
       return
     }
-    // TODO
+
+    try {
+      val helper = BioAuthHelper(
+          R.string.store_title,
+          encryptionCipher(KEY_STORE_KEY)) { cipher ->
+            if (cipher != null) {
+              val message = cipher.doFinal(
+                  masterKey.toByteArray(charset("UTF-8")))
+              val iv = cipher
+                .getParameters()
+                .getParameterSpec(IvParameterSpec::class.java)
+                .iv
+
+              val msgStr = Base64.encodeToString(message, Base64.DEFAULT)
+              val ivStr = Base64.encodeToString(iv, Base64.DEFAULT)
+
+              getSharedPreferences(PREF, 0).edit().let { editor ->
+                editor.putString(KEY_MASTER_ENCRYPTED, msgStr)
+                editor.putString(KEY_IV, ivStr)
+                editor.commit()
+              }
+              showToast(this, R.string.store_succeed)
+            }
+          }
+      helper.execute()
+    } catch(e: InvalidAlgorithmParameterException) {
+      showToast(this, R.string.biometric_unset)
+      return
+    }
+  }
+
+  private fun createCipher(): Cipher {
+    return Cipher.getInstance(
+        KeyProperties.KEY_ALGORITHM_AES + "/" +
+        KeyProperties.BLOCK_MODE_CBC + "/" +
+        KeyProperties.ENCRYPTION_PADDING_PKCS7)
+  }
+
+  private fun encryptionCipher(name: String): Cipher {
+    val cipher = createCipher()
+    cipher.init(Cipher.ENCRYPT_MODE, getKey(name))
+    return cipher
+  }
+
+  private fun decryptionCipher(name: String, iv: ByteArray): Cipher {
+    val cipher = createCipher()
+    cipher.init(Cipher.DECRYPT_MODE, getKey(name), IvParameterSpec(iv))
+    return cipher
+  }
+
+  private fun getKey(name: String): SecretKey {
+    val store = KeyStore.getInstance(ANDROID_KEY_STORE)
+    store.load(null)
+    val alias = store.aliases()
+    while (alias.hasMoreElements()) {
+      if (name == alias.nextElement()) {
+        return store.getKey(name, null) as SecretKey
+      }
+    }
+
+    // Create key
+    val builder = KeyGenParameterSpec.Builder(
+        name,
+        KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+    builder.apply {
+      setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+      setUserAuthenticationRequired(true)
+      setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
+      setInvalidatedByBiometricEnrollment(false)
+    }
+
+    KeyGenerator.getInstance(
+        KeyProperties.KEY_ALGORITHM_AES,
+        ANDROID_KEY_STORE).apply {
+      init(builder.build())
+      generateKey()
+    }
+
+    return getKey(name)
+  }
+
+  inner class BioAuthHelper(
+      val title: Int,
+      val initCipher: Cipher,
+      val callback: (Cipher?) -> Unit): AsyncTask<Unit, Unit, Cipher?>() {
+
+    private var sema: Semaphore? = null
+    private var builder: BiometricPrompt.Builder? = null
+
+    override fun onPreExecute() {
+      sema = Semaphore(1)
+      builder = BiometricPrompt.Builder(this@OnePwd)
+        .setTitle(getString(title))
+        .setNegativeButton(
+            getString(android.R.string.cancel),
+            executor,
+            DialogInterface.OnClickListener() { _: DialogInterface?, _: Int? ->
+              sema?.release()
+            })
+    }
+
+    override fun doInBackground(vararg p0: Unit): Cipher? {
+      var cipher: Cipher? = null
+      sema?.acquire()
+      builder?.build()?.authenticate(
+          BiometricPrompt.CryptoObject(initCipher),
+          CancellationSignal(),
+          executor,
+          object: BiometricPrompt.AuthenticationCallback() {
+
+            override fun onAuthenticationSucceeded(
+                res: BiometricPrompt.AuthenticationResult) {
+              cipher = res.getCryptoObject().getCipher()
+              sema?.release()
+            }
+          })
+      sema?.acquire()
+      return cipher
+    }
+
+    override fun onPostExecute(cipher: Cipher?) {
+      callback(cipher)
+    }
   }
 }

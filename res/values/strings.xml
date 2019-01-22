@@ -11,6 +11,7 @@
   <string name="length">Length:</string>
   <string name="password">Password for you:</string>
   <string name="hint_master">(Your master password)</string>
+  <string name="hint_master_loaded">(Loaded MasterKey)</string>
   <string name="hint_site">(e.g. \"google\", \"facebook\")</string>
   <string name="hint_password">
     "(Click \"Generate\" below to get your password)"
@@ -24,6 +25,23 @@
   <string name="clear_clip_toast">Clipboard cleared.</string>
   <string name="title_settings">OneKey Settings</string>
   <string name="empty_master_toast">Your MasterKey is empty.</string>
+
+  <!-- Biometric -->
+  <string name="biometric_unsupported">
+    "This device does not support necessary biometric features or is not locked."
+  </string>
+  <string name="biometric_unset">
+    "You did not setup any biometric security on this device."
+  </string>
+  <string name="store_title">Store MasterKey</string>
+  <string name="store_succeed">Successfully stored your MasterKey.</string>
+  <string name="store_canceled">Successfully stored your MasterKey.</string>
+  <string name="load_title">Load MasterKey</string>
+  <string name="load_succeed">Successfully loaded your MasterKey.</string>
+  <string name="load_empty">You do not have MasterKey stored.</string>
+  <string name="load_empty_or_canceled">
+    "You do not have MasterKey stored, or biometric process canceled."
+  </string>
 
   <!-- Notification channel -->
   <string name="channel_name">Quick access</string>
