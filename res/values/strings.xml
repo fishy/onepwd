@@ -33,14 +33,18 @@
   <string name="biometric_unset">
     "You did not setup any biometric security on this device."
   </string>
+  <string name="biometric_invalid">
+    "The stored key was invalidated because of biometric changes on this device."
+    "\nPlease store a new MasterKey."
+  </string>
   <string name="store_title">Store MasterKey</string>
   <string name="store_succeed">Successfully stored your MasterKey.</string>
   <string name="store_canceled">Successfully stored your MasterKey.</string>
   <string name="load_title">Load MasterKey</string>
   <string name="load_succeed">Successfully loaded your MasterKey.</string>
-  <string name="load_empty">You do not have MasterKey stored.</string>
+  <string name="load_empty">You do not have a MasterKey stored.</string>
   <string name="load_empty_or_canceled">
-    "You do not have MasterKey stored, or biometric process canceled."
+    "You do not have a MasterKey stored, or biometric process canceled."
   </string>
 
   <!-- Notification channel -->

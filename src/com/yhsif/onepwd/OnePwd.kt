@@ -30,6 +30,7 @@ import android.os.Bundle
 import android.os.CancellationSignal
 import android.os.Handler
 import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
 import android.util.Base64
 import android.view.KeyEvent
@@ -429,6 +430,10 @@ class OnePwd
     val pref = getSharedPreferences(PREF, 0)
     val msgStr = pref.getString(KEY_MASTER_ENCRYPTED, "")
     val ivStr = pref.getString(KEY_IV, "")
+    if (msgStr == "" || ivStr == "") {
+      showToast(this, R.string.load_empty)
+      return
+    }
 
     val msg: ByteArray
     val iv: ByteArray
@@ -441,9 +446,15 @@ class OnePwd
     }
 
     try {
+      val initCipher = decryptionCipher(KEY_STORE_KEY, iv)
+      if (initCipher == null) {
+        showToast(this, R.string.load_empty)
+        return
+      }
+
       val helper = BioAuthHelper(
           R.string.load_title,
-          decryptionCipher(KEY_STORE_KEY, iv)) { cipher ->
+          initCipher) { cipher ->
             if (cipher != null) {
               loadedMaster = String(cipher.doFinal(msg))
               if (!loadedMaster.isEmpty()) {
@@ -456,6 +467,9 @@ class OnePwd
             }
           }
       helper.execute()
+    } catch(e: KeyPermanentlyInvalidatedException) {
+      showToast(this, R.string.biometric_invalid)
+      return
     } catch(e: InvalidAlgorithmParameterException) {
       showToast(this, R.string.biometric_unset)
       return
@@ -517,27 +531,35 @@ class OnePwd
 
   private fun encryptionCipher(name: String): Cipher {
     val cipher = createCipher()
-    cipher.init(Cipher.ENCRYPT_MODE, getKey(name))
+    cipher.init(Cipher.ENCRYPT_MODE, createKey(name, false))
     return cipher
   }
 
-  private fun decryptionCipher(name: String, iv: ByteArray): Cipher {
+  private fun decryptionCipher(name: String, iv: ByteArray): Cipher? {
     val cipher = createCipher()
-    cipher.init(Cipher.DECRYPT_MODE, getKey(name), IvParameterSpec(iv))
+    val key = getKey(name)
+    if (key == null) {
+      return null
+    }
+    cipher.init(Cipher.DECRYPT_MODE, key, IvParameterSpec(iv))
     return cipher
   }
 
-  private fun getKey(name: String): SecretKey {
+  private fun getKey(name: String): SecretKey? {
     val store = KeyStore.getInstance(ANDROID_KEY_STORE)
     store.load(null)
-    val alias = store.aliases()
-    while (alias.hasMoreElements()) {
-      if (name == alias.nextElement()) {
-        return store.getKey(name, null) as SecretKey
-      }
-    }
+    return store.getKey(name, null) as SecretKey?
+  }
 
-    // Create key
+  private fun deleteKey(name: String) {
+    val store = KeyStore.getInstance(ANDROID_KEY_STORE)
+    store.load(null)
+    store.deleteEntry(name)
+  }
+
+  private fun createKey(name: String, invalidate: Boolean): SecretKey {
+    deleteKey(name)
+
     val builder = KeyGenParameterSpec.Builder(
         name,
         KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
@@ -545,7 +567,7 @@ class OnePwd
       setBlockModes(KeyProperties.BLOCK_MODE_CBC)
       setUserAuthenticationRequired(true)
       setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
-      setInvalidatedByBiometricEnrollment(false)
+      setInvalidatedByBiometricEnrollment(invalidate)
     }
 
     KeyGenerator.getInstance(
@@ -555,7 +577,7 @@ class OnePwd
       generateKey()
     }
 
-    return getKey(name)
+    return getKey(name)!!
   }
 
   inner class BioAuthHelper(
