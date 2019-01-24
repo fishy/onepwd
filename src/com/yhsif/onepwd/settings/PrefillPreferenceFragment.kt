@@ -4,9 +4,11 @@ import android.os.Bundle
 
 import com.yhsif.onepwd.R
 
-class PrefillPreferenceFragment: BasePreferenceFragment() {
+class PrefillPreferenceFragment : BasePreferenceFragment() {
   override fun onCreatePreferences(
-      savedInstanceState: Bundle?, rootKey: String?) {
+    savedInstanceState: Bundle?,
+    rootKey: String?
+  ) {
     setPreferencesFromResource(R.xml.pref_prefill, rootKey)
     setHasOptionsMenu(true)
 

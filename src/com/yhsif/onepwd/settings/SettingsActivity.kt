@@ -9,14 +9,12 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import androidx.preference.PreferenceScreen
 
 import com.yhsif.onepwd.OnePwd
 import com.yhsif.onepwd.R
 
 public class SettingsActivity
-: AppCompatActivity()
-, PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+: AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
   companion object {
     private const val KEY_SETTINGS_INTENT = "dummy_settings_intent"
@@ -42,9 +40,11 @@ public class SettingsActivity
     public const val KEY_USE_SERVICE = "use_service"
     public const val DEFAULT_USE_SERVICE = true
 
-    val prefBinder = object: Preference.OnPreferenceChangeListener {
+    val prefBinder = object : Preference.OnPreferenceChangeListener {
       override fun onPreferenceChange(
-          pref: Preference, value: Any): Boolean {
+        pref: Preference,
+        value: Any
+      ): Boolean {
         if (pref is ListPreference) {
           val index = pref.findIndexOfValue(value.toString())
           pref.setSummary(if (index >= 0) pref.getEntries()[index] else null)
@@ -95,7 +95,9 @@ public class SettingsActivity
     }
 
     fun bindPreferenceSummaryToInt(
-        preference: Preference, defaultValue: Int) {
+      preference: Preference,
+      defaultValue: Int
+    ) {
       preference.setOnPreferenceChangeListener(prefBinder)
       prefBinder.onPreferenceChange(
           preference,
@@ -105,7 +107,9 @@ public class SettingsActivity
     }
 
     fun bindPreferenceSummaryToBoolean(
-        preference: Preference, defaultValue: Boolean) {
+      preference: Preference,
+      defaultValue: Boolean
+    ) {
       preference.setOnPreferenceChangeListener(prefBinder)
       prefBinder.onPreferenceChange(
           preference,
@@ -171,14 +175,16 @@ public class SettingsActivity
   }
 
   override fun onPreferenceStartFragment(
-      caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+    caller: PreferenceFragmentCompat,
+    pref: Preference
+  ): Boolean {
     getSupportFragmentManager().beginTransaction().let { ft ->
       val key = pref.getKey()
       val args = Bundle()
       args.putString(
           PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, key)
       val frag: BasePreferenceFragment? =
-        when(key) {
+        when (key) {
           getString(R.string.pref_tag_about) -> AboutPreferenceFragment()
           getString(R.string.pref_tag_bio) -> BioPreferenceFragment()
           getString(R.string.pref_tag_clipboard) ->

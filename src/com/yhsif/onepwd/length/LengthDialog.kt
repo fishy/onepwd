@@ -1,10 +1,7 @@
 package com.yhsif.onepwd.length
 
 import android.os.Bundle
-import android.view.Gravity.CENTER
 import android.view.View
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.FrameLayout
 import android.widget.NumberPicker
 
 import androidx.preference.Preference
@@ -12,7 +9,7 @@ import androidx.preference.PreferenceDialogFragmentCompat
 
 import com.yhsif.onepwd.R
 
-public class LengthDialog: PreferenceDialogFragmentCompat() {
+public class LengthDialog : PreferenceDialogFragmentCompat() {
   companion object {
     private const val WRAP_WHEEL = true
 

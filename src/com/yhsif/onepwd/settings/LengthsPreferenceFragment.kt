@@ -4,9 +4,11 @@ import android.os.Bundle
 
 import com.yhsif.onepwd.R
 
-class LengthsPreferenceFragment: BasePreferenceFragment() {
+class LengthsPreferenceFragment : BasePreferenceFragment() {
   override fun onCreatePreferences(
-      savedInstanceState: Bundle?, rootKey: String?) {
+    savedInstanceState: Bundle?,
+    rootKey: String?
+  ) {
     setPreferencesFromResource(R.xml.pref_lengths, rootKey)
     setHasOptionsMenu(true)
 

@@ -8,7 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import com.yhsif.onepwd.length.LengthDialog
 import com.yhsif.onepwd.length.LengthPreference
 
-abstract class BasePreferenceFragment: PreferenceFragmentCompat() {
+abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.getItemId() == android.R.id.home) {
       getFragmentManager()?.popBackStack()

@@ -2,7 +2,7 @@ package com.yhsif.onepwd
 
 import java.security.MessageDigest
 
-/** 
+/**
  * An HMAC-MD5 implementation.
  */
 object HmacMd5 {

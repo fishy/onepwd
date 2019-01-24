@@ -47,11 +47,7 @@ import androidx.preference.PreferenceManager
 import com.yhsif.onepwd.settings.SettingsActivity
 
 class OnePwd
-: AppCompatActivity()
-, View.OnClickListener
-, View.OnFocusChangeListener
-, TextView.OnEditorActionListener
-, RadioGroup.OnCheckedChangeListener {
+: AppCompatActivity(), View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
 
   companion object {
     private const val ANDROID_KEY_STORE = "AndroidKeyStore"
@@ -101,8 +97,8 @@ class OnePwd
         manager.cancel(NOTIFICATION_ID)
         return
       }
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-          && !manager.areNotificationsEnabled()) {
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
+          !manager.areNotificationsEnabled()) {
         return
       }
       val existing = manager.getActiveNotifications()
@@ -298,9 +294,12 @@ class OnePwd
 
   // for TextView.OnEditorActionListener
   override fun onEditorAction(
-      v: TextView, actionId: Int, event: KeyEvent?): Boolean {
-    if ((v.getId() == master?.getId() || v.getId() == site?.getId())
-        && actionId == EditorInfo.IME_ACTION_SEND) {
+    v: TextView,
+    actionId: Int,
+    event: KeyEvent?
+  ): Boolean {
+    if ((v.getId() == master?.getId() || v.getId() == site?.getId()) &&
+        actionId == EditorInfo.IME_ACTION_SEND) {
       doGenerate()
       return true
     }
@@ -462,7 +461,7 @@ class OnePwd
     try {
       msg = Base64.decode(msgStr, Base64.DEFAULT)
       iv = Base64.decode(ivStr, Base64.DEFAULT)
-    } catch(e: IllegalArgumentException) {
+    } catch (e: IllegalArgumentException) {
       if (toast) {
         showToast(this, R.string.load_empty)
       }
@@ -493,12 +492,12 @@ class OnePwd
             }
           }
       helper.execute()
-    } catch(e: KeyPermanentlyInvalidatedException) {
+    } catch (e: KeyPermanentlyInvalidatedException) {
       if (toast) {
         showToast(this, R.string.biometric_invalid)
       }
       return
-    } catch(e: InvalidAlgorithmParameterException) {
+    } catch (e: InvalidAlgorithmParameterException) {
       if (toast) {
         showToast(this, R.string.biometric_unset)
       }
@@ -552,7 +551,7 @@ class OnePwd
             }
           }
       helper.execute()
-    } catch(e: InvalidAlgorithmParameterException) {
+    } catch (e: InvalidAlgorithmParameterException) {
       showToast(this, R.string.biometric_unset)
       return
     }
@@ -617,9 +616,10 @@ class OnePwd
   }
 
   inner class BioAuthHelper(
-      val title: Int,
-      val initCipher: Cipher,
-      val callback: (Cipher?) -> Unit): AsyncTask<Unit, Unit, Cipher?>() {
+    val title: Int,
+    val initCipher: Cipher,
+    val callback: (Cipher?) -> Unit
+  ) : AsyncTask<Unit, Unit, Cipher?>() {
 
     private var sema: Semaphore? = null
     private var builder: BiometricPrompt.Builder? = null
@@ -643,10 +643,11 @@ class OnePwd
           BiometricPrompt.CryptoObject(initCipher),
           CancellationSignal(),
           executor,
-          object: BiometricPrompt.AuthenticationCallback() {
+          object : BiometricPrompt.AuthenticationCallback() {
 
             override fun onAuthenticationSucceeded(
-                res: BiometricPrompt.AuthenticationResult) {
+              res: BiometricPrompt.AuthenticationResult
+            ) {
               cipher = res.getCryptoObject().getCipher()
               sema?.release()
             }
