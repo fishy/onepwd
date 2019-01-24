@@ -3,11 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <Preference
-      android:key="@string/pref_tag_bio"
-      android:title="@string/pref_header_bio"
-      android:fragment="com.yhsif.onepwd.settings.BioPreferenceFragment"
-    />
-  <Preference
       android:key="@string/pref_tag_prefill"
       android:title="@string/pref_header_prefill"
       android:fragment="com.yhsif.onepwd.settings.PrefillPreferenceFragment"

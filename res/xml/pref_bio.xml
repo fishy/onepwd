@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="@string/pref_tag_bio"
+    >
+  <Preference
+      android:enabled="false"
+      android:summary="@string/pref_desc_bio_title"
+    />
+  <SwitchPreference
+      android:defaultValue="true"
+      android:key="bio_invalidate"
+      android:title="@string/pref_title_bio_invalidate"
+      android:summary="@string/pref_desc_bio_invalidate"
+    />
+</androidx.preference.PreferenceScreen>

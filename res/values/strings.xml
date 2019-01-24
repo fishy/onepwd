@@ -54,6 +54,7 @@
   </string>
 
   <!-- Preference tags -->
+  <string name="pref_tag_bio">pref_bio</string>
   <string name="pref_tag_prefill">pref_prefill</string>
   <string name="pref_tag_clipboard">pref_clipboard</string>
   <string name="pref_tag_lengths">pref_lengths</string>
@@ -61,12 +62,26 @@
   <string name="pref_tag_about">pref_about</string>
 
   <!-- Preference headers -->
+  <string name="pref_header_bio">Biometric Encryption</string>
   <string name="pref_header_prefill">Prefill SiteKey</string>
   <string name="pref_header_clipboard">Clipboard</string>
   <string name="pref_header_lengths">Password Lengths</string>
   <string name="pref_header_service">Show Notification</string>
   <string name="pref_header_about">About</string>
   <string name="pref_header_about_summary">OneKey v1.1.4</string>
+
+  <!-- Bio preference -->
+  <string name="pref_desc_bio_title">
+    "You can store your MasterKey using device's biometric encryption."
+  </string>
+  <string name="pref_title_bio_invalidate">
+    "Invalidate by Biometric Enrollment"
+  </string>
+  <string name="pref_desc_bio_invalidate">
+    "Invalidate the stored MasterKey when new biometric (fingerprint) is"
+    "enrolled on this device."
+    "\nNote that this option does not affect already stored MasterKey."
+  </string>
 
   <!-- Prefill preference -->
   <string name="pref_title_usage">

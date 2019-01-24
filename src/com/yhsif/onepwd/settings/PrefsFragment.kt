@@ -1,5 +1,6 @@
 package com.yhsif.onepwd.settings
 
+import android.os.Build
 import android.os.Bundle
 
 import com.yhsif.onepwd.R
@@ -11,7 +12,12 @@ class PrefsFragment: BasePreferenceFragment() {
 
   override fun onCreatePreferences(
       savedInstanceState: Bundle?, rootKey: String?) {
-    setPreferencesFromResource(R.xml.pref_headers, rootKey)
+    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+      setPreferencesFromResource(R.xml.pref_headers_no_bio, rootKey)
+    } else {
+      setPreferencesFromResource(R.xml.pref_headers, rootKey)
+    }
     setHasOptionsMenu(true)
   }
 }

@@ -21,6 +21,8 @@ public class SettingsActivity
   companion object {
     private const val KEY_SETTINGS_INTENT = "dummy_settings_intent"
 
+    public const val KEY_BIO_INVALIDATE = "bio_invalidate"
+    public const val DEFAULT_BIO_INVALIDATE = true
     public const val KEY_PREFILL_USAGE = "prefill_usage"
     public const val DEFAULT_PREFILL_USAGE = false
     public const val KEY_COPY_CLIPBOARD = "copy_clipboard"
@@ -176,6 +178,11 @@ public class SettingsActivity
       when(key) {
         getString(R.string.pref_tag_about) -> {
           val frag = AboutPreferenceFragment()
+          frag.setArguments(args)
+          ft.replace(R.id.fragment_container, frag, key)
+        }
+        getString(R.string.pref_tag_bio) -> {
+          val frag = BioPreferenceFragment()
           frag.setArguments(args)
           ft.replace(R.id.fragment_container, frag, key)
         }

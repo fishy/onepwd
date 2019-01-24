@@ -492,10 +492,16 @@ class OnePwd
       return
     }
 
+    val invalidate = PreferenceManager
+        .getDefaultSharedPreferences(this)
+        .getBoolean(
+            SettingsActivity.KEY_BIO_INVALIDATE,
+            SettingsActivity.DEFAULT_BIO_INVALIDATE)
+
     try {
       val helper = BioAuthHelper(
           R.string.store_title,
-          encryptionCipher(KEY_STORE_KEY)) { cipher ->
+          encryptionCipher(KEY_STORE_KEY, invalidate)) { cipher ->
             if (cipher != null) {
               val message = cipher.doFinal(
                   masterKey.toByteArray(charset("UTF-8")))
@@ -529,9 +535,9 @@ class OnePwd
         KeyProperties.ENCRYPTION_PADDING_PKCS7)
   }
 
-  private fun encryptionCipher(name: String): Cipher {
+  private fun encryptionCipher(name: String, invalidate: Boolean): Cipher {
     val cipher = createCipher()
-    cipher.init(Cipher.ENCRYPT_MODE, createKey(name, false))
+    cipher.init(Cipher.ENCRYPT_MODE, createKey(name, invalidate))
     return cipher
   }
 
