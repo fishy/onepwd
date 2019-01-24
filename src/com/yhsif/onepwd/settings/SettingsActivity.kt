@@ -175,38 +175,23 @@ public class SettingsActivity
       val args = Bundle()
       args.putString(
           PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, key)
-      when(key) {
-        getString(R.string.pref_tag_about) -> {
-          val frag = AboutPreferenceFragment()
-          frag.setArguments(args)
-          ft.replace(R.id.fragment_container, frag, key)
+      val frag: BasePreferenceFragment? =
+        when(key) {
+          getString(R.string.pref_tag_about) -> AboutPreferenceFragment()
+          getString(R.string.pref_tag_bio) -> BioPreferenceFragment()
+          getString(R.string.pref_tag_clipboard) ->
+            ClipboardPreferenceFragment()
+          getString(R.string.pref_tag_lengths) -> {
+            sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
+            LengthsPreferenceFragment()
+          }
+          getString(R.string.pref_tag_prefill) -> PrefillPreferenceFragment()
+          getString(R.string.pref_tag_service) -> ServicePreferenceFragment()
+          else -> null
         }
-        getString(R.string.pref_tag_bio) -> {
-          val frag = BioPreferenceFragment()
-          frag.setArguments(args)
-          ft.replace(R.id.fragment_container, frag, key)
-        }
-        getString(R.string.pref_tag_clipboard) -> {
-          val frag = ClipboardPreferenceFragment()
-          frag.setArguments(args)
-          ft.replace(R.id.fragment_container, frag, key)
-        }
-        getString(R.string.pref_tag_lengths) -> {
-          val frag = LengthsPreferenceFragment()
-          frag.setArguments(args)
-          ft.replace(R.id.fragment_container, frag, key)
-          sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
-        }
-        getString(R.string.pref_tag_prefill) -> {
-          val frag = PrefillPreferenceFragment()
-          frag.setArguments(args)
-          ft.replace(R.id.fragment_container, frag, key)
-        }
-        getString(R.string.pref_tag_service) -> {
-          val frag = ServicePreferenceFragment()
-          frag.setArguments(args)
-          ft.replace(R.id.fragment_container, frag, key)
-        }
+      if (frag != null) {
+        frag.setArguments(args)
+        ft.replace(R.id.fragment_container, frag, key)
       }
       ft.addToBackStack(key)
       ft.commit()
