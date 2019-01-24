@@ -205,6 +205,9 @@ class OnePwd
   override fun onPause() {
     super.onPause()
 
+    // Clear loaded MasterKey
+    loadedMaster = ""
+
     getSharedPreferences(PREF, 0).edit().let { editor ->
       editor.putInt(KEY_SELECTED_LENGTH, checkedIndex)
       editor.commit()
@@ -250,6 +253,13 @@ class OnePwd
     master?.setText("")
     password?.setText("")
 
+    setMasterHint()
+    if (pref.getBoolean(
+        SettingsActivity.KEY_BIO_AUTOLOAD,
+        SettingsActivity.DEFAULT_BIO_AUTOLOAD)) {
+      doLoad(false)
+    }
+
     super.onResume()
   }
 
@@ -259,7 +269,7 @@ class OnePwd
       R.id.generate -> doGenerate()
       R.id.close -> this.finish()
       R.id.settings -> startActivity(Intent(this, SettingsActivity::class.java))
-      R.id.master_key_load -> doLoad()
+      R.id.master_key_load -> doLoad(true)
       R.id.master_key_store -> doStore()
     }
   }
@@ -301,6 +311,14 @@ class OnePwd
   override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
     checkedLength = findViewById<RadioButton>(checkedId)
     checkedIndex = radioButtons.indexOf(checkedLength!!)
+  }
+
+  private fun setMasterHint() {
+    if (loadedMaster.isEmpty()) {
+      master?.setHint(getString(R.string.hint_master))
+    } else {
+      master?.setHint(getString(R.string.hint_master_loaded))
+    }
   }
 
   private fun doGenerate() {
@@ -416,14 +434,16 @@ class OnePwd
     getSystemService(KeyguardManager::class.java)
   }
 
-  private fun doLoad() {
+  private fun doLoad(toast: Boolean = false) {
     // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
       return
     }
 
     if (!keyguardManager.isKeyguardSecure) {
-      showToast(this, R.string.biometric_unsupported)
+      if (toast) {
+        showToast(this, R.string.biometric_unsupported)
+      }
       return
     }
 
@@ -431,7 +451,9 @@ class OnePwd
     val msgStr = pref.getString(KEY_MASTER_ENCRYPTED, "")
     val ivStr = pref.getString(KEY_IV, "")
     if (msgStr == "" || ivStr == "") {
-      showToast(this, R.string.load_empty)
+      if (toast) {
+        showToast(this, R.string.load_empty)
+      }
       return
     }
 
@@ -441,14 +463,18 @@ class OnePwd
       msg = Base64.decode(msgStr, Base64.DEFAULT)
       iv = Base64.decode(ivStr, Base64.DEFAULT)
     } catch(e: IllegalArgumentException) {
-      showToast(this, R.string.load_empty)
+      if (toast) {
+        showToast(this, R.string.load_empty)
+      }
       return
     }
 
     try {
       val initCipher = decryptionCipher(KEY_STORE_KEY, iv)
       if (initCipher == null) {
-        showToast(this, R.string.load_empty)
+        if (toast) {
+          showToast(this, R.string.load_empty)
+        }
         return
       }
 
@@ -457,8 +483,8 @@ class OnePwd
           initCipher) { cipher ->
             if (cipher != null) {
               loadedMaster = String(cipher.doFinal(msg))
+              setMasterHint()
               if (!loadedMaster.isEmpty()) {
-                master?.setHint(getString(R.string.hint_master_loaded))
                 master?.setText("")
               }
               showToast(this, R.string.load_succeed)
@@ -468,10 +494,14 @@ class OnePwd
           }
       helper.execute()
     } catch(e: KeyPermanentlyInvalidatedException) {
-      showToast(this, R.string.biometric_invalid)
+      if (toast) {
+        showToast(this, R.string.biometric_invalid)
+      }
       return
     } catch(e: InvalidAlgorithmParameterException) {
-      showToast(this, R.string.biometric_unset)
+      if (toast) {
+        showToast(this, R.string.biometric_unset)
+      }
       return
     }
   }

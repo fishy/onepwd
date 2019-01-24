@@ -3,9 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="@string/pref_tag_bio"
     >
-  <Preference
-      android:enabled="false"
-      android:summary="@string/pref_desc_bio_title"
+  <SwitchPreference
+      android:defaultValue="true"
+      android:key="bio_autoload"
+      android:title="@string/pref_title_bio_autoload"
+      android:summary="@string/pref_desc_bio_autoload"
     />
   <SwitchPreference
       android:defaultValue="true"

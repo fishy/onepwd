@@ -21,6 +21,8 @@ public class SettingsActivity
   companion object {
     private const val KEY_SETTINGS_INTENT = "dummy_settings_intent"
 
+    public const val KEY_BIO_AUTOLOAD = "bio_autoload"
+    public const val DEFAULT_BIO_AUTOLOAD = true
     public const val KEY_BIO_INVALIDATE = "bio_invalidate"
     public const val DEFAULT_BIO_INVALIDATE = true
     public const val KEY_PREFILL_USAGE = "prefill_usage"
