@@ -645,6 +645,11 @@ class OnePwd
           executor,
           object : BiometricPrompt.AuthenticationCallback() {
 
+            override fun onAuthenticationError(code: Int, msg: CharSequence) {
+              sema?.release()
+              super.onAuthenticationError(code, msg)
+            }
+
             override fun onAuthenticationSucceeded(
               res: BiometricPrompt.AuthenticationResult
             ) {
