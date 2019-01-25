@@ -13,16 +13,20 @@ class LengthsPreferenceFragment : BasePreferenceFragment() {
     setHasOptionsMenu(true)
 
     SettingsActivity.bindPreferenceSummaryToInt(
-        findPreference(SettingsActivity.KEY_LENGTH1),
-        SettingsActivity.DEFAULT_LENGTH1)
+      findPreference(SettingsActivity.KEY_LENGTH1),
+      SettingsActivity.DEFAULT_LENGTH1
+    )
     SettingsActivity.bindPreferenceSummaryToInt(
-        findPreference(SettingsActivity.KEY_LENGTH2),
-        SettingsActivity.DEFAULT_LENGTH2)
+      findPreference(SettingsActivity.KEY_LENGTH2),
+      SettingsActivity.DEFAULT_LENGTH2
+    )
     SettingsActivity.bindPreferenceSummaryToInt(
-        findPreference(SettingsActivity.KEY_LENGTH3),
-        SettingsActivity.DEFAULT_LENGTH3)
+      findPreference(SettingsActivity.KEY_LENGTH3),
+      SettingsActivity.DEFAULT_LENGTH3
+    )
     SettingsActivity.bindPreferenceSummaryToInt(
-        findPreference(SettingsActivity.KEY_LENGTH4),
-        SettingsActivity.DEFAULT_LENGTH4)
+      findPreference(SettingsActivity.KEY_LENGTH4),
+      SettingsActivity.DEFAULT_LENGTH4
+    )
   }
 }

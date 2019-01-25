@@ -13,7 +13,8 @@ class ServicePreferenceFragment : BasePreferenceFragment() {
     setHasOptionsMenu(true)
 
     SettingsActivity.bindPreferenceSummaryToBoolean(
-        findPreference(SettingsActivity.KEY_USE_SERVICE),
-        SettingsActivity.DEFAULT_USE_SERVICE)
+      findPreference(SettingsActivity.KEY_USE_SERVICE),
+      SettingsActivity.DEFAULT_USE_SERVICE
+    )
   }
 }

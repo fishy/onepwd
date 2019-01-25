@@ -13,8 +13,9 @@ import androidx.preference.PreferenceManager
 import com.yhsif.onepwd.OnePwd
 import com.yhsif.onepwd.R
 
-public class SettingsActivity
-: AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+public class SettingsActivity :
+  AppCompatActivity(),
+  PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
 
   companion object {
     private const val KEY_SETTINGS_INTENT = "dummy_settings_intent"
@@ -90,8 +91,8 @@ public class SettingsActivity
       prefBinder.onPreferenceChange(
           preference,
           PreferenceManager
-              .getDefaultSharedPreferences(preference.getContext())
-              .getString(preference.getKey(), ""))
+            .getDefaultSharedPreferences(preference.getContext())
+            .getString(preference.getKey(), ""))
     }
 
     fun bindPreferenceSummaryToInt(
@@ -100,10 +101,11 @@ public class SettingsActivity
     ) {
       preference.setOnPreferenceChangeListener(prefBinder)
       prefBinder.onPreferenceChange(
-          preference,
-          PreferenceManager
-              .getDefaultSharedPreferences(preference.getContext())
-              .getInt(preference.getKey(), defaultValue))
+        preference,
+        PreferenceManager
+          .getDefaultSharedPreferences(preference.getContext())
+          .getInt(preference.getKey(), defaultValue)
+      )
     }
 
     fun bindPreferenceSummaryToBoolean(
@@ -112,20 +114,22 @@ public class SettingsActivity
     ) {
       preference.setOnPreferenceChangeListener(prefBinder)
       prefBinder.onPreferenceChange(
-          preference,
-          PreferenceManager
-              .getDefaultSharedPreferences(preference.getContext())
-              .getBoolean(preference.getKey(), defaultValue))
+        preference,
+        PreferenceManager
+          .getDefaultSharedPreferences(preference.getContext())
+          .getBoolean(preference.getKey(), defaultValue)
+      )
     }
 
     fun sortLengths(pref: SharedPreferences) {
       val lengths = mutableListOf<Int>()
       val keys = listOf(KEY_LENGTH1, KEY_LENGTH2, KEY_LENGTH3, KEY_LENGTH4)
       val defaults = listOf(
-          DEFAULT_LENGTH1,
-          DEFAULT_LENGTH2,
-          DEFAULT_LENGTH3,
-          DEFAULT_LENGTH4)
+        DEFAULT_LENGTH1,
+        DEFAULT_LENGTH2,
+        DEFAULT_LENGTH3,
+        DEFAULT_LENGTH4
+      )
       for (i in 0 until 4) {
         lengths.add(pref.getInt(keys[i], defaults[i]))
       }
@@ -146,7 +150,8 @@ public class SettingsActivity
 
     if (savedInstanceState == null) {
       var frag = getSupportFragmentManager().findFragmentByTag(
-          PrefsFragment.FRAGMENT_TAG)
+        PrefsFragment.FRAGMENT_TAG
+      )
       if (frag == null) {
         frag = PrefsFragment()
       }
@@ -182,7 +187,9 @@ public class SettingsActivity
       val key = pref.getKey()
       val args = Bundle()
       args.putString(
-          PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, key)
+        PreferenceFragmentCompat.ARG_PREFERENCE_ROOT,
+        key
+      )
       val frag: BasePreferenceFragment? =
         when (key) {
           getString(R.string.pref_tag_about) -> AboutPreferenceFragment()

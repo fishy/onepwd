@@ -32,7 +32,12 @@ object HmacMd5 {
       iKeyBuf[i] = (I_KEY_PAD.toInt() xor keys[i].toInt()).toByte()
     }
     System.arraycopy(
-        message.toByteArray(), 0, iKeyBuf, BLOCK_SIZE, message.length)
+      message.toByteArray(),
+      0,
+      iKeyBuf,
+      BLOCK_SIZE,
+      message.length
+    )
     System.arraycopy(md5(iKeyBuf), 0, oKeyBuf, BLOCK_SIZE, HASH_SIZE)
     return md5(oKeyBuf)
   }

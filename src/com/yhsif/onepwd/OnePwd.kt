@@ -46,8 +46,12 @@ import androidx.preference.PreferenceManager
 
 import com.yhsif.onepwd.settings.SettingsActivity
 
-class OnePwd
-: AppCompatActivity(), View.OnClickListener, View.OnFocusChangeListener, TextView.OnEditorActionListener, RadioGroup.OnCheckedChangeListener {
+class OnePwd :
+  AppCompatActivity(),
+  View.OnClickListener,
+  View.OnFocusChangeListener,
+  TextView.OnEditorActionListener,
+  RadioGroup.OnCheckedChangeListener {
 
   companion object {
     private const val ANDROID_KEY_STORE = "AndroidKeyStore"
@@ -63,10 +67,11 @@ class OnePwd
     private const val PKG_SELF = "com.yhsif.onepwd"
 
     private val CHROME_PACKAGES = setOf(
-        "com.chrome.canary",  // canary
-        "com.chrome.dev",     // dev
-        "com.chrome.beta",    // beta
-        "com.android.chrome") // stable
+      "com.chrome.canary",  // canary
+      "com.chrome.dev",     // dev
+      "com.chrome.beta",    // beta
+      "com.android.chrome"  // stable
+    )
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
     fun showToast(ctx: Context, text: String) {
@@ -75,7 +80,8 @@ class OnePwd
         // Put the icon on the right
         tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_round, 0)
         tv.setCompoundDrawablePadding(
-            ctx.getResources().getDimensionPixelSize(R.dimen.toast_padding))
+          ctx.getResources().getDimensionPixelSize(R.dimen.toast_padding)
+        )
       }
       toast.show()
     }
@@ -85,14 +91,17 @@ class OnePwd
     }
 
     fun showNotification(ctx: Context) = showNotification(
-        ctx,
-        PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(
-            SettingsActivity.KEY_USE_SERVICE,
-            SettingsActivity.DEFAULT_USE_SERVICE))
+      ctx,
+      PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(
+        SettingsActivity.KEY_USE_SERVICE,
+        SettingsActivity.DEFAULT_USE_SERVICE
+      )
+    )
 
     fun showNotification(ctx: Context, show: Boolean) {
       val manager = ctx.getSystemService(
-          Context.NOTIFICATION_SERVICE) as NotificationManager
+        Context.NOTIFICATION_SERVICE
+      ) as NotificationManager
       if (!show) {
         manager.cancel(NOTIFICATION_ID)
         return
@@ -110,9 +119,10 @@ class OnePwd
         // Lazy create the notification channel
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
           val channel = NotificationChannel(
-              CHANNEL_ID,
-              ctx.getString(R.string.channel_name),
-              NotificationManager.IMPORTANCE_MIN)
+            CHANNEL_ID,
+            ctx.getString(R.string.channel_name),
+            NotificationManager.IMPORTANCE_MIN
+          )
           channel.setDescription(ctx.getString(R.string.channel_desc))
           channel.setShowBadge(false)
           manager.createNotificationChannel(channel)
@@ -188,10 +198,11 @@ class OnePwd
     password = findViewById<TextView>(R.id.password)
 
     radioButtons = listOf(
-        findViewById<RadioButton>(R.id.length1),
-        findViewById<RadioButton>(R.id.length2),
-        findViewById<RadioButton>(R.id.length3),
-        findViewById<RadioButton>(R.id.length4))
+      findViewById<RadioButton>(R.id.length1),
+      findViewById<RadioButton>(R.id.length2),
+      findViewById<RadioButton>(R.id.length3),
+      findViewById<RadioButton>(R.id.length4)
+    )
     checkedIndex = radioButtons.size - 1
     checkedLength = radioButtons[checkedIndex]
 
@@ -214,21 +225,29 @@ class OnePwd
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     SettingsActivity.sortLengths(pref)
     radioButtons[0].setText(
-        pref.getInt(
-            SettingsActivity.KEY_LENGTH1,
-            SettingsActivity.DEFAULT_LENGTH1).toString(10))
+      pref.getInt(
+        SettingsActivity.KEY_LENGTH1,
+        SettingsActivity.DEFAULT_LENGTH1
+      ).toString(10)
+    )
     radioButtons[1].setText(
-        pref.getInt(
-            SettingsActivity.KEY_LENGTH2,
-            SettingsActivity.DEFAULT_LENGTH2).toString(10))
+      pref.getInt(
+        SettingsActivity.KEY_LENGTH2,
+        SettingsActivity.DEFAULT_LENGTH2
+      ).toString(10)
+    )
     radioButtons[2].setText(
-        pref.getInt(
-            SettingsActivity.KEY_LENGTH3,
-            SettingsActivity.DEFAULT_LENGTH3).toString(10))
+      pref.getInt(
+        SettingsActivity.KEY_LENGTH3,
+        SettingsActivity.DEFAULT_LENGTH3
+      ).toString(10)
+    )
     radioButtons[3].setText(
-        pref.getInt(
-            SettingsActivity.KEY_LENGTH4,
-            SettingsActivity.DEFAULT_LENGTH4).toString(10))
+      pref.getInt(
+        SettingsActivity.KEY_LENGTH4,
+        SettingsActivity.DEFAULT_LENGTH4
+      ).toString(10)
+    )
 
     val defaultIndex = radioButtons.size - 1
     var index =
@@ -251,8 +270,9 @@ class OnePwd
 
     setMasterHint()
     if (pref.getBoolean(
-        SettingsActivity.KEY_BIO_AUTOLOAD,
-        SettingsActivity.DEFAULT_BIO_AUTOLOAD)) {
+      SettingsActivity.KEY_BIO_AUTOLOAD,
+      SettingsActivity.DEFAULT_BIO_AUTOLOAD
+    )) {
       doLoad(false)
     }
 
@@ -274,15 +294,15 @@ class OnePwd
   override fun onFocusChange(v: View, hasFocus: Boolean) {
     if (hasFocus) {
       when (v.getId()) {
-        master!!.getId() -> {
-          if (site!!.getText().toString().trim().isEmpty()) {
+        master?.getId() -> {
+          if (site?.getText().toString().trim().isEmpty()) {
             master?.setImeOptions(EditorInfo.IME_ACTION_NEXT)
           } else {
             master?.setImeOptions(EditorInfo.IME_ACTION_SEND)
           }
         }
-        site!!.getId() -> {
-          if (master!!.getText().toString().isEmpty()) {
+        site?.getId() -> {
+          if (master?.getText().toString().isEmpty()) {
             site?.setImeOptions(EditorInfo.IME_ACTION_NEXT)
           } else {
             site?.setImeOptions(EditorInfo.IME_ACTION_SEND)
@@ -335,35 +355,38 @@ class OnePwd
     site?.setText(siteKey)
     val array = HmacMd5.hmac(masterKey, siteKey)
     val value =
-        Base64.encodeToString(array, Base64.URL_SAFE or Base64.NO_PADDING)
-            .replace("-", "")
-            .replace("_", "")
-            .substring(0, length)
+      Base64.encodeToString(array, Base64.URL_SAFE or Base64.NO_PADDING)
+        .replace("-", "")
+        .replace("_", "")
+        .substring(0, length)
 
     password?.setText(value)
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     if (pref.getBoolean(
-        SettingsActivity.KEY_COPY_CLIPBOARD,
-        SettingsActivity.DEFAULT_COPY_CLIPBOARD)) {
+      SettingsActivity.KEY_COPY_CLIPBOARD,
+      SettingsActivity.DEFAULT_COPY_CLIPBOARD
+    )) {
       val clip = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
       val clipData = ClipData.newPlainText("", value)
       clip.setPrimaryClip(clipData)
       showToast(this, R.string.clip_toast)
       val time = pref.getString(
-          SettingsActivity.KEY_CLEAR_CLIPBOARD,
-          SettingsActivity.DEFAULT_CLEAR_CLIPBOARD)!!.toLong()
-      if (time > 0) {
+        SettingsActivity.KEY_CLEAR_CLIPBOARD,
+        SettingsActivity.DEFAULT_CLEAR_CLIPBOARD
+      )?.toLong()
+      if (time != null && time > 0) {
         Handler().postDelayed(
-            Runnable() {
-              if (clip.hasPrimaryClip()) {
-                val item = clip.getPrimaryClip()?.getItemAt(0)
-                if (item?.getText().toString() == value) {
-                  clip.setPrimaryClip(EMPTY_CLIP)
-                  showToast(this@OnePwd, R.string.clear_clip_toast)
-                }
+          Runnable() {
+            if (clip.hasPrimaryClip()) {
+              val item = clip.getPrimaryClip()?.getItemAt(0)
+              if (item?.getText().toString() == value) {
+                clip.setPrimaryClip(EMPTY_CLIP)
+                showToast(this@OnePwd, R.string.clear_clip_toast)
               }
-            },
-            time * 1000)
+            }
+          },
+          time * 1000
+        )
       }
     }
   }
@@ -371,8 +394,9 @@ class OnePwd
   private fun getSiteKeyFromForegroundApp(): String {
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     if (!pref.getBoolean(
-        SettingsActivity.KEY_PREFILL_USAGE,
-        SettingsActivity.DEFAULT_PREFILL_USAGE)) {
+      SettingsActivity.KEY_PREFILL_USAGE,
+      SettingsActivity.DEFAULT_PREFILL_USAGE
+    )) {
       return ""
     }
 
@@ -393,7 +417,10 @@ class OnePwd
     val manager = getSystemService(USAGE_STATS_SERVICE) as UsageStatsManager
     val time = System.currentTimeMillis()
     val apps = manager.queryUsageStats(
-        UsageStatsManager.INTERVAL_DAILY, time - USAGE_TIMEFRAME, time)
+      UsageStatsManager.INTERVAL_DAILY,
+      time - USAGE_TIMEFRAME,
+      time
+    )
     var max: Long = 0
     var result: String = ""
     if (apps != null) {
@@ -433,7 +460,7 @@ class OnePwd
     getSystemService(KeyguardManager::class.java)
   }
 
-  private fun doLoad(toast: Boolean = false) {
+  private fun doLoad(toast: Boolean) {
     // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
       return
@@ -478,19 +505,20 @@ class OnePwd
       }
 
       val helper = BioAuthHelper(
-          R.string.load_title,
-          initCipher) { cipher ->
-            if (cipher != null) {
-              loadedMaster = String(cipher.doFinal(msg))
-              setMasterHint()
-              if (!loadedMaster.isEmpty()) {
-                master?.setText("")
-              }
-              showToast(this, R.string.load_succeed)
-            } else {
-              showToast(this, R.string.load_empty_or_canceled)
-            }
+        R.string.load_title,
+        initCipher
+      ) { cipher ->
+        if (cipher != null) {
+          loadedMaster = String(cipher.doFinal(msg))
+          setMasterHint()
+          if (!loadedMaster.isEmpty()) {
+            master?.setText("")
           }
+          showToast(this, R.string.load_succeed)
+        } else {
+          showToast(this, R.string.load_empty_or_canceled)
+        }
+      }
       helper.execute()
     } catch (e: KeyPermanentlyInvalidatedException) {
       if (toast) {
@@ -522,34 +550,36 @@ class OnePwd
     }
 
     val invalidate = PreferenceManager
-        .getDefaultSharedPreferences(this)
-        .getBoolean(
-            SettingsActivity.KEY_BIO_INVALIDATE,
-            SettingsActivity.DEFAULT_BIO_INVALIDATE)
+      .getDefaultSharedPreferences(this)
+      .getBoolean(
+        SettingsActivity.KEY_BIO_INVALIDATE,
+        SettingsActivity.DEFAULT_BIO_INVALIDATE
+      )
 
     try {
       val helper = BioAuthHelper(
-          R.string.store_title,
-          encryptionCipher(KEY_STORE_KEY, invalidate)) { cipher ->
-            if (cipher != null) {
-              val message = cipher.doFinal(
-                  masterKey.toByteArray(charset("UTF-8")))
-              val iv = cipher
-                .getParameters()
-                .getParameterSpec(IvParameterSpec::class.java)
-                .iv
+        R.string.store_title,
+        encryptionCipher(KEY_STORE_KEY, invalidate)
+      ) { cipher ->
+        if (cipher != null) {
+          val message = cipher.doFinal(
+              masterKey.toByteArray(charset("UTF-8")))
+          val iv = cipher
+            .getParameters()
+            .getParameterSpec(IvParameterSpec::class.java)
+            .iv
 
-              val msgStr = Base64.encodeToString(message, Base64.DEFAULT)
-              val ivStr = Base64.encodeToString(iv, Base64.DEFAULT)
+          val msgStr = Base64.encodeToString(message, Base64.DEFAULT)
+          val ivStr = Base64.encodeToString(iv, Base64.DEFAULT)
 
-              getSharedPreferences(PREF, 0).edit().let { editor ->
-                editor.putString(KEY_MASTER_ENCRYPTED, msgStr)
-                editor.putString(KEY_IV, ivStr)
-                editor.commit()
-              }
-              showToast(this, R.string.store_succeed)
-            }
+          getSharedPreferences(PREF, 0).edit().let { editor ->
+            editor.putString(KEY_MASTER_ENCRYPTED, msgStr)
+            editor.putString(KEY_IV, ivStr)
+            editor.commit()
           }
+          showToast(this, R.string.store_succeed)
+        }
+      }
       helper.execute()
     } catch (e: InvalidAlgorithmParameterException) {
       showToast(this, R.string.biometric_unset)
@@ -559,9 +589,10 @@ class OnePwd
 
   private fun createCipher(): Cipher {
     return Cipher.getInstance(
-        KeyProperties.KEY_ALGORITHM_AES + "/" +
-        KeyProperties.BLOCK_MODE_CBC + "/" +
-        KeyProperties.ENCRYPTION_PADDING_PKCS7)
+      KeyProperties.KEY_ALGORITHM_AES + "/" +
+      KeyProperties.BLOCK_MODE_CBC + "/" +
+      KeyProperties.ENCRYPTION_PADDING_PKCS7
+    )
   }
 
   private fun encryptionCipher(name: String, invalidate: Boolean): Cipher {
@@ -583,7 +614,7 @@ class OnePwd
   private fun getKey(name: String): SecretKey? {
     val store = KeyStore.getInstance(ANDROID_KEY_STORE)
     store.load(null)
-    return store.getKey(name, null) as SecretKey?
+    return store.getKey(name, null) as? SecretKey
   }
 
   private fun deleteKey(name: String) {
@@ -596,8 +627,9 @@ class OnePwd
     deleteKey(name)
 
     val builder = KeyGenParameterSpec.Builder(
-        name,
-        KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT)
+      name,
+      KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+    )
     builder.apply {
       setBlockModes(KeyProperties.BLOCK_MODE_CBC)
       setUserAuthenticationRequired(true)
@@ -606,8 +638,9 @@ class OnePwd
     }
 
     KeyGenerator.getInstance(
-        KeyProperties.KEY_ALGORITHM_AES,
-        ANDROID_KEY_STORE).apply {
+      KeyProperties.KEY_ALGORITHM_AES,
+      ANDROID_KEY_STORE
+    ).apply {
       init(builder.build())
       generateKey()
     }
@@ -629,34 +662,36 @@ class OnePwd
       builder = BiometricPrompt.Builder(this@OnePwd)
         .setTitle(getString(title))
         .setNegativeButton(
-            getString(android.R.string.cancel),
-            executor,
-            DialogInterface.OnClickListener() { _: DialogInterface?, _: Int? ->
-              sema?.release()
-            })
+          getString(android.R.string.cancel),
+          executor,
+          DialogInterface.OnClickListener() { _: DialogInterface?, _: Int? ->
+            sema?.release()
+          }
+        )
     }
 
     override fun doInBackground(vararg p0: Unit): Cipher? {
       var cipher: Cipher? = null
       sema?.acquire()
       builder?.build()?.authenticate(
-          BiometricPrompt.CryptoObject(initCipher),
-          CancellationSignal(),
-          executor,
-          object : BiometricPrompt.AuthenticationCallback() {
+        BiometricPrompt.CryptoObject(initCipher),
+        CancellationSignal(),
+        executor,
+        object : BiometricPrompt.AuthenticationCallback() {
 
-            override fun onAuthenticationError(code: Int, msg: CharSequence) {
-              sema?.release()
-              super.onAuthenticationError(code, msg)
-            }
+          override fun onAuthenticationError(code: Int, msg: CharSequence) {
+            sema?.release()
+            super.onAuthenticationError(code, msg)
+          }
 
-            override fun onAuthenticationSucceeded(
-              res: BiometricPrompt.AuthenticationResult
-            ) {
-              cipher = res.getCryptoObject().getCipher()
-              sema?.release()
-            }
-          })
+          override fun onAuthenticationSucceeded(
+            res: BiometricPrompt.AuthenticationResult
+          ) {
+            cipher = res.getCryptoObject().getCipher()
+            sema?.release()
+          }
+        }
+      )
       sema?.acquire()
       return cipher
     }

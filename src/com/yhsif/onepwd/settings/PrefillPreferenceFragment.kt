@@ -13,7 +13,8 @@ class PrefillPreferenceFragment : BasePreferenceFragment() {
     setHasOptionsMenu(true)
 
     SettingsActivity.bindPreferenceSummaryToBoolean(
-        findPreference(SettingsActivity.KEY_PREFILL_USAGE),
-        SettingsActivity.DEFAULT_PREFILL_USAGE)
+      findPreference(SettingsActivity.KEY_PREFILL_USAGE),
+      SettingsActivity.DEFAULT_PREFILL_USAGE
+    )
   }
 }

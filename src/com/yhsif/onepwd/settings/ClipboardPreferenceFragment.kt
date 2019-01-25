@@ -13,9 +13,11 @@ class ClipboardPreferenceFragment : BasePreferenceFragment() {
     setHasOptionsMenu(true)
 
     SettingsActivity.bindPreferenceSummaryToBoolean(
-        findPreference(SettingsActivity.KEY_COPY_CLIPBOARD),
-        SettingsActivity.DEFAULT_COPY_CLIPBOARD)
+      findPreference(SettingsActivity.KEY_COPY_CLIPBOARD),
+      SettingsActivity.DEFAULT_COPY_CLIPBOARD
+    )
     SettingsActivity.bindPreferenceSummaryToString(
-        findPreference(SettingsActivity.KEY_CLEAR_CLIPBOARD))
+      findPreference(SettingsActivity.KEY_CLEAR_CLIPBOARD)
+    )
   }
 }

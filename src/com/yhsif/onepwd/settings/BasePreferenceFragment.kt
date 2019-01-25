@@ -21,7 +21,9 @@ abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
       val frag = LengthDialog.newInstance(pref)
       frag.setTargetFragment(this, 0)
       frag.show(
-          getFragmentManager(), "androidx.preference.PreferenceFragment.DIALOG")
+        getFragmentManager(),
+        "androidx.preference.PreferenceFragment.DIALOG"
+      )
     } else {
       super.onDisplayPreferenceDialog(pref)
     }
