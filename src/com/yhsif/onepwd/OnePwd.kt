@@ -654,33 +654,28 @@ class OnePwd :
     val callback: (Cipher?) -> Unit
   ) : AsyncTask<Unit, Unit, Cipher?>() {
 
-    private var sema: Semaphore? = null
-    private var builder: BiometricPrompt.Builder? = null
-
-    override fun onPreExecute() {
-      sema = Semaphore(1)
-      builder = BiometricPrompt.Builder(this@OnePwd)
-        .setTitle(getString(title))
-        .setNegativeButton(
-          getString(android.R.string.cancel),
-          executor,
-          DialogInterface.OnClickListener() { _: DialogInterface?, _: Int? ->
-            sema?.release()
-          }
-        )
-    }
+    private val sema = Semaphore(1)
+    private var builder = BiometricPrompt.Builder(this@OnePwd)
+      .setTitle(getString(title))
+      .setNegativeButton(
+        getString(android.R.string.cancel),
+        executor,
+        DialogInterface.OnClickListener() { _: DialogInterface?, _: Int? ->
+          sema.release()
+        }
+      )
 
     override fun doInBackground(vararg p0: Unit): Cipher? {
       var cipher: Cipher? = null
-      sema?.acquire()
-      builder?.build()?.authenticate(
+      sema.acquire()
+      builder.build().authenticate(
         BiometricPrompt.CryptoObject(initCipher),
         CancellationSignal(),
         executor,
         object : BiometricPrompt.AuthenticationCallback() {
 
           override fun onAuthenticationError(code: Int, msg: CharSequence) {
-            sema?.release()
+            sema.release()
             super.onAuthenticationError(code, msg)
           }
 
@@ -688,11 +683,11 @@ class OnePwd :
             res: BiometricPrompt.AuthenticationResult
           ) {
             cipher = res.getCryptoObject().getCipher()
-            sema?.release()
+            sema.release()
           }
         }
       )
-      sema?.acquire()
+      sema.acquire()
       return cipher
     }
 
