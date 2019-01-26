@@ -110,10 +110,12 @@ class OnePwd :
           !manager.areNotificationsEnabled()) {
         return
       }
-      val existing = manager.getActiveNotifications()
-      if ((existing?.size ?: 0) > 0) {
-        // Already has the notification
-        return
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        val existing = manager.getActiveNotifications()
+        if ((existing?.size ?: 0) > 0) {
+          // Already has the notification
+          return
+        }
       }
       val channelId: String by lazy {
         // Lazy create the notification channel
