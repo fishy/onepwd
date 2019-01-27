@@ -14,12 +14,12 @@
   <string name="hint_master_loaded">(Loaded MasterKey)</string>
   <string name="hint_site">(e.g. \"google\", \"facebook\")</string>
   <string name="hint_password">
-    "(Click \"Generate\" below to get your password)"
+    (Click \"Generate\" to get your password)
   </string>
   <string name="ticker">Click to generate password</string>
   <string name="chrome_toast">
-    "Looks like you are using Chrome."
-    "\nTry share the URL to OneKey to get your SiteKey prefilled."
+    Looks like you are using Chrome.
+    Try share the URL to OneKey to get your SiteKey prefilled.
   </string>
   <string name="clip_toast">Generated password copied to clipboard.</string>
   <string name="clear_clip_toast">Clipboard cleared.</string>
@@ -28,14 +28,14 @@
 
   <!-- Biometric -->
   <string name="biometric_unsupported">
-    "This device does not support necessary biometric features or is not locked."
+    This device does not support necessary biometric features or is not locked.
   </string>
   <string name="biometric_unset">
-    "You did not setup any biometric security on this device."
+    You did not setup any biometric security on this device.
   </string>
   <string name="biometric_invalid">
-    "The stored key was invalidated because of biometric changes on this device."
-    "\nPlease store a new MasterKey."
+    The stored key was invalidated because of biometric changes on this device.
+    Please store a new MasterKey.
   </string>
   <string name="store_title">Store MasterKey</string>
   <string name="store_succeed">Successfully stored your MasterKey.</string>
@@ -44,13 +44,13 @@
   <string name="load_succeed">Successfully loaded your MasterKey.</string>
   <string name="load_empty">You do not have a MasterKey stored.</string>
   <string name="load_empty_or_canceled">
-    "You do not have a MasterKey stored, or biometric process canceled."
+    You do not have a MasterKey stored, or biometric process canceled.
   </string>
 
   <!-- Notification channel -->
   <string name="channel_name">Quick access</string>
   <string name="channel_desc">
-    The notification for quick access to OneKey app
+    The notification for quick access to OneKey app.
   </string>
 
   <!-- Preference tags -->
@@ -73,10 +73,10 @@
   <!-- Bio preference -->
   <string name="pref_title_bio_autoload">Load MasterKey on start-up.</string>
   <string name="pref_desc_bio_autoload">
-    "Try to auto load stored MasterKey on app start-up."
+    Try to auto load stored MasterKey on app start-up.
   </string>
   <string name="pref_title_bio_invalidate">
-    "Invalidate by Biometric Enrollment"
+    Invalidate by Biometric Enrollment
   </string>
   <string name="pref_desc_bio_invalidate">
     "Invalidate the stored MasterKey when new biometric (fingerprint) is"
@@ -85,24 +85,20 @@
   </string>
 
   <!-- Prefill preference -->
-  <string name="pref_title_usage">
-    "From current app"
-  </string>
+  <string name="pref_title_usage">From current app</string>
   <string name="pref_desc_usage_yes">
-    "Try to prefill the sitekey from"
-    "the package name of the last running app."
-    "\nThis is just a best guess, please use with caution."
+    Try to prefill the sitekey from the package name of the last running app.
+    This is just a best guess, please use with caution.
   </string>
   <string name="pref_desc_usage_no">
-    "Only prefill the sitekey when sharing URL to OneKey."
+    Only prefill the sitekey when sharing URL to OneKey.
   </string>
   <string name="pref_title_permission_usage">
-    "Grant OneKey permission"
+    Grant OneKey permission
   </string>
   <string name="pref_desc_permission_usage">
-    "Click here to go to Usage Access System Settings."
-    "\nOneKey needs this permission in order to"
-    "prefill sitekey from current app."
+    Click here to go to Usage Access System Settings.
+    OneKey needs this permission in order to prefill sitekey from current app.
   </string>
   <string name="pref_desc_prefill_share">
     "ProTip: You can always just share the URL from browser to OneKey to"
@@ -110,12 +106,9 @@
   </string>
 
   <!-- Clipboard preference -->
-  <string name="pref_title_copy_clipboard">
-    "Auto clipboard"
-  </string>
+  <string name="pref_title_copy_clipboard">Auto clipboard</string>
   <string name="pref_desc_copy_clipboard_yes">
-    "Copy generated password to clipboard"
-    "when you click the \"Generate\" button."
+    Copy generated password to clipboard when you click the \"Generate\" button.
   </string>
   <string name="pref_desc_copy_clipboard_no">
     "Do not copy generated password to clipboard"
@@ -141,13 +134,13 @@
   <string name="pref_title_length3">Length 3</string>
   <string name="pref_title_length4">Length 4</string>
   <string name="pref_desc_length">
-    "ProTip: You don't have to keep them sorted."
+    ProTip: You don\'t have to keep them sorted.
   </string>
 
   <!-- Service preference -->
   <string name="pref_title_service">Show notification</string>
   <string name="pref_desc_service">
-    "Show a notification to quickly access OneKey."
+    Show a notification to quickly access OneKey.
   </string>
   <string name="pref_desc_service_tip">
     "ProTip: If you are on Nougat or newer,"
@@ -163,6 +156,6 @@
     "https://github.com/tension7/One-Password/."
   </string>
   <string name="credit_icon">
-    "App icon was originally made by SimpleIcon, used under CC 3.0 BY."
+    App icon was originally made by SimpleIcon, used under CC 3.0 BY.
   </string>
 </resources>
