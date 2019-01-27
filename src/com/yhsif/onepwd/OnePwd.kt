@@ -78,8 +78,13 @@ class OnePwd :
     fun showToast(ctx: Context, text: String) {
       val toast = Toast.makeText(ctx, text, Toast.LENGTH_LONG)
       toast.getView()?.findViewById<TextView>(android.R.id.message)?.let { tv ->
-        // Put the icon on the right
-        tv.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.mipmap.icon_round, 0)
+        val iconSize = ctx.getResources()
+          .getDimensionPixelSize(R.dimen.toast_icon_size)
+        val icon = ctx.getDrawable(R.mipmap.icon_round)
+        icon?.setBounds(0, 0, iconSize, iconSize)
+
+        // App icon on the right
+        tv.setCompoundDrawables(null, null, icon, null)
         tv.setCompoundDrawablePadding(
           ctx.getResources().getDimensionPixelSize(R.dimen.toast_padding)
         )
