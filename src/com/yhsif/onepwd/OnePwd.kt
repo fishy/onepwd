@@ -12,7 +12,6 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.IvParameterSpec
 
 import android.app.KeyguardManager
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -42,6 +41,8 @@ import android.widget.TextView
 import android.widget.Toast
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
 
 import com.yhsif.onepwd.settings.SettingsActivity
@@ -99,23 +100,13 @@ class OnePwd :
     )
 
     fun showNotification(ctx: Context, show: Boolean) {
-      val manager = ctx.getSystemService(
-        Context.NOTIFICATION_SERVICE
-      ) as NotificationManager
+      val manager = NotificationManagerCompat.from(ctx)
       if (!show) {
         manager.cancel(NOTIFICATION_ID)
         return
       }
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N &&
-          !manager.areNotificationsEnabled()) {
+      if (!manager.areNotificationsEnabled()) {
         return
-      }
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        val existing = manager.getActiveNotifications()
-        if ((existing?.size ?: 0) > 0) {
-          // Already has the notification
-          return
-        }
       }
       val channelId: String by lazy {
         // Lazy create the notification channel
@@ -127,32 +118,25 @@ class OnePwd :
           )
           channel.setDescription(ctx.getString(R.string.channel_desc))
           channel.setShowBadge(false)
-          manager.createNotificationChannel(channel)
+          val notifManager = ctx.getSystemService(
+            Context.NOTIFICATION_SERVICE) as NotificationManager
+          notifManager.createNotificationChannel(channel)
         }
         CHANNEL_ID
       }
       val activity =
         PendingIntent.getActivity(ctx, 0, Intent(ctx, OnePwd::class.java), 0)
-      val notification: Notification.Builder
-      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-        notification = Notification.Builder(ctx, channelId)
-      } else {
-        @Suppress("DEPRECATION")
-        notification = Notification.Builder(ctx)
-      }
-      notification
+      val notification = NotificationCompat.Builder(ctx, channelId)
         .setSmallIcon(R.drawable.notify_icon)
         .setWhen(System.currentTimeMillis())
         .setTicker(ctx.getText(R.string.ticker))
         .setContentTitle(ctx.getText(R.string.ticker))
         .setContentIntent(activity)
-        .setCategory(Notification.CATEGORY_STATUS)
+        .setCategory(NotificationCompat.CATEGORY_STATUS)
         .setOngoing(true)
-      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-        @Suppress("DEPRECATION")
-        notification.setPriority(Notification.PRIORITY_MIN)
-      }
-      manager.notify(NOTIFICATION_ID, notification.build())
+        .setPriority(NotificationCompat.PRIORITY_MIN)
+        .build()
+      manager.notify(NOTIFICATION_ID, notification)
     }
   }
 
