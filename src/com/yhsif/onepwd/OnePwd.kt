@@ -662,7 +662,8 @@ class OnePwd :
       .setNegativeButton(
         getString(android.R.string.cancel),
         executor,
-        DialogInterface.OnClickListener() { _: DialogInterface?, _: Int? ->
+        DialogInterface.OnClickListener() { dialog, _ ->
+          dialog?.dismiss()
           sema.release()
         }
       )
