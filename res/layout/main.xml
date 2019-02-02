@@ -68,6 +68,7 @@
           android:background="@android:drawable/divider_horizontal_dark"
         />
       <TextView
+          android:id="@+id/site_key_title"
           android:text="@string/site_key"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"

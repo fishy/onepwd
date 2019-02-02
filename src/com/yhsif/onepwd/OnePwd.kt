@@ -35,6 +35,7 @@ import android.util.Base64
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -146,9 +147,10 @@ class OnePwd :
   }
 
   var lengthGroup: RadioGroup? = null
-  var master: TextView? = null
-  var site: TextView? = null
-  var password: TextView? = null
+  var master: EditText? = null
+  var siteTitle: TextView? = null
+  var site: EditText? = null
+  var password: EditText? = null
   var radioButtons: List<RadioButton> = listOf()
   var checkedLength: RadioButton? = null
   var checkedIndex: Int = 0
@@ -171,13 +173,15 @@ class OnePwd :
     lengthGroup = findViewById<RadioGroup>(R.id.length_group)
     lengthGroup?.setOnCheckedChangeListener(this)
 
-    master = findViewById<TextView>(R.id.master_key)
+    master = findViewById<EditText>(R.id.master_key)
     master?.setOnFocusChangeListener(this)
     master?.setOnEditorActionListener(this)
 
-    site = findViewById<TextView>(R.id.site_key)
+    site = findViewById<EditText>(R.id.site_key)
     site?.setOnFocusChangeListener(this)
     site?.setOnEditorActionListener(this)
+
+    siteTitle = findViewById<TextView>(R.id.site_key_title)
 
     // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -186,7 +190,7 @@ class OnePwd :
       findViewById<View>(R.id.load_store_container).setVisibility(View.GONE)
     }
 
-    password = findViewById<TextView>(R.id.password)
+    password = findViewById<EditText>(R.id.password)
 
     radioButtons = listOf(
       findViewById<RadioButton>(R.id.length1),
@@ -248,14 +252,21 @@ class OnePwd :
     }
     lengthGroup?.check(radioButtons[index].getId())
 
-    var siteKey: String = ""
+    var siteKey: SiteKeyValue = SiteKeyEmpty()
     if (getIntent()?.getAction() == Intent.ACTION_SEND) {
       siteKey = getSiteKeyFromIntent(intent)
     }
-    if (siteKey == "") {
+    if (siteKey.getKey() == "") {
       siteKey = getSiteKeyFromForegroundApp()
     }
-    site?.setText(siteKey)
+    site?.setText(siteKey.getKey())
+    val pkg = siteKey.getFull()
+    if (pkg == "") {
+      siteTitle?.setText(getString(R.string.site_key))
+    } else {
+      siteTitle?.setText(String.format(getString(R.string.site_key_tmpl), pkg))
+    }
+
     master?.setText("")
     password?.setText("")
 
@@ -382,25 +393,20 @@ class OnePwd :
     }
   }
 
-  private fun getSiteKeyFromForegroundApp(): String {
+  private fun getSiteKeyFromForegroundApp(): SiteKeyValue {
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     if (!pref.getBoolean(
       SettingsActivity.KEY_PREFILL_USAGE,
       SettingsActivity.DEFAULT_PREFILL_USAGE
     )) {
-      return ""
+      return SiteKeyEmpty()
     }
 
     getForegroundApp().let { pkg ->
       if (CHROME_PACKAGES.contains(pkg)) {
         showToast(this, R.string.chrome_toast)
       }
-
-      val segments = pkg.split(".")
-      if (segments.size > 1) {
-        return segments[1]
-      }
-      return pkg
+      return SiteKeyPackage(pkg)
     }
   }
 
@@ -430,20 +436,16 @@ class OnePwd :
     return result
   }
 
-  private fun getSiteKeyFromIntent(intent: Intent): String {
+  private fun getSiteKeyFromIntent(intent: Intent): SiteKeyValue {
     intent.getStringExtra(Intent.EXTRA_TEXT).let { url ->
       if (url.isEmpty()) {
-        return ""
+        return SiteKeyEmpty()
       }
       Uri.parse(url).getHost()?.let { host ->
-        val segments = host.split(".")
-        if (segments.size > 1) {
-          return segments[segments.size - 2]
-        }
-        return host
+        return SiteKeyHost(host)
       }
     }
-    return ""
+    return SiteKeyEmpty()
   }
 
   private val executor: Executor by lazy { Executors.newCachedThreadPool() }
