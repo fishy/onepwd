@@ -8,7 +8,7 @@
   <string name="master_key_load">(Load)</string>
   <string name="master_key_store">(Store)</string>
   <string name="site_key">SiteKey:</string>
-  <string name="site_key_tmpl">SiteKey (%1$s):</string>
+  <string name="site_full">(%1$s)</string>
   <string name="length">Length:</string>
   <string name="password">Password for you:</string>
   <string name="hint_master">(Your master password)</string>

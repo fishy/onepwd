@@ -148,8 +148,8 @@ class OnePwd :
 
   var lengthGroup: RadioGroup? = null
   var master: EditText? = null
-  var siteTitle: TextView? = null
   var site: EditText? = null
+  var siteFull: TextView? = null
   var password: EditText? = null
   var radioButtons: List<RadioButton> = listOf()
   var checkedLength: RadioButton? = null
@@ -182,7 +182,7 @@ class OnePwd :
     site?.setOnFocusChangeListener(this)
     site?.setOnEditorActionListener(this)
 
-    siteTitle = findViewById<TextView>(R.id.site_key_title)
+    siteFull = findViewById<TextView>(R.id.site_key_full)
 
     // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -261,11 +261,12 @@ class OnePwd :
       siteKey = getSiteKeyFromForegroundApp()
     }
     site?.setText(siteKey.getKey())
-    val pkg = siteKey.getFull()
-    if (pkg == "") {
-      siteTitle?.setText(getString(R.string.site_key))
+    val full = siteKey.getFull()
+    if (full == "") {
+      siteFull?.setVisibility(View.GONE)
     } else {
-      siteTitle?.setText(String.format(getString(R.string.site_key_tmpl), pkg))
+      siteFull?.setText(String.format(getString(R.string.site_full), full))
+      siteFull?.setVisibility(View.VISIBLE)
     }
 
     master?.setText("")

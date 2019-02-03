@@ -68,11 +68,19 @@
           android:background="@android:drawable/divider_horizontal_dark"
         />
       <TextView
-          android:id="@+id/site_key_title"
           android:text="@string/site_key"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textAppearance="@style/TextMedium"
+        />
+      <TextView
+          android:id="@+id/site_key_full"
+          android:text=""
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAppearance="@style/TextSmall"
+          android:singleLine="true"
+          android:enabled="false"
         />
       <EditText
           android:id="@+id/site_key"
