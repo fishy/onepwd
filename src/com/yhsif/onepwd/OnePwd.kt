@@ -159,6 +159,7 @@ class OnePwd :
   var storeButton: TextView? = null
 
   var loadedMaster: String = ""
+  var siteKey: SiteKey = SiteKey.Empty
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -252,11 +253,11 @@ class OnePwd :
     }
     lengthGroup?.check(radioButtons[index].getId())
 
-    var siteKey: SiteKeyValue = SiteKeyEmpty()
+    siteKey = SiteKey.Empty
     if (getIntent()?.getAction() == Intent.ACTION_SEND) {
       siteKey = getSiteKeyFromIntent(intent)
     }
-    if (siteKey.getKey() == "") {
+    if (siteKey == SiteKey.Empty) {
       siteKey = getSiteKeyFromForegroundApp()
     }
     site?.setText(siteKey.getKey())
@@ -393,20 +394,20 @@ class OnePwd :
     }
   }
 
-  private fun getSiteKeyFromForegroundApp(): SiteKeyValue {
+  private fun getSiteKeyFromForegroundApp(): SiteKey {
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     if (!pref.getBoolean(
       SettingsActivity.KEY_PREFILL_USAGE,
       SettingsActivity.DEFAULT_PREFILL_USAGE
     )) {
-      return SiteKeyEmpty()
+      return SiteKey.Empty
     }
 
     getForegroundApp().let { pkg ->
       if (CHROME_PACKAGES.contains(pkg)) {
         showToast(this, R.string.chrome_toast)
       }
-      return SiteKeyPackage(pkg)
+      return SiteKey.Package(pkg)
     }
   }
 
@@ -436,16 +437,16 @@ class OnePwd :
     return result
   }
 
-  private fun getSiteKeyFromIntent(intent: Intent): SiteKeyValue {
+  private fun getSiteKeyFromIntent(intent: Intent): SiteKey {
     intent.getStringExtra(Intent.EXTRA_TEXT).let { url ->
       if (url.isEmpty()) {
-        return SiteKeyEmpty()
+        return SiteKey.Empty
       }
       Uri.parse(url).getHost()?.let { host ->
-        return SiteKeyHost(host)
+        return SiteKey.Host(host)
       }
     }
-    return SiteKeyEmpty()
+    return SiteKey.Empty
   }
 
   private val executor: Executor by lazy { Executors.newCachedThreadPool() }
