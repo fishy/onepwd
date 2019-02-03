@@ -26,6 +26,8 @@ public class SettingsActivity :
     public const val DEFAULT_BIO_INVALIDATE = true
     public const val KEY_PREFILL_USAGE = "prefill_usage"
     public const val DEFAULT_PREFILL_USAGE = false
+    public const val KEY_REMEMBER_PROMPT = "remember_prompt"
+    public const val DEFAULT_REMEMBER_PROMPT = true
     public const val KEY_COPY_CLIPBOARD = "copy_clipboard"
     public const val DEFAULT_COPY_CLIPBOARD = false
     public const val KEY_CLEAR_CLIPBOARD = "clear_clipboard"
@@ -201,6 +203,7 @@ public class SettingsActivity :
             LengthsPreferenceFragment()
           }
           getString(R.string.pref_tag_prefill) -> PrefillPreferenceFragment()
+          getString(R.string.pref_tag_remember) -> RememberPreferenceFragment()
           getString(R.string.pref_tag_service) -> ServicePreferenceFragment()
           else -> null
         }

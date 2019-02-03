@@ -21,6 +21,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.hardware.biometrics.BiometricPrompt
 import android.net.Uri
 import android.os.AsyncTask
@@ -41,11 +42,13 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
 
+import com.yhsif.onepwd.db.SiteKeyPairings
 import com.yhsif.onepwd.settings.SettingsActivity
 
 class OnePwd :
@@ -159,7 +162,7 @@ class OnePwd :
   var storeButton: TextView? = null
 
   var loadedMaster: String = ""
-  var siteKey: SiteKey = SiteKey.Empty
+  var siteKeyFull: SiteKey = SiteKey.Empty
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -253,20 +256,31 @@ class OnePwd :
     }
     lengthGroup?.check(radioButtons[index].getId())
 
-    siteKey = SiteKey.Empty
+    siteKeyFull = SiteKey.Empty
     if (getIntent()?.getAction() == Intent.ACTION_SEND) {
-      siteKey = getSiteKeyFromIntent(intent)
+      siteKeyFull = getSiteKeyFromIntent(intent)
     }
-    if (siteKey == SiteKey.Empty) {
-      siteKey = getSiteKeyFromForegroundApp()
+    if (siteKeyFull == SiteKey.Empty) {
+      siteKeyFull = getSiteKeyFromForegroundApp()
     }
-    site?.setText(siteKey.getKey())
-    val full = siteKey.getFull()
+    val full = siteKeyFull.getFull()
     if (full == "") {
       siteFull?.setVisibility(View.GONE)
+      site?.setText("")
     } else {
-      siteFull?.setText(String.format(getString(R.string.site_full), full))
+      siteFull?.setText(getString(R.string.site_full, full))
       siteFull?.setVisibility(View.VISIBLE)
+
+      SiteKeyPairings.getSiteKey(
+        MyApp.pairingHelper!!,
+        siteKeyFull.getFull()
+      ) { siteKey ->
+        if (siteKey == null) {
+          site?.setText(siteKeyFull.getKey())
+        } else {
+          site?.setText(siteKey)
+        }
+      }
     }
 
     master?.setText("")
@@ -366,6 +380,111 @@ class OnePwd :
 
     password?.setText(value)
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
+    val prompt = pref.getBoolean(
+      SettingsActivity.KEY_REMEMBER_PROMPT,
+      SettingsActivity.DEFAULT_REMEMBER_PROMPT
+    )
+    val afterwork = { -> maybeCopyValueToClip(value, pref) }
+    if (prompt && siteKeyFull != SiteKey.Empty) {
+      val defSiteKey = siteKeyFull.getKey()
+      SiteKeyPairings.getSiteKey(
+        MyApp.pairingHelper!!,
+        siteKeyFull.getFull()
+      ) { key ->
+        val insertOrUpdate = DialogInterface.OnClickListener() { dialog, _ ->
+          SiteKeyPairings.insertOrUpdate(
+            MyApp.pairingHelper!!,
+            siteKeyFull.getFull(),
+            siteKey
+          ) {}
+          dialog.dismiss()
+        }
+        val delete = DialogInterface.OnClickListener() { dialog, _ ->
+          SiteKeyPairings.delete(
+            MyApp.pairingHelper!!,
+            siteKeyFull.getFull()
+          ) {}
+          dialog.dismiss()
+        }
+        val negative = DialogInterface.OnClickListener() { dialog, _ ->
+          dialog.dismiss()
+        }
+        val neutral = DialogInterface.OnClickListener() { dialog, _ ->
+          // TODO
+          dialog.dismiss()
+        }
+        val builder = AlertDialog.Builder(this)
+          .setCancelable(true)
+          .setIcon(R.mipmap.icon_round)
+          .setOnDismissListener(
+            DialogInterface.OnDismissListener() { _ ->
+              afterwork()
+            }
+          )
+          .setNeutralButton(
+            R.string.button_never,
+            neutral
+          )
+          .setNegativeButton(
+            android.R.string.no,
+            negative
+          )
+        when (key) {
+          siteKey -> afterwork()
+          null ->
+            builder
+              .setTitle(R.string.title_remember)
+              .setMessage(getString(
+                R.string.msg_remember,
+                getString(R.string.button_never),
+                siteKeyFull.getFull(),
+                siteKey))
+              .setPositiveButton(
+                android.R.string.yes,
+                insertOrUpdate
+              )
+              .create()
+              .show()
+          else -> {
+            if (siteKey == defSiteKey) {
+              builder
+                .setTitle(R.string.title_delete)
+                .setMessage(getString(
+                  R.string.msg_delete,
+                  getString(R.string.button_never),
+                  siteKeyFull.getFull(),
+                  siteKey))
+                .setPositiveButton(
+                  android.R.string.yes,
+                  delete
+                )
+                .create()
+                .show()
+            } else {
+              builder
+                .setTitle(R.string.title_update)
+                .setMessage(getString(
+                  R.string.msg_update,
+                  getString(R.string.button_never),
+                  siteKeyFull.getFull(),
+                  key,
+                  siteKey))
+                .setPositiveButton(
+                  android.R.string.yes,
+                  insertOrUpdate
+                )
+                .create()
+                .show()
+            }
+          }
+        }
+      }
+    } else {
+      afterwork()
+    }
+  }
+
+  private fun maybeCopyValueToClip(value: String, pref: SharedPreferences) {
     if (pref.getBoolean(
       SettingsActivity.KEY_COPY_CLIPBOARD,
       SettingsActivity.DEFAULT_COPY_CLIPBOARD

@@ -8,6 +8,11 @@
       android:fragment="com.yhsif.onepwd.settings.PrefillPreferenceFragment"
     />
   <Preference
+      android:key="@string/pref_tag_remember"
+      android:title="@string/pref_header_remember"
+      android:fragment="com.yhsif.onepwd.settings.RememberPreferenceFragment"
+    />
+  <Preference
       android:key="@string/pref_tag_clipboard"
       android:title="@string/pref_header_clipboard"
       android:fragment="com.yhsif.onepwd.settings.ClipboardPreferenceFragment"

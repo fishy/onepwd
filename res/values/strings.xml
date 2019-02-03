@@ -27,6 +27,29 @@
   <string name="title_settings">OneKey Settings</string>
   <string name="empty_master_toast">Your MasterKey is empty.</string>
 
+  <!-- Save pairing dialogs -->
+  <string name="title_remember">Remember this pairing?</string>
+  <string name="msg_remember">
+    "Do you want to always prefill \"%3$s\" from \"%2$s\"?"
+    "\n"
+    "\nClick \"%1$s\" to never remember on \"%2$s\"."
+  </string>
+  <string name="title_delete">Delete this pairing?</string>
+  <string name="msg_delete">
+    "Currently we remembered SiteKey \"%3$s\" from \"%2$s\","
+    "\ndo you want to delete this pairing?"
+    "\n"
+    "\nClick \"%1$s\" to never remember on \"%2$s\"."
+  </string>
+  <string name="title_update">Update this pairing?</string>
+  <string name="msg_update">
+    "Currently we remembered SiteKey \"%3$s\" from \"%2$s\","
+    "\ndo you want to update this pairing to \"%4$s\"?"
+    "\n"
+    "\nClick \"%1$s\" to never remember on \"%2$s\"."
+  </string>
+  <string name="button_never">Never</string>
+
   <!-- Biometric -->
   <string name="biometric_unsupported">
     This device does not support necessary biometric features or is not locked.
@@ -57,6 +80,7 @@
   <!-- Preference tags -->
   <string name="pref_tag_bio">pref_bio</string>
   <string name="pref_tag_prefill">pref_prefill</string>
+  <string name="pref_tag_remember">pref_remember</string>
   <string name="pref_tag_clipboard">pref_clipboard</string>
   <string name="pref_tag_lengths">pref_lengths</string>
   <string name="pref_tag_service">pref_service</string>
@@ -65,6 +89,7 @@
   <!-- Preference headers -->
   <string name="pref_header_bio">Biometric Encryption</string>
   <string name="pref_header_prefill">Prefill SiteKey</string>
+  <string name="pref_header_remember">Remember SiteKey</string>
   <string name="pref_header_clipboard">Clipboard</string>
   <string name="pref_header_lengths">Password Lengths</string>
   <string name="pref_header_service">Show Notification</string>
@@ -104,6 +129,13 @@
   <string name="pref_desc_prefill_share">
     "ProTip: You can always just share the URL from browser to OneKey to"
     "get sitekey prefilled from the URL."
+  </string>
+
+  <!-- Remember preference -->
+  <string name="pref_title_remember_prompt">Remember SiteKey</string>
+  <string name="pref_desc_remember_prompt">
+    When the actual used SiteKey is different from prefilled one,
+    prompt to remember the pairing.
   </string>
 
   <!-- Clipboard preference -->

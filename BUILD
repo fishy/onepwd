@@ -39,6 +39,8 @@ kt_android_library(
 
         gmaven_artifact("androidx.appcompat:appcompat:aar:1.0.0"),
         gmaven_artifact("androidx.preference:preference:aar:1.0.0"),
+        gmaven_artifact("androidx.sqlite:sqlite:aar:2.0.0"),
+        gmaven_artifact("androidx.sqlite:sqlite-framework:aar:2.0.0"),
 
         # indirect deps:
         gmaven_artifact("androidx.core:core:aar:1.0.0"),
