@@ -69,6 +69,7 @@ class OnePwd :
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
     private const val PREF = "com.yhsif.onepwd"
     private const val KEY_SELECTED_LENGTH = "selected_length"
+    private const val KEY_NEVER_PAIRINGS = "never_pairings"
     private const val PKG_SELF = "com.yhsif.onepwd"
 
     private val CHROME_PACKAGES = setOf(
@@ -273,7 +274,7 @@ class OnePwd :
 
       SiteKeyPairings.getSiteKey(
         MyApp.pairingHelper!!,
-        siteKeyFull.getFull()
+        full
       ) { siteKey ->
         if (siteKey == null) {
           site?.setText(siteKeyFull.getKey())
@@ -384,17 +385,19 @@ class OnePwd :
       SettingsActivity.KEY_REMEMBER_PROMPT,
       SettingsActivity.DEFAULT_REMEMBER_PROMPT
     )
+    val neverSet = pref.getStringSet(KEY_NEVER_PAIRINGS, setOf())!!
+    val full = siteKeyFull.getFull()
     val afterwork = { -> maybeCopyValueToClip(value, pref) }
-    if (prompt && siteKeyFull != SiteKey.Empty) {
+    if (prompt && siteKeyFull != SiteKey.Empty && !neverSet.contains(full)) {
       val defSiteKey = siteKeyFull.getKey()
       SiteKeyPairings.getSiteKey(
         MyApp.pairingHelper!!,
-        siteKeyFull.getFull()
+        full
       ) { key ->
         val insertOrUpdate = DialogInterface.OnClickListener() { dialog, _ ->
           SiteKeyPairings.insertOrUpdate(
             MyApp.pairingHelper!!,
-            siteKeyFull.getFull(),
+            full,
             siteKey
           ) {}
           dialog.dismiss()
@@ -402,7 +405,7 @@ class OnePwd :
         val delete = DialogInterface.OnClickListener() { dialog, _ ->
           SiteKeyPairings.delete(
             MyApp.pairingHelper!!,
-            siteKeyFull.getFull()
+            full
           ) {}
           dialog.dismiss()
         }
@@ -410,7 +413,11 @@ class OnePwd :
           dialog.dismiss()
         }
         val neutral = DialogInterface.OnClickListener() { dialog, _ ->
-          // TODO
+          val mutableSet = neverSet.toMutableSet()
+          mutableSet.add(full)
+          val editor = pref.edit()
+          editor.putStringSet(KEY_NEVER_PAIRINGS, mutableSet)
+          editor.commit()
           dialog.dismiss()
         }
         val builder = AlertDialog.Builder(this)
@@ -437,7 +444,7 @@ class OnePwd :
               .setMessage(getString(
                 R.string.msg_remember,
                 getString(R.string.button_never),
-                siteKeyFull.getFull(),
+                full,
                 siteKey))
               .setPositiveButton(
                 android.R.string.yes,
@@ -452,7 +459,7 @@ class OnePwd :
                 .setMessage(getString(
                   R.string.msg_delete,
                   getString(R.string.button_never),
-                  siteKeyFull.getFull(),
+                  full,
                   siteKey))
                 .setPositiveButton(
                   android.R.string.yes,
@@ -466,7 +473,7 @@ class OnePwd :
                 .setMessage(getString(
                   R.string.msg_update,
                   getString(R.string.button_never),
-                  siteKeyFull.getFull(),
+                  full,
                   key,
                   siteKey))
                 .setPositiveButton(
