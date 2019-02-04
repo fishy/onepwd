@@ -112,7 +112,7 @@
   <string name="pref_header_lengths">Password Lengths</string>
   <string name="pref_header_service">Show Notification</string>
   <string name="pref_header_about">About</string>
-  <string name="pref_header_about_summary">OneKey v1.2.2</string>
+  <string name="pref_header_about_summary">OneKey v1.3.0</string>
 
   <!-- Bio preference -->
   <string name="pref_title_bio_autoload">Load MasterKey on start-up.</string>
@@ -205,7 +205,7 @@
   </string>
 
   <!-- About screen -->
-  <string name="about">OneKey v1.2.2 by Yuxuan \'fishy\' Wang</string>
+  <string name="about">OneKey v1.3.0 by Yuxuan \'fishy\' Wang</string>
   <string name="about_github">This is an Open Source project.</string>
   <string name="credits">Credits</string>
   <string name="credit_123_password">
