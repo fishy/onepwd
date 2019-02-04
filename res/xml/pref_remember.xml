@@ -9,4 +9,26 @@
       android:title="@string/pref_title_remember_prompt"
       android:summary="@string/pref_desc_remember_prompt"
     />
+  <Preference
+      android:persistent="false"
+      android:title="@string/title_pairing"
+      android:summary="@string/pref_desc_pairing"
+      >
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetPackage="com.yhsif.onepwd"
+        android:targetClass="com.yhsif.onepwd.PairingList"
+      />
+  </Preference>
+  <Preference
+      android:persistent="false"
+      android:title="@string/title_never"
+      android:summary="@string/pref_desc_never"
+      >
+    <intent
+        android:action="android.intent.action.VIEW"
+        android:targetPackage="com.yhsif.onepwd"
+        android:targetClass="com.yhsif.onepwd.NeverList"
+      />
+  </Preference>
 </androidx.preference.PreferenceScreen>

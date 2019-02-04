@@ -59,6 +59,8 @@ class OnePwd :
   RadioGroup.OnCheckedChangeListener {
 
   companion object {
+    const val KEY_NEVER_PAIRINGS = "never_pairings"
+
     private const val ANDROID_KEY_STORE = "AndroidKeyStore"
     private const val KEY_STORE_KEY = "ONE_KEY_MASTER"
     private const val KEY_MASTER_ENCRYPTED = "encrypted_master"
@@ -69,7 +71,6 @@ class OnePwd :
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
     private const val PREF = "com.yhsif.onepwd"
     private const val KEY_SELECTED_LENGTH = "selected_length"
-    private const val KEY_NEVER_PAIRINGS = "never_pairings"
     private const val PKG_SELF = "com.yhsif.onepwd"
 
     private val CHROME_PACKAGES = setOf(
@@ -415,9 +416,10 @@ class OnePwd :
         val neutral = DialogInterface.OnClickListener() { dialog, _ ->
           val mutableSet = neverSet.toMutableSet()
           mutableSet.add(full)
-          val editor = pref.edit()
-          editor.putStringSet(KEY_NEVER_PAIRINGS, mutableSet)
-          editor.commit()
+          pref.edit().let { editor ->
+            editor.putStringSet(KEY_NEVER_PAIRINGS, mutableSet)
+            editor.commit()
+          }
           dialog.dismiss()
         }
         val builder = AlertDialog.Builder(this)

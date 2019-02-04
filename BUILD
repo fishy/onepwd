@@ -38,7 +38,9 @@ kt_android_library(
         ":hmac_md5",
 
         gmaven_artifact("androidx.appcompat:appcompat:aar:1.0.0"),
+        gmaven_artifact("androidx.cardview:cardview:aar:1.0.0"),
         gmaven_artifact("androidx.preference:preference:aar:1.0.0"),
+        gmaven_artifact("androidx.recyclerview:recyclerview:aar:1.0.0"),
         gmaven_artifact("androidx.sqlite:sqlite:aar:2.0.0"),
         gmaven_artifact("androidx.sqlite:sqlite-framework:aar:2.0.0"),
 

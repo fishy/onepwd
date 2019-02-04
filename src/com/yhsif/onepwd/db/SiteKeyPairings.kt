@@ -142,5 +142,38 @@ public class SiteKeyPairings {
       }
       task.execute()
     }
+
+    public fun listAll(
+      helper: SupportSQLiteOpenHelper,
+      // arg is list of pairs of (full, site_key)
+      callback: (List<Pair<String, String>>) -> Unit
+    ) {
+      val task = object : AsyncTask<Unit, Unit, List<Pair<String, String>>>() {
+        override fun doInBackground(
+          vararg unused: Unit
+        ): List<Pair<String, String>> {
+          val db = helper.getReadableDatabase()
+          val query = SupportSQLiteQueryBuilder
+            .builder(PairingEntry.TABLE_NAME)
+            .columns(arrayOf(
+              PairingEntry.COLUMN_NAME_FULL,
+              PairingEntry.COLUMN_NAME_SITE_KEY
+            ))
+            .create()
+          val res = mutableListOf<Pair<String, String>>()
+          db.query(query).use { cursor ->
+            while (cursor.moveToNext()) {
+              res.add(Pair(cursor.getString(0), cursor.getString(1)))
+            }
+            return res
+          }
+        }
+
+        override fun onPostExecute(list: List<Pair<String, String>>) {
+          callback(list)
+        }
+      }
+      task.execute()
+    }
   }
 }

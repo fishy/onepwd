@@ -26,6 +26,24 @@
   <string name="clear_clip_toast">Clipboard cleared.</string>
   <string name="title_settings">OneKey Settings</string>
   <string name="empty_master_toast">Your MasterKey is empty.</string>
+  <string name="title_never">Never Remember</string>
+  <string name="never_list_hint">
+    These are the sites/packages you chose to never remember the pairing,
+    click to remove:
+  </string>
+  <string name="title_pairing">Remembered Pairings</string>
+  <string name="pairing_list_hint">
+    These are the remembered pairings from sites/packages to SiteKeys,
+    click to remove:
+  </string>
+  <string name="dialog_title">Confirm</string>
+  <string name="dialog_text_never">
+    Are you sure you want to remove the site/package \"%1$s\" from
+    never remember list?
+  </string>
+  <string name="dialog_text_pairing">
+    Are you sure you want to remove the pairing from site/package \"%1$s\"?
+  </string>
 
   <!-- Save pairing dialogs -->
   <string name="title_remember">Remember this pairing?</string>
@@ -136,6 +154,12 @@
   <string name="pref_desc_remember_prompt">
     When the actual used SiteKey is different from prefilled one,
     prompt to remember the pairing.
+  </string>
+  <string name="pref_desc_pairing">
+    Manage the list of remembered site/package to SiteKey pairings.
+  </string>
+  <string name="pref_desc_never">
+    Manage the list of sites/packages you chose to never remember the SiteKey.
   </string>
 
   <!-- Clipboard preference -->

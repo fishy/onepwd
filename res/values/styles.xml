@@ -9,13 +9,21 @@
     <item name="colorAccent">@color/accent</item>
   </style>
   <style
-      name="Settings"
+      name="BaseActivity"
       parent="Theme.AppCompat"
       >
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primary_dark</item>
     <item name="colorAccent">@color/accent</item>
   </style>
+  <style
+      name="Settings"
+      parent="BaseActivity"
+    />
+  <style
+      name="List"
+      parent="BaseActivity"
+    />
   <style
       name="AlertDialogTheme"
       parent="Theme.AppCompat.Dialog.Alert"
