@@ -821,6 +821,7 @@ class OnePwd :
         }
       )
       sema.acquire()
+      sema.release()
       return cipher
     }
 
