@@ -395,8 +395,16 @@ class OnePwd :
         MyApp.pairingHelper!!,
         full
       ) { key ->
-        val insertOrUpdate = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairings.insertOrUpdate(
+        val insert = DialogInterface.OnClickListener() { dialog, _ ->
+          SiteKeyPairings.insert(
+            MyApp.pairingHelper!!,
+            full,
+            siteKey
+          ) {}
+          dialog.dismiss()
+        }
+        val update = DialogInterface.OnClickListener() { dialog, _ ->
+          SiteKeyPairings.update(
             MyApp.pairingHelper!!,
             full,
             siteKey
@@ -438,9 +446,10 @@ class OnePwd :
             android.R.string.no,
             negative
           )
-        when (key) {
-          siteKey -> afterwork()
-          null ->
+        if (key == null) {
+          if (siteKey == defSiteKey) {
+            afterwork()
+          } else {
             builder
               .setTitle(R.string.title_remember)
               .setMessage(getString(
@@ -450,41 +459,41 @@ class OnePwd :
                 siteKey))
               .setPositiveButton(
                 android.R.string.yes,
-                insertOrUpdate
+                insert
               )
               .create()
               .show()
-          else -> {
-            if (siteKey == defSiteKey) {
-              builder
-                .setTitle(R.string.title_delete)
-                .setMessage(getString(
-                  R.string.msg_delete,
-                  getString(R.string.button_never),
-                  full,
-                  siteKey))
-                .setPositiveButton(
-                  android.R.string.yes,
-                  delete
-                )
-                .create()
-                .show()
-            } else {
-              builder
-                .setTitle(R.string.title_update)
-                .setMessage(getString(
-                  R.string.msg_update,
-                  getString(R.string.button_never),
-                  full,
-                  key,
-                  siteKey))
-                .setPositiveButton(
-                  android.R.string.yes,
-                  insertOrUpdate
-                )
-                .create()
-                .show()
-            }
+          }
+        } else {
+          if (siteKey == defSiteKey) {
+            builder
+              .setTitle(R.string.title_delete)
+              .setMessage(getString(
+                R.string.msg_delete,
+                getString(R.string.button_never),
+                full,
+                key))
+              .setPositiveButton(
+                android.R.string.yes,
+                delete
+              )
+              .create()
+              .show()
+          } else {
+            builder
+              .setTitle(R.string.title_update)
+              .setMessage(getString(
+                R.string.msg_update,
+                getString(R.string.button_never),
+                full,
+                key,
+                siteKey))
+              .setPositiveButton(
+                android.R.string.yes,
+                update
+              )
+              .create()
+              .show()
           }
         }
       }

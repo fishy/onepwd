@@ -59,7 +59,7 @@ public class SiteKeyPairings {
       return FrameworkSQLiteOpenHelperFactory().create(config)
     }
 
-    public fun insertOrUpdate(
+    public fun insert(
       helper: SupportSQLiteOpenHelper,
       full: String,
       siteKey: String,
@@ -75,13 +75,43 @@ public class SiteKeyPairings {
           }
           return db.insert(
             PairingEntry.TABLE_NAME,
-            SQLiteDatabase.CONFLICT_REPLACE,
+            SQLiteDatabase.CONFLICT_ROLLBACK,
             values
           )
         }
 
         override fun onPostExecute(id: Long) {
           callback(id)
+        }
+      }
+      task.execute()
+    }
+
+    public fun update(
+      helper: SupportSQLiteOpenHelper,
+      full: String,
+      siteKey: String,
+      // arg is the number of rows deleted
+      callback: (Int) -> Unit
+    ) {
+      val task = object : AsyncTask<Unit, Unit, Int>() {
+        override fun doInBackground(vararg unused: Unit): Int {
+          val db = helper.getWritableDatabase()
+          val values = ContentValues().apply {
+            put(PairingEntry.COLUMN_NAME_SITE_KEY, siteKey)
+          }
+          val selection = "${PairingEntry.COLUMN_NAME_FULL} == ?"
+          return db.update(
+            PairingEntry.TABLE_NAME,
+            SQLiteDatabase.CONFLICT_ROLLBACK,
+            values,
+            selection,
+            arrayOf(full)
+          )
+        }
+
+        override fun onPostExecute(rows: Int) {
+          callback(rows)
         }
       }
       task.execute()
@@ -96,7 +126,7 @@ public class SiteKeyPairings {
       val task = object : AsyncTask<Unit, Unit, Int>() {
         override fun doInBackground(vararg unused: Unit): Int {
           val db = helper.getWritableDatabase()
-          val selection = "${PairingEntry.COLUMN_NAME_FULL} LIKE ?"
+          val selection = "${PairingEntry.COLUMN_NAME_FULL} == ?"
           return db.delete(PairingEntry.TABLE_NAME, selection, full)
         }
 
@@ -118,7 +148,7 @@ public class SiteKeyPairings {
           val db = helper.getReadableDatabase()
           val query = SupportSQLiteQueryBuilder
             .builder(PairingEntry.TABLE_NAME)
-            .selection("${PairingEntry.COLUMN_NAME_FULL} LIKE ?", arrayOf(full))
+            .selection("${PairingEntry.COLUMN_NAME_FULL} == ?", arrayOf(full))
             .columns(arrayOf(
               PairingEntry.COLUMN_NAME_FULL,
               PairingEntry.COLUMN_NAME_SITE_KEY
