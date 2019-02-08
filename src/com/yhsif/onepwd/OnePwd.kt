@@ -465,35 +465,37 @@ class OnePwd :
               .show()
           }
         } else {
-          if (siteKey == defSiteKey) {
-            builder
-              .setTitle(R.string.title_delete)
-              .setMessage(getString(
-                R.string.msg_delete,
-                getString(R.string.button_never),
-                full,
-                key))
-              .setPositiveButton(
-                android.R.string.yes,
-                delete
-              )
-              .create()
-              .show()
-          } else {
-            builder
-              .setTitle(R.string.title_update)
-              .setMessage(getString(
-                R.string.msg_update,
-                getString(R.string.button_never),
-                full,
-                key,
-                siteKey))
-              .setPositiveButton(
-                android.R.string.yes,
-                update
-              )
-              .create()
-              .show()
+          when (siteKey) {
+            key -> afterwork()
+            defSiteKey ->
+              builder
+                .setTitle(R.string.title_delete)
+                .setMessage(getString(
+                  R.string.msg_delete,
+                  getString(R.string.button_never),
+                  full,
+                  key))
+                .setPositiveButton(
+                  android.R.string.yes,
+                  delete
+                )
+                .create()
+                .show()
+            else ->
+              builder
+                .setTitle(R.string.title_update)
+                .setMessage(getString(
+                  R.string.msg_update,
+                  getString(R.string.button_never),
+                  full,
+                  key,
+                  siteKey))
+                .setPositiveButton(
+                  android.R.string.yes,
+                  update
+                )
+                .create()
+                .show()
           }
         }
       }
