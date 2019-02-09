@@ -544,6 +544,9 @@ class OnePwd :
     }
 
     getForegroundApp().let { pkg ->
+      if (pkg.isEmpty()) {
+        return SiteKey.Empty
+      }
       if (CHROME_PACKAGES.contains(pkg)) {
         showToast(this, R.string.chrome_toast)
       }
