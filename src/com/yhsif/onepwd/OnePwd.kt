@@ -63,6 +63,7 @@ class OnePwd :
 
     private const val ANDROID_KEY_STORE = "AndroidKeyStore"
     private const val KEY_STORE_KEY = "ONE_KEY_MASTER"
+    private const val PREF_SECRET = "encrypted"
     private const val KEY_MASTER_ENCRYPTED = "encrypted_master"
     private const val KEY_IV = "encrypted_iv"
 
@@ -71,6 +72,7 @@ class OnePwd :
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
     private const val PREF = "com.yhsif.onepwd"
     private const val KEY_SELECTED_LENGTH = "selected_length"
+    private const val KEY_MIGRATED = "encrypted_migrated"
     private const val PKG_SELF = "com.yhsif.onepwd"
 
     private val CHROME_PACKAGES = setOf(
@@ -169,6 +171,8 @@ class OnePwd :
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
+
+    migrateEncryptedPrefs()
 
     findViewById<View>(R.id.generate).setOnClickListener(this)
     findViewById<View>(R.id.settings).setOnClickListener(this)
@@ -610,7 +614,7 @@ class OnePwd :
       return
     }
 
-    val pref = getSharedPreferences(PREF, 0)
+    val pref = getSharedPreferences(PREF_SECRET, 0)
     val msgStr = pref.getString(KEY_MASTER_ENCRYPTED, "")
     val ivStr = pref.getString(KEY_IV, "")
     if (msgStr == "" || ivStr == "") {
@@ -709,7 +713,7 @@ class OnePwd :
           val msgStr = Base64.encodeToString(message, Base64.DEFAULT)
           val ivStr = Base64.encodeToString(iv, Base64.DEFAULT)
 
-          getSharedPreferences(PREF, 0).edit().let { editor ->
+          getSharedPreferences(PREF_SECRET, 0).edit().let { editor ->
             editor.putString(KEY_MASTER_ENCRYPTED, msgStr)
             editor.putString(KEY_IV, ivStr)
             editor.commit()
@@ -783,6 +787,37 @@ class OnePwd :
     }
 
     return getKey(name)!!
+  }
+
+  private fun migrateEncryptedPrefs() {
+    val pref = getSharedPreferences(PREF, 0)
+    if (pref.getBoolean(KEY_MIGRATED, false)) {
+      // Already migrated
+      return
+    }
+    var toRemove: Boolean = false
+    if (pref.contains(KEY_MASTER_ENCRYPTED) && pref.contains(KEY_IV)) {
+      toRemove = true
+      val encPref = getSharedPreferences(PREF_SECRET, 0)
+      if (!encPref.contains(KEY_MASTER_ENCRYPTED) ||
+          !encPref.contains(KEY_IV)) {
+        val master = pref.getString(KEY_MASTER_ENCRYPTED, "")
+        val iv = pref.getString(KEY_IV, "")
+        encPref.edit().let { editor ->
+          editor.putString(KEY_MASTER_ENCRYPTED, master)
+          editor.putString(KEY_IV, iv)
+          editor.commit()
+        }
+      }
+    }
+    pref.edit().let { editor ->
+      if (toRemove) {
+        editor.remove(KEY_MASTER_ENCRYPTED)
+        editor.remove(KEY_IV)
+      }
+      editor.putBoolean(KEY_MIGRATED, true)
+      editor.commit()
+    }
   }
 
   inner class BioAuthHelper(

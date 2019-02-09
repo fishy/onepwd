@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<full-backup-content>
+  <!-- Backup everything except encrypted shared preference -->
+  <include domain="sharedpref" path="."/>
+  <exclude domain="sharedpref" path="encrypted.xml"/>
+
+  <include domain="file" path="."/>
+  <include domain="database" path="."/>
+  <include domain="external" path="."/>
+  <include domain="root" path="."/>
+</full-backup-content>
