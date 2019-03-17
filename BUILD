@@ -1,5 +1,5 @@
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_library")
-load("@gmaven_rules//:defs.bzl", "gmaven_artifact")
+load("@rules_jvm_external//:defs.bzl", "artifact")
 
 PACKAGE = "com.yhsif.onepwd"
 MANIFEST = "AndroidManifest.xml"
@@ -37,18 +37,18 @@ kt_android_library(
     deps = [
         ":hmac_md5",
 
-        gmaven_artifact("androidx.appcompat:appcompat:aar:1.0.0"),
-        gmaven_artifact("androidx.cardview:cardview:aar:1.0.0"),
-        gmaven_artifact("androidx.preference:preference:aar:1.0.0"),
-        gmaven_artifact("androidx.recyclerview:recyclerview:aar:1.0.0"),
-        gmaven_artifact("androidx.sqlite:sqlite:aar:2.0.0"),
-        gmaven_artifact("androidx.sqlite:sqlite-framework:aar:2.0.0"),
+        artifact("androidx.appcompat:appcompat"),
+        artifact("androidx.cardview:cardview"),
+        artifact("androidx.preference:preference"),
+        artifact("androidx.recyclerview:recyclerview"),
+        artifact("androidx.sqlite:sqlite"),
+        artifact("androidx.sqlite:sqlite-framework"),
 
         # indirect deps:
-        gmaven_artifact("androidx.core:core:aar:1.0.0"),
-        gmaven_artifact("androidx.drawerlayout:drawerlayout:aar:1.0.0"),
-        gmaven_artifact("androidx.fragment:fragment:aar:1.0.0"),
-        gmaven_artifact("androidx.lifecycle:lifecycle-common:jar:2.0.0"),
-        gmaven_artifact("androidx.lifecycle:lifecycle-viewmodel:aar:2.0.0"),
+        artifact("androidx.core:core"),
+        artifact("androidx.drawerlayout:drawerlayout"),
+        artifact("androidx.fragment:fragment"),
+        artifact("androidx.lifecycle:lifecycle-common"),
+        artifact("androidx.lifecycle:lifecycle-viewmodel"),
     ],
 )

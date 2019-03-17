@@ -7,41 +7,48 @@ android_sdk_repository(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-RULES_KOTLIN_VERSION = "cab5eaffc2012dfe46260c03d6419c0d2fa10be0"
+RULES_KOTLIN_VERSION = "da1232eda2ef90d4375e2d1677b32c7ddf09e8a1"
 http_archive(
     name = "io_bazel_rules_kotlin",
     strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_VERSION,
     url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.tar.gz" % RULES_KOTLIN_VERSION,
-    sha256 = "3ecce7e3292c07a258e8c6ea542fc62760468c210d7c88e0439209c7ea361891",
+    sha256 = "0bbb0e5e536f0c775f37bded59d4f8cfb8556e6c3d926fcc0f58bf3489bff470",
 )
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_register_toolchains")
+
 kotlin_repositories()
 kt_register_toolchains()
 
-GMAVEN_TAG = "20181212-2"
+RULES_JVM_EXTERNAL_TAG = "1.1"
 http_archive(
-    name = "gmaven_rules",
-    strip_prefix = "gmaven_rules-%s" % GMAVEN_TAG,
-    url = "https://github.com/bazelbuild/gmaven_rules/archive/%s.tar.gz" % GMAVEN_TAG,
-    sha256 = "33027de68db6a49a352f83808fa9898c4930d39aa6fb0edc6bb3d3eec6e2bc7d",
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = "ade316ec98ba0769bb1189b345d9877de99dd1b1e82f5a649d6ccbcb8da51c1f",
 )
-load("@gmaven_rules//:gmaven.bzl", "gmaven_rules")
-gmaven_rules()
+load("@rules_jvm_external//:defs.bzl", "maven_install")
 
-maven_jar(
-    name = "com_google_truth_truth",
-    artifact = "com.google.truth:truth:0.42",
-    sha1 = "b5768f644b114e6cf5c3962c2ebcb072f788dcbb",
-)
+maven_install(
+    artifacts = [
+        "com.google.truth:truth:0.43",
+        "junit:junit:4.12",
 
-maven_jar(
-    name = "com_google_guava_guava",
-    artifact = "com.google.guava:guava:27.0.1-android",
-    sha1 = "b7e1c37f66ef193796ccd7ea6e80c2b05426182d",
-)
+        "androidx.appcompat:appcompat:1.0.2",
+        "androidx.cardview:cardview:1.0.0",
+        "androidx.preference:preference:1.0.0",
+        "androidx.recyclerview:recyclerview:1.0.0",
+        "androidx.sqlite:sqlite:2.0.1",
+        "androidx.sqlite:sqlite-framework:2.0.1",
 
-maven_jar(
-    name = "junit_junit",
-    artifact = "junit:junit:4.12",
-    sha1 = "2973d150c0dc1fefe998f834810d68f278ea58ec",
+        # indirect deps:
+        "androidx.core:core:1.0.1",
+        "androidx.drawerlayout:drawerlayout:1.0.0",
+        "androidx.fragment:fragment:1.0.0",
+        "androidx.lifecycle:lifecycle-common:2.0.0",
+        "androidx.lifecycle:lifecycle-viewmodel:2.0.0",
+    ],
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
 )

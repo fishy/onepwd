@@ -1,4 +1,5 @@
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_test")
+load("@rules_jvm_external//:defs.bzl", "artifact")
 
 kt_jvm_test(
     name = "hmac_md5_test",
@@ -8,8 +9,7 @@ kt_jvm_test(
     deps = [
         "//:hmac_md5",
 
-        "@com_google_guava_guava//jar",
-        "@com_google_truth_truth//jar",
-        "@junit_junit//jar",
+        artifact("com.google.truth:truth"),
+        artifact("junit:junit"),
     ],
 )
