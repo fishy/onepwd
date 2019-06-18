@@ -38,6 +38,7 @@ kt_android_library(
         ":hmac_md5",
 
         artifact("androidx.appcompat:appcompat"),
+        artifact("androidx.biometric:biometric"),
         artifact("androidx.cardview:cardview"),
         artifact("androidx.preference:preference"),
         artifact("androidx.recyclerview:recyclerview"),

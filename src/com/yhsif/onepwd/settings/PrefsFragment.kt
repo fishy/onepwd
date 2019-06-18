@@ -14,12 +14,7 @@ class PrefsFragment : BasePreferenceFragment() {
     savedInstanceState: Bundle?,
     rootKey: String?
   ) {
-    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-      setPreferencesFromResource(R.xml.pref_headers_no_bio, rootKey)
-    } else {
-      setPreferencesFromResource(R.xml.pref_headers, rootKey)
-    }
+    setPreferencesFromResource(R.xml.pref_headers, rootKey)
     setHasOptionsMenu(true)
   }
 }

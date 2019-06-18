@@ -2,10 +2,10 @@ package com.yhsif.onepwd
 
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
-import java.util.concurrent.Semaphore
 import java.security.InvalidAlgorithmParameterException
 import java.security.KeyStore
 
+import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -22,7 +22,6 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
-import android.hardware.biometrics.BiometricPrompt
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Build
@@ -44,6 +43,7 @@ import android.widget.Toast
 
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricPrompt
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
@@ -168,9 +168,13 @@ class OnePwd :
   var loadedMaster: String = ""
   var siteKeyFull: SiteKey = SiteKey.Empty
 
+  var uiHandler: Handler? = null
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
+
+    uiHandler = Handler()
 
     migrateEncryptedPrefs()
 
@@ -193,12 +197,7 @@ class OnePwd :
 
     siteFull = findViewById<TextView>(R.id.site_key_full)
 
-    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-      findViewById<View>(R.id.load_store_container).setVisibility(View.VISIBLE)
-    } else {
-      findViewById<View>(R.id.load_store_container).setVisibility(View.GONE)
-    }
+    findViewById<View>(R.id.load_store_container).setVisibility(View.VISIBLE)
 
     password = findViewById<EditText>(R.id.password)
 
@@ -522,7 +521,7 @@ class OnePwd :
         SettingsActivity.DEFAULT_CLEAR_CLIPBOARD
       )?.toLong()
       if (time != null && time > 0) {
-        Handler().postDelayed(
+        uiHandler?.postDelayed(
           Runnable() {
             if (clip.hasPrimaryClip()) {
               val item = clip.getPrimaryClip()?.getItemAt(0)
@@ -602,11 +601,6 @@ class OnePwd :
   }
 
   private fun doLoad(toast: Boolean) {
-    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-      return
-    }
-
     if (!keyguardManager.isKeyguardSecure) {
       if (toast) {
         showToast(this, R.string.biometric_unsupported)
@@ -645,7 +639,7 @@ class OnePwd :
         return
       }
 
-      val helper = BioAuthHelper(
+      BioAuthHelper(
         R.string.load_title,
         initCipher
       ) { cipher ->
@@ -655,13 +649,25 @@ class OnePwd :
           if (!loadedMaster.isEmpty()) {
             master?.setText("")
           }
-          showToast(this, R.string.load_succeed)
+          uiHandler?.post(
+            Runnable() {
+              showToast(this, R.string.load_succeed)
+            }
+          )
         } else {
-          showToast(this, R.string.load_empty_or_canceled)
+          uiHandler?.post(
+            Runnable() {
+              showToast(this, R.string.load_empty_or_canceled)
+            }
+          )
         }
       }
-      helper.execute()
     } catch (e: KeyPermanentlyInvalidatedException) {
+      if (toast) {
+        showToast(this, R.string.biometric_invalid)
+      }
+      return
+    } catch (e: BadPaddingException) {
       if (toast) {
         showToast(this, R.string.biometric_invalid)
       }
@@ -675,11 +681,6 @@ class OnePwd :
   }
 
   private fun doStore() {
-    // TODO: Use androidx.biometrics.BiometricPrompt when it's stable enough.
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-      return
-    }
-
     if (!keyguardManager.isKeyguardSecure) {
       showToast(this, R.string.biometric_unsupported)
       return
@@ -698,7 +699,7 @@ class OnePwd :
       )
 
     try {
-      val helper = BioAuthHelper(
+      BioAuthHelper(
         R.string.store_title,
         encryptionCipher(KEY_STORE_KEY, invalidate)
       ) { cipher ->
@@ -718,10 +719,13 @@ class OnePwd :
             editor.putString(KEY_IV, ivStr)
             editor.commit()
           }
-          showToast(this, R.string.store_succeed)
+          uiHandler?.post(
+            Runnable() {
+              showToast(this, R.string.store_succeed)
+            }
+          )
         }
       }
-      helper.execute()
     } catch (e: InvalidAlgorithmParameterException) {
       showToast(this, R.string.biometric_unset)
       return
@@ -820,53 +824,24 @@ class OnePwd :
     }
   }
 
-  inner class BioAuthHelper(
-    val title: Int,
-    val initCipher: Cipher,
-    val callback: (Cipher?) -> Unit
-  ) : AsyncTask<Unit, Unit, Cipher?>() {
-
-    private val sema = Semaphore(1)
-    private var builder = BiometricPrompt.Builder(this@OnePwd)
+  private fun BioAuthHelper(title: Int, initCipher: Cipher, callback: (Cipher?) -> Unit) {
+    val builder = BiometricPrompt.PromptInfo.Builder()
       .setTitle(getString(title))
-      .setNegativeButton(
-        getString(android.R.string.cancel),
-        executor,
-        DialogInterface.OnClickListener() { dialog, _ ->
-          dialog?.dismiss()
-          sema.release()
+      .setNegativeButtonText(getString(android.R.string.cancel))
+
+    BiometricPrompt(
+      this@OnePwd,
+      executor,
+      object : BiometricPrompt.AuthenticationCallback() {
+        override fun onAuthenticationSucceeded(
+          res: BiometricPrompt.AuthenticationResult
+        ) {
+          callback(res.getCryptoObject()?.getCipher())
         }
-      )
-
-    override fun doInBackground(vararg p0: Unit): Cipher? {
-      var cipher: Cipher? = null
-      sema.acquire()
-      builder.build().authenticate(
-        BiometricPrompt.CryptoObject(initCipher),
-        CancellationSignal(),
-        executor,
-        object : BiometricPrompt.AuthenticationCallback() {
-
-          override fun onAuthenticationError(code: Int, msg: CharSequence) {
-            sema.release()
-            super.onAuthenticationError(code, msg)
-          }
-
-          override fun onAuthenticationSucceeded(
-            res: BiometricPrompt.AuthenticationResult
-          ) {
-            cipher = res.getCryptoObject().getCipher()
-            sema.release()
-          }
-        }
-      )
-      sema.acquire()
-      sema.release()
-      return cipher
-    }
-
-    override fun onPostExecute(cipher: Cipher?) {
-      callback(cipher)
-    }
+      }
+    ).authenticate(
+      builder.build(),
+      BiometricPrompt.CryptoObject(initCipher)
+    )
   }
 }
