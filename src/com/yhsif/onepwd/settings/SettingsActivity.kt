@@ -54,7 +54,7 @@ public class SettingsActivity :
         } else {
           when (pref.getKey()) {
             KEY_COPY_CLIPBOARD -> {
-              val clearClip =
+              val clearClip: Preference? =
                 pref.getPreferenceManager().findPreference(KEY_CLEAR_CLIPBOARD)
               if (value == true) {
                 pref.setSummary(R.string.pref_desc_copy_clipboard_yes)
@@ -65,7 +65,7 @@ public class SettingsActivity :
               }
             }
             KEY_PREFILL_USAGE -> {
-              val settings =
+              val settings: Preference? =
                 pref.getPreferenceManager().findPreference(KEY_SETTINGS_INTENT)
               if (value == true) {
                 pref.setSummary(R.string.pref_desc_usage_yes)

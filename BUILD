@@ -46,10 +46,12 @@ kt_android_library(
         artifact("androidx.sqlite:sqlite-framework"),
 
         # indirect deps:
+        artifact("androidx.activity:activity"),
         artifact("androidx.core:core"),
         artifact("androidx.drawerlayout:drawerlayout"),
         artifact("androidx.fragment:fragment"),
         artifact("androidx.lifecycle:lifecycle-common"),
         artifact("androidx.lifecycle:lifecycle-viewmodel"),
+        artifact("androidx.savedstate:savedstate"),
     ],
 )

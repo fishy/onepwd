@@ -2,6 +2,8 @@ package com.yhsif.onepwd.settings
 
 import android.os.Bundle
 
+import androidx.preference.Preference
+
 import com.yhsif.onepwd.R
 
 class ServicePreferenceFragment : BasePreferenceFragment() {
@@ -12,9 +14,12 @@ class ServicePreferenceFragment : BasePreferenceFragment() {
     setPreferencesFromResource(R.xml.pref_service, rootKey)
     setHasOptionsMenu(true)
 
-    SettingsActivity.bindPreferenceSummaryToBoolean(
-      findPreference(SettingsActivity.KEY_USE_SERVICE),
-      SettingsActivity.DEFAULT_USE_SERVICE
-    )
+    val pref: Preference? = findPreference(SettingsActivity.KEY_USE_SERVICE)
+    if (pref != null) {
+      SettingsActivity.bindPreferenceSummaryToBoolean(
+        pref,
+        SettingsActivity.DEFAULT_USE_SERVICE
+      )
+    }
   }
 }
