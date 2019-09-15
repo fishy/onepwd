@@ -23,10 +23,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.os.CancellationSignal
 import android.os.Handler
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
@@ -76,10 +74,10 @@ class OnePwd :
     private const val PKG_SELF = "com.yhsif.onepwd"
 
     private val CHROME_PACKAGES = setOf(
-      "com.chrome.canary",  // canary
-      "com.chrome.dev",     // dev
-      "com.chrome.beta",    // beta
-      "com.android.chrome"  // stable
+      "com.chrome.canary", // canary
+      "com.chrome.dev", // dev
+      "com.chrome.beta", // beta
+      "com.android.chrome" // stable
     )
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
@@ -836,7 +834,11 @@ class OnePwd :
         override fun onAuthenticationSucceeded(
           res: BiometricPrompt.AuthenticationResult
         ) {
-          callback(res.getCryptoObject()?.getCipher())
+          uiHandler?.post(
+            Runnable() {
+              callback(res.getCryptoObject()?.getCipher())
+            }
+          )
         }
       }
     ).authenticate(
