@@ -583,7 +583,7 @@ class OnePwd :
 
   private fun getSiteKeyFromIntent(intent: Intent): SiteKey {
     intent.getStringExtra(Intent.EXTRA_TEXT).let { url ->
-      if (url.isEmpty()) {
+      if (url != null && url.isEmpty()) {
         return SiteKey.Empty
       }
       Uri.parse(url).getHost()?.let { host ->
