@@ -19,12 +19,12 @@ load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories", "kt_reg
 kotlin_repositories()
 kt_register_toolchains()
 
-RULES_JVM_EXTERNAL_TAG = "2.7"
+RULES_JVM_EXTERNAL_TAG = "2.8"
 http_archive(
     name = "rules_jvm_external",
     strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
     url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
-    sha256 = "f04b1466a00a2845106801e0c5cec96841f49ea4e7d1df88dc8e4bf31523df74",
+    sha256 = "79c9850690d7614ecdb72d68394f994fef7534b292c4867ce5e7dec0aa7bdfad",
 )
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 
@@ -35,7 +35,7 @@ maven_install(
 
         "androidx.activity:activity:1.0.0",
         "androidx.appcompat:appcompat:1.1.0",
-        "androidx.biometric:biometric:1.0.0-beta01",
+        "androidx.biometric:biometric:1.0.0-rc01",
         "androidx.cardview:cardview:1.0.0",
         "androidx.preference:preference:1.1.0",
         "androidx.recyclerview:recyclerview:1.0.0",

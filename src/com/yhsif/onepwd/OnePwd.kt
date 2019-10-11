@@ -826,6 +826,7 @@ class OnePwd :
     val builder = BiometricPrompt.PromptInfo.Builder()
       .setTitle(getString(title))
       .setNegativeButtonText(getString(android.R.string.cancel))
+      .setConfirmationRequired(true)
 
     BiometricPrompt(
       this@OnePwd,
