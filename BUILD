@@ -1,5 +1,4 @@
 load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_android_library", "kt_jvm_library")
-load("@rules_jvm_external//:defs.bzl", "artifact")
 
 PACKAGE = "com.yhsif.onepwd"
 MANIFEST = "AndroidManifest.xml"
@@ -37,21 +36,12 @@ kt_android_library(
     deps = [
         ":hmac_md5",
 
-        artifact("androidx.appcompat:appcompat"),
-        artifact("androidx.biometric:biometric"),
-        artifact("androidx.cardview:cardview"),
-        artifact("androidx.preference:preference"),
-        artifact("androidx.recyclerview:recyclerview"),
-        artifact("androidx.sqlite:sqlite"),
-        artifact("androidx.sqlite:sqlite-framework"),
-
-        # indirect deps:
-        artifact("androidx.activity:activity"),
-        artifact("androidx.core:core"),
-        artifact("androidx.drawerlayout:drawerlayout"),
-        artifact("androidx.fragment:fragment"),
-        artifact("androidx.lifecycle:lifecycle-common"),
-        artifact("androidx.lifecycle:lifecycle-viewmodel"),
-        artifact("androidx.savedstate:savedstate"),
+        "@maven//:androidx_appcompat_appcompat",
+        "@maven//:androidx_biometric_biometric",
+        "@maven//:androidx_cardview_cardview",
+        "@maven//:androidx_preference_preference",
+        "@maven//:androidx_recyclerview_recyclerview",
+        "@maven//:androidx_sqlite_sqlite",
+        "@maven//:androidx_sqlite_sqlite_framework",
     ],
 )
