@@ -3,3 +3,4 @@ bazel-*
 *.apk
 local.properties
 release.jks
+app.apk.idsig

@@ -7,13 +7,13 @@ android_sdk_repository(
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-RULES_KOTLIN_TAG = "legacy-1.3.0-rc3"
-RULES_KOTLIN_SHA = "54678552125753d9fc0a37736d140f1d2e69778d3e52cf454df41a913b964ede"
+RULES_KOTLIN_TAG = "legacy-1.3.0"
+RULES_KOTLIN_SHA = "2ba27f0fa8305a28bc1b9b3a3f4e6b91064b3c0021365fa9344ba3af88657e1b"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
     strip_prefix = "rules_kotlin-%s" % RULES_KOTLIN_TAG,
-    url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.zip" % RULES_KOTLIN_TAG,
+    url = "https://github.com/bazelbuild/rules_kotlin/archive/%s.tar.gz" % RULES_KOTLIN_TAG,
     sha256 = RULES_KOTLIN_SHA,
 )
 
@@ -37,16 +37,16 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "com.google.truth:truth:1.0",
-        "junit:junit:4.12",
+        "com.google.truth:truth:1.0.1",
+        "junit:junit:4.13",
 
         "androidx.appcompat:appcompat:1.1.0",
         "androidx.biometric:biometric:1.0.1",
         "androidx.cardview:cardview:1.0.0",
         "androidx.preference:preference:1.1.0",
         "androidx.recyclerview:recyclerview:1.1.0",
-        "androidx.sqlite:sqlite:2.0.1",
-        "androidx.sqlite:sqlite-framework:2.0.1",
+        "androidx.sqlite:sqlite:2.1.0",
+        "androidx.sqlite:sqlite-framework:2.1.0",
     ],
     repositories = [
         "https://maven.google.com",
