@@ -15,18 +15,11 @@ to build the apk.
 
 The Bazel rules depends on the `ANDROID_HOME` environment variable.
 
-Run `./tools/release.sh` to sign the apk with release key.
+Run [`tools/release.sh`](tools/release.sh) to sign the apk with a release key.
+[More details](https://developer.android.com/studio/publish/app-signing.html#signing-manually).
 
 To run unit tests, run `bazel test ...`.
 
-### Local files
-
-There are certain files excluded in `.gitignore` file.
-You must supply them locally in order to build:
-
-- `release.jks` for `release.sh`,
-  [more details](https://developer.android.com/studio/publish/app-signing.html#signing-manually)
-
 ## License
 
-BSD 3-Clause, refer to LICENSE file for more details.
+BSD 3-Clause, refer to [LICENSE file](LICENSE) for more details.
