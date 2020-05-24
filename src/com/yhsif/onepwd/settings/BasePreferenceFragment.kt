@@ -11,7 +11,7 @@ import com.yhsif.onepwd.length.LengthPreference
 abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.getItemId() == android.R.id.home) {
-      getFragmentManager()?.popBackStack()
+      getParentFragmentManager().popBackStack()
     }
     return super.onOptionsItemSelected(item)
   }
@@ -21,7 +21,7 @@ abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
       val frag = LengthDialog.newInstance(pref)
       frag.setTargetFragment(this, 0)
       frag.show(
-        requireFragmentManager(),
+        getParentFragmentManager(),
         "androidx.preference.PreferenceFragment.DIALOG"
       )
     } else {

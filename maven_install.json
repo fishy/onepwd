@@ -3,33 +3,37 @@
         "conflict_resolution": {},
         "dependencies": [
             {
-                "coord": "androidx.activity:activity:aar:1.0.0",
-                "file": "v1/https/maven.google.com/androidx/activity/activity/1.0.0/activity-1.0.0.aar",
+                "coord": "androidx.activity:activity:aar:1.1.0",
+                "file": "v1/https/maven.google.com/androidx/activity/activity/1.1.0/activity-1.1.0.aar",
                 "directDependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.savedstate:savedstate:aar:1.0.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
-                    "androidx.core:core:aar:1.1.0"
+                    "androidx.core:core:aar:1.1.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0"
                 ],
-                "url": "https://maven.google.com/androidx/activity/activity/1.0.0/activity-1.0.0.aar",
+                "url": "https://maven.google.com/androidx/activity/activity/1.1.0/activity-1.1.0.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/activity/activity/1.0.0/activity-1.0.0.aar",
-                    "https://jcenter.bintray.com/androidx/activity/activity/1.0.0/activity-1.0.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/activity/activity/1.0.0/activity-1.0.0.aar"
+                    "https://maven.google.com/androidx/activity/activity/1.1.0/activity-1.1.0.aar",
+                    "https://jcenter.bintray.com/androidx/activity/activity/1.1.0/activity-1.1.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/activity/activity/1.1.0/activity-1.1.0.aar"
                 ],
-                "sha256": "d1bc9842455c2e534415d88c44df4d52413b478db9093a1ba36324f705f44c3d"
+                "sha256": "4f2b35916768032f7d0c20e250e28b29037ed4ce9ebf3da4fcd51bcb0c6067ef"
             },
             {
                 "coord": "androidx.annotation:annotation:1.1.0",
@@ -55,13 +59,13 @@
                     "androidx.core:core:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
                     "androidx.interpolator:interpolator:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.vectordrawable:vectordrawable:aar:1.1.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.vectordrawable:vectordrawable-animated:aar:1.1.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
@@ -80,34 +84,35 @@
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.fragment:fragment:aar:1.1.0",
+                    "androidx.fragment:fragment:aar:1.2.4",
                     "androidx.cursoradapter:cursoradapter:aar:1.0.0",
                     "androidx.appcompat:appcompat-resources:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.drawerlayout:drawerlayout:aar:1.0.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
                     "androidx.interpolator:interpolator:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.fragment:fragment:aar:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.fragment:fragment:aar:1.2.4",
+                    "androidx.activity:activity:aar:1.1.0",
                     "androidx.vectordrawable:vectordrawable:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                     "androidx.cursoradapter:cursoradapter:aar:1.0.0",
                     "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
                     "androidx.appcompat:appcompat-resources:aar:1.1.0",
                     "androidx.customview:customview:aar:1.0.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
-                    "androidx.activity:activity:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.vectordrawable:vectordrawable-animated:aar:1.1.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.viewpager:viewpager:aar:1.0.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
                     "androidx.loader:loader:aar:1.0.0",
                     "androidx.drawerlayout:drawerlayout:aar:1.0.0"
                 ],
@@ -137,8 +142,8 @@
                 "sha256": "fe1237bf029d063e7f29fe39aeaf73ef74c8b0a3658486fc29d3c54326653889"
             },
             {
-                "coord": "androidx.arch.core:core-runtime:aar:2.0.0",
-                "file": "v1/https/maven.google.com/androidx/arch/core/core-runtime/2.0.0/core-runtime-2.0.0.aar",
+                "coord": "androidx.arch.core:core-runtime:aar:2.1.0",
+                "file": "v1/https/maven.google.com/androidx/arch/core/core-runtime/2.1.0/core-runtime-2.1.0.aar",
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.arch.core:core-common:2.1.0"
@@ -147,13 +152,13 @@
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.arch.core:core-common:2.1.0"
                 ],
-                "url": "https://maven.google.com/androidx/arch/core/core-runtime/2.0.0/core-runtime-2.0.0.aar",
+                "url": "https://maven.google.com/androidx/arch/core/core-runtime/2.1.0/core-runtime-2.1.0.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/arch/core/core-runtime/2.0.0/core-runtime-2.0.0.aar",
-                    "https://jcenter.bintray.com/androidx/arch/core/core-runtime/2.0.0/core-runtime-2.0.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/arch/core/core-runtime/2.0.0/core-runtime-2.0.0.aar"
+                    "https://maven.google.com/androidx/arch/core/core-runtime/2.1.0/core-runtime-2.1.0.aar",
+                    "https://jcenter.bintray.com/androidx/arch/core/core-runtime/2.1.0/core-runtime-2.1.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/arch/core/core-runtime/2.1.0/core-runtime-2.1.0.aar"
                 ],
-                "sha256": "87e65fc767c712b437649c7cee2431ebb4bed6daef82e501d4125b3ed3f65f8e"
+                "sha256": "dd77615bd3dd275afb11b62df25bae46b10b4a117cd37943af45bdcbf8755852"
             },
             {
                 "coord": "androidx.biometric:biometric:1.0.1",
@@ -162,31 +167,32 @@
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.appcompat:appcompat:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
-                    "androidx.fragment:fragment:aar:1.1.0"
+                    "androidx.fragment:fragment:aar:1.2.4"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
                     "androidx.interpolator:interpolator:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.fragment:fragment:aar:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
+                    "androidx.fragment:fragment:aar:1.2.4",
                     "androidx.appcompat:appcompat:aar:1.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.activity:activity:aar:1.1.0",
                     "androidx.vectordrawable:vectordrawable:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                     "androidx.cursoradapter:cursoradapter:aar:1.0.0",
                     "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
                     "androidx.appcompat:appcompat-resources:aar:1.1.0",
                     "androidx.customview:customview:aar:1.0.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
-                    "androidx.activity:activity:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.vectordrawable:vectordrawable-animated:aar:1.1.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.viewpager:viewpager:aar:1.0.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
                     "androidx.loader:loader:aar:1.0.0",
                     "androidx.drawerlayout:drawerlayout:aar:1.0.0"
                 ],
@@ -238,15 +244,15 @@
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0"
                 ],
                 "url": "https://maven.google.com/androidx/core/core/1.1.0/core-1.1.0.aar",
@@ -282,11 +288,11 @@
                     "androidx.core:core:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
@@ -307,12 +313,12 @@
                     "androidx.customview:customview:aar:1.0.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.customview:customview:aar:1.0.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
@@ -325,42 +331,45 @@
                 "sha256": "9402442cdc5a43cf62fb14f8cf98c63342d4d9d9b805c8033c6cf7e802749ac1"
             },
             {
-                "coord": "androidx.fragment:fragment:aar:1.1.0",
-                "file": "v1/https/maven.google.com/androidx/fragment/fragment/1.1.0/fragment-1.1.0.aar",
+                "coord": "androidx.fragment:fragment:aar:1.2.4",
+                "file": "v1/https/maven.google.com/androidx/fragment/fragment/1.2.4/fragment-1.2.4.aar",
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
-                    "androidx.activity:activity:aar:1.0.0",
+                    "androidx.activity:activity:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.viewpager:viewpager:aar:1.0.0",
                     "androidx.loader:loader:aar:1.0.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.activity:activity:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                     "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
                     "androidx.customview:customview:aar:1.0.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
-                    "androidx.activity:activity:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.viewpager:viewpager:aar:1.0.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
                     "androidx.loader:loader:aar:1.0.0"
                 ],
-                "url": "https://maven.google.com/androidx/fragment/fragment/1.1.0/fragment-1.1.0.aar",
+                "url": "https://maven.google.com/androidx/fragment/fragment/1.2.4/fragment-1.2.4.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/fragment/fragment/1.1.0/fragment-1.1.0.aar",
-                    "https://jcenter.bintray.com/androidx/fragment/fragment/1.1.0/fragment-1.1.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/fragment/fragment/1.1.0/fragment-1.1.0.aar"
+                    "https://maven.google.com/androidx/fragment/fragment/1.2.4/fragment-1.2.4.aar",
+                    "https://jcenter.bintray.com/androidx/fragment/fragment/1.2.4/fragment-1.2.4.aar",
+                    "https://repo1.maven.org/maven2/androidx/fragment/fragment/1.2.4/fragment-1.2.4.aar"
                 ],
-                "sha256": "a14c8b8f2153f128e800fbd266a6beab1c283982a29ec570d2cc05d307d81496"
+                "sha256": "1dc194942574302bf35dae7b81b82273505ec2d38f81d9258ad5c0448daddd82"
             },
             {
                 "coord": "androidx.interpolator:interpolator:aar:1.0.0",
@@ -380,58 +389,58 @@
                 "sha256": "33193135a64fe21fa2c35eec6688f1a76e512606c0fc83dc1b689e37add7732a"
             },
             {
-                "coord": "androidx.lifecycle:lifecycle-common:2.1.0",
-                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-common/2.1.0/lifecycle-common-2.1.0.jar",
+                "coord": "androidx.lifecycle:lifecycle-common:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-common/2.2.0/lifecycle-common-2.2.0.jar",
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0"
                 ],
                 "dependencies": [
                     "androidx.annotation:annotation:1.1.0"
                 ],
-                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-common/2.1.0/lifecycle-common-2.1.0.jar",
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-common/2.2.0/lifecycle-common-2.2.0.jar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/lifecycle/lifecycle-common/2.1.0/lifecycle-common-2.1.0.jar",
-                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-common/2.1.0/lifecycle-common-2.1.0.jar",
-                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-common/2.1.0/lifecycle-common-2.1.0.jar"
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-common/2.2.0/lifecycle-common-2.2.0.jar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-common/2.2.0/lifecycle-common-2.2.0.jar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-common/2.2.0/lifecycle-common-2.2.0.jar"
                 ],
-                "sha256": "76db6be533bd730fb361c2feb12a2c26d9952824746847da82601ef81f082643"
+                "sha256": "63898dabf7cfe5ec5d7ed8b8c2564c1427be876e1496ead95c2703cf59d3734b"
             },
             {
-                "coord": "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0",
-                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.0.0/lifecycle-livedata-core-2.0.0.aar",
+                "coord": "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.2.0/lifecycle-livedata-core-2.2.0.aar",
                 "directDependencies": [
                     "androidx.arch.core:core-common:2.1.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0"
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
                     "androidx.annotation:annotation:1.1.0",
-                    "androidx.arch.core:core-common:2.1.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0"
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
+                    "androidx.arch.core:core-common:2.1.0"
                 ],
-                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.0.0/lifecycle-livedata-core-2.0.0.aar",
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.2.0/lifecycle-livedata-core-2.2.0.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.0.0/lifecycle-livedata-core-2.0.0.aar",
-                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-livedata-core/2.0.0/lifecycle-livedata-core-2.0.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-livedata-core/2.0.0/lifecycle-livedata-core-2.0.0.aar"
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.2.0/lifecycle-livedata-core-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-livedata-core/2.2.0/lifecycle-livedata-core-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-livedata-core/2.2.0/lifecycle-livedata-core-2.2.0.aar"
                 ],
-                "sha256": "fde334ec7e22744c0f5bfe7caf1a84c9d717327044400577bdf9bd921ec4f7bc"
+                "sha256": "556c1f3af90aa9d7d0d330565adbf6da71b2429148bac91e07c485f4f9abf614"
             },
             {
                 "coord": "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
                 "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-livedata/2.0.0/lifecycle-livedata-2.0.0.aar",
                 "directDependencies": [
                     "androidx.arch.core:core-common:2.1.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0"
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0"
                 ],
                 "dependencies": [
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0"
+                    "androidx.arch.core:core-runtime:aar:2.1.0"
                 ],
                 "url": "https://maven.google.com/androidx/lifecycle/lifecycle-livedata/2.0.0/lifecycle-livedata-2.0.0.aar",
                 "mirror_urls": [
@@ -442,42 +451,68 @@
                 "sha256": "c82609ced8c498f0a701a30fb6771bb7480860daee84d82e0a81ee86edf7ba39"
             },
             {
-                "coord": "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
-                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-runtime/2.1.0/lifecycle-runtime-2.1.0.aar",
+                "coord": "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar",
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.arch.core:core-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0"
+                    "androidx.lifecycle:lifecycle-common:2.2.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.annotation:annotation:1.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.arch.core:core-common:2.1.0"
                 ],
-                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-runtime/2.1.0/lifecycle-runtime-2.1.0.aar",
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/lifecycle/lifecycle-runtime/2.1.0/lifecycle-runtime-2.1.0.aar",
-                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-runtime/2.1.0/lifecycle-runtime-2.1.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-runtime/2.1.0/lifecycle-runtime-2.1.0.aar"
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar"
                 ],
-                "sha256": "e5173897b965e870651e83d9d5af1742d3f532d58863223a390ce3a194c8312b"
+                "sha256": "2f866c07a1f33a8c9bb69a9545d4f20b4f0628cd0a155432386d7cb081e1e0bc"
             },
             {
-                "coord": "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
-                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-viewmodel/2.1.0/lifecycle-viewmodel-2.1.0.aar",
+                "coord": "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-viewmodel-savedstate/2.2.0/lifecycle-viewmodel-savedstate-2.2.0.aar",
+                "directDependencies": [
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "androidx.savedstate:savedstate:aar:1.0.0"
+                ],
+                "dependencies": [
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "androidx.arch.core:core-common:2.1.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0"
+                ],
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel-savedstate/2.2.0/lifecycle-viewmodel-savedstate-2.2.0.aar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel-savedstate/2.2.0/lifecycle-viewmodel-savedstate-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-viewmodel-savedstate/2.2.0/lifecycle-viewmodel-savedstate-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-viewmodel-savedstate/2.2.0/lifecycle-viewmodel-savedstate-2.2.0.aar"
+                ],
+                "sha256": "3ce866fb822b20fe2f188f974992869a0a6233fe40acbefcff090d6def5e7f33"
+            },
+            {
+                "coord": "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-viewmodel/2.2.0/lifecycle-viewmodel-2.2.0.aar",
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0"
                 ],
                 "dependencies": [
                     "androidx.annotation:annotation:1.1.0"
                 ],
-                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel/2.1.0/lifecycle-viewmodel-2.1.0.aar",
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel/2.2.0/lifecycle-viewmodel-2.2.0.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel/2.1.0/lifecycle-viewmodel-2.1.0.aar",
-                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-viewmodel/2.1.0/lifecycle-viewmodel-2.1.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-viewmodel/2.1.0/lifecycle-viewmodel-2.1.0.aar"
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel/2.2.0/lifecycle-viewmodel-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-viewmodel/2.2.0/lifecycle-viewmodel-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-viewmodel/2.2.0/lifecycle-viewmodel-2.2.0.aar"
                 ],
-                "sha256": "ba55fb7ac1b2828d5327cda8acf7085d990b2b4c43ef336caa67686249b8523d"
+                "sha256": "967efab24d6c49dd414a8c0ac4a1cd09b018f0b8bb43b739ad360c4158ebde27"
             },
             {
                 "coord": "androidx.loader:loader:aar:1.0.0",
@@ -486,20 +521,20 @@
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0"
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                     "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0"
+                    "androidx.arch.core:core-runtime:aar:2.1.0"
                 ],
                 "url": "https://maven.google.com/androidx/loader/loader/1.0.0/loader-1.0.0.aar",
                 "mirror_urls": [
@@ -510,50 +545,51 @@
                 "sha256": "11f735cb3b55c458d470bed9e25254375b518b4b1bad6926783a7026db0f5025"
             },
             {
-                "coord": "androidx.preference:preference:1.1.0",
-                "file": "v1/https/maven.google.com/androidx/preference/preference/1.1.0/preference-1.1.0.aar",
+                "coord": "androidx.preference:preference:1.1.1",
+                "file": "v1/https/maven.google.com/androidx/preference/preference/1.1.1/preference-1.1.1.aar",
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.fragment:fragment:aar:1.1.0",
+                    "androidx.fragment:fragment:aar:1.2.4",
                     "androidx.appcompat:appcompat:aar:1.1.0",
                     "androidx.recyclerview:recyclerview:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
                     "androidx.interpolator:interpolator:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.fragment:fragment:aar:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
+                    "androidx.fragment:fragment:aar:1.2.4",
                     "androidx.appcompat:appcompat:aar:1.1.0",
-                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.1.0",
+                    "androidx.activity:activity:aar:1.1.0",
                     "androidx.vectordrawable:vectordrawable:aar:1.1.0",
                     "androidx.recyclerview:recyclerview:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                     "androidx.cursoradapter:cursoradapter:aar:1.0.0",
                     "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
                     "androidx.appcompat:appcompat-resources:aar:1.1.0",
                     "androidx.customview:customview:aar:1.0.0",
-                    "androidx.arch.core:core-runtime:aar:2.0.0",
-                    "androidx.activity:activity:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.vectordrawable:vectordrawable-animated:aar:1.1.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0",
                     "androidx.viewpager:viewpager:aar:1.0.0",
-                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.0.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
                     "androidx.loader:loader:aar:1.0.0",
                     "androidx.drawerlayout:drawerlayout:aar:1.0.0"
                 ],
-                "url": "https://maven.google.com/androidx/preference/preference/1.1.0/preference-1.1.0.aar",
+                "url": "https://maven.google.com/androidx/preference/preference/1.1.1/preference-1.1.1.aar",
                 "mirror_urls": [
-                    "https://maven.google.com/androidx/preference/preference/1.1.0/preference-1.1.0.aar",
-                    "https://jcenter.bintray.com/androidx/preference/preference/1.1.0/preference-1.1.0.aar",
-                    "https://repo1.maven.org/maven2/androidx/preference/preference/1.1.0/preference-1.1.0.aar"
+                    "https://maven.google.com/androidx/preference/preference/1.1.1/preference-1.1.1.aar",
+                    "https://jcenter.bintray.com/androidx/preference/preference/1.1.1/preference-1.1.1.aar",
+                    "https://repo1.maven.org/maven2/androidx/preference/preference/1.1.1/preference-1.1.1.aar"
                 ],
-                "sha256": "6cf1a099b03b3254041b04701841865b2708c0b546b9036c8b0dada0aa59de57"
+                "sha256": "317dcbc38242aea2f6262c06d51b8a22827e98959967edd40f82600a15cb4bff"
             },
             {
                 "coord": "androidx.recyclerview:recyclerview:1.1.0",
@@ -565,12 +601,12 @@
                     "androidx.customview:customview:aar:1.0.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.customview:customview:aar:1.0.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
@@ -588,11 +624,11 @@
                 "directDependencies": [
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.arch.core:core-common:2.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0"
+                    "androidx.lifecycle:lifecycle-common:2.2.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.annotation:annotation:1.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.arch.core:core-common:2.1.0"
                 ],
                 "url": "https://maven.google.com/androidx/savedstate/savedstate/1.0.0/savedstate-1.0.0.aar",
@@ -648,13 +684,13 @@
                     "androidx.vectordrawable:vectordrawable:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
                     "androidx.interpolator:interpolator:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.vectordrawable:vectordrawable:aar:1.1.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
@@ -675,11 +711,11 @@
                     "androidx.core:core:aar:1.1.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
@@ -719,12 +755,12 @@
                     "androidx.customview:customview:aar:1.0.0"
                 ],
                 "dependencies": [
-                    "androidx.lifecycle:lifecycle-runtime:aar:2.1.0",
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
                     "androidx.annotation:annotation:1.1.0",
                     "androidx.collection:collection:1.1.0",
-                    "androidx.lifecycle:lifecycle-common:2.1.0",
                     "androidx.customview:customview:aar:1.0.0",
                     "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                     "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
                     "androidx.core:core:aar:1.1.0"
                 ],
@@ -947,6 +983,6 @@
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 18647712
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 1580247955
     }
 }
