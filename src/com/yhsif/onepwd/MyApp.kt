@@ -2,16 +2,12 @@ package com.yhsif.onepwd
 
 import android.app.Application
 
-import androidx.sqlite.db.SupportSQLiteOpenHelper
+import androidx.room.Room
 
-import com.yhsif.onepwd.db.SiteKeyPairings
+import com.yhsif.onepwd.db.SiteKeyPairing
 
 class MyApp : Application() {
-  companion object {
-    var pairingHelper: SupportSQLiteOpenHelper? = null
-  }
-
   override fun onCreate() {
-    pairingHelper = SiteKeyPairings.openHelper(this)
+    SiteKeyPairing.initDb(this)
   }
 }

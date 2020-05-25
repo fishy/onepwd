@@ -35,13 +35,30 @@ kt_android_library(
     resource_files = glob(["res/**/*"]),
     deps = [
         ":hmac_md5",
+        ":room",
 
         "@maven//:androidx_appcompat_appcompat",
         "@maven//:androidx_biometric_biometric",
         "@maven//:androidx_cardview_cardview",
         "@maven//:androidx_preference_preference",
         "@maven//:androidx_recyclerview_recyclerview",
-        "@maven//:androidx_sqlite_sqlite",
-        "@maven//:androidx_sqlite_sqlite_framework",
+    ],
+)
+
+java_plugin(
+    name = "room_compiler",
+    processor_class = "androidx.room.RoomProcessor",
+    deps = [
+        "@maven//:androidx_room_room_compiler",
+    ],
+)
+
+java_library(
+    name = "room",
+    exported_plugins = [
+        ":room_compiler",
+    ],
+    exports = [
+        "@maven//:androidx_room_room_runtime",
     ],
 )

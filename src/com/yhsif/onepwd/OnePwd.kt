@@ -46,7 +46,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.preference.PreferenceManager
 
-import com.yhsif.onepwd.db.SiteKeyPairings
+import com.yhsif.onepwd.db.SiteKeyPairing
 import com.yhsif.onepwd.settings.SettingsActivity
 
 class OnePwd :
@@ -274,10 +274,7 @@ class OnePwd :
       siteFull?.setText(getString(R.string.site_full, full))
       siteFull?.setVisibility(View.VISIBLE)
 
-      SiteKeyPairings.getSiteKey(
-        MyApp.pairingHelper!!,
-        full
-      ) { siteKey ->
+      SiteKeyPairing.getSiteKey(full) { siteKey ->
         if (siteKey == null) {
           site?.setText(siteKeyFull.getKey())
         } else {
@@ -392,32 +389,21 @@ class OnePwd :
     val afterwork = { -> maybeCopyValueToClip(value, pref) }
     if (prompt && siteKeyFull != SiteKey.Empty && !neverSet.contains(full)) {
       val defSiteKey = siteKeyFull.getKey()
-      SiteKeyPairings.getSiteKey(
-        MyApp.pairingHelper!!,
-        full
-      ) { key ->
+      SiteKeyPairing.getSiteKey(full) { key ->
         val insert = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairings.insert(
-            MyApp.pairingHelper!!,
-            full,
-            siteKey
-          ) {}
-          dialog.dismiss()
+          SiteKeyPairing.insert(full, siteKey) {
+            dialog.dismiss()
+          }
         }
         val update = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairings.update(
-            MyApp.pairingHelper!!,
-            full,
-            siteKey
-          ) {}
-          dialog.dismiss()
+          SiteKeyPairing.update(full, siteKey) {
+            dialog.dismiss()
+          }
         }
         val delete = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairings.delete(
-            MyApp.pairingHelper!!,
-            full
-          ) {}
-          dialog.dismiss()
+          SiteKeyPairing.delete(full) {
+            dialog.dismiss()
+          }
         }
         val negative = DialogInterface.OnClickListener() { dialog, _ ->
           dialog.dismiss()

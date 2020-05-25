@@ -81,8 +81,8 @@ maven_install(
         "androidx.cardview:cardview:1.0.0",
         "androidx.preference:preference:1.1.1",
         "androidx.recyclerview:recyclerview:1.1.0",
-        "androidx.sqlite:sqlite:2.1.0",
-        "androidx.sqlite:sqlite-framework:2.1.0",
+        "androidx.room:room-compiler:2.2.5",
+        "androidx.room:room-runtime:2.2.5",
     ],
     repositories = [
         "https://maven.google.com",

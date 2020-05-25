@@ -1,16 +1,16 @@
 package com.yhsif.onepwd
 
-import com.yhsif.onepwd.db.SiteKeyPairings
+import com.yhsif.onepwd.db.SiteKeyPairing
 
 class PairingList : ListActivityBase(R.string.pairing_list_hint) {
 
   var prev: Set<ListDataPairing> = setOf()
 
   override fun refreshData() {
-    SiteKeyPairings.listAll(MyApp.pairingHelper!!) { list ->
+    SiteKeyPairing.listAll() { pairings ->
       val pairingSet = mutableSetOf<ListDataPairing>()
-      for (pair in list) {
-        pairingSet.add(ListDataPairing(pair.first, pair.second))
+      for (entry in pairings) {
+        pairingSet.add(ListDataPairing(entry.full, entry.siteKey))
       }
       if (pairingSet != prev) {
         prev = pairingSet
