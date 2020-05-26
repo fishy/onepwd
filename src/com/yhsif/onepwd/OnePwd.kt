@@ -151,22 +151,23 @@ class OnePwd :
     }
   }
 
-  var lengthGroup: RadioGroup? = null
-  var master: EditText? = null
-  var site: EditText? = null
-  var siteFull: TextView? = null
-  var password: EditText? = null
-  var radioButtons: List<RadioButton> = listOf()
-  var checkedLength: RadioButton? = null
-  var checkedIndex: Int = 0
+  lateinit var lengthGroup: RadioGroup
+  lateinit var master: EditText
+  lateinit var site: EditText
+  lateinit var siteFull: TextView
+  lateinit var password: EditText
 
-  var loadButton: TextView? = null
-  var storeButton: TextView? = null
+  lateinit var loadButton: TextView
+  lateinit var storeButton: TextView
+
+  lateinit var uiHandler: Handler
+
+  lateinit var radioButtons: List<RadioButton>
+  lateinit var checkedLength: RadioButton
+  var checkedIndex: Int = 0
 
   var loadedMaster: String = ""
   var siteKeyFull: SiteKey = SiteKey.Empty
-
-  var uiHandler: Handler? = null
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -183,15 +184,15 @@ class OnePwd :
     findViewById<View>(R.id.master_key_store).setOnClickListener(this)
 
     lengthGroup = findViewById<RadioGroup>(R.id.length_group)
-    lengthGroup?.setOnCheckedChangeListener(this)
+    lengthGroup.setOnCheckedChangeListener(this)
 
     master = findViewById<EditText>(R.id.master_key)
-    master?.setOnFocusChangeListener(this)
-    master?.setOnEditorActionListener(this)
+    master.setOnFocusChangeListener(this)
+    master.setOnEditorActionListener(this)
 
     site = findViewById<EditText>(R.id.site_key)
-    site?.setOnFocusChangeListener(this)
-    site?.setOnEditorActionListener(this)
+    site.setOnFocusChangeListener(this)
+    site.setOnEditorActionListener(this)
 
     siteFull = findViewById<TextView>(R.id.site_key_full)
 
@@ -257,7 +258,7 @@ class OnePwd :
     if (index !in 1..radioButtons.size) {
       index = defaultIndex
     }
-    lengthGroup?.check(radioButtons[index].getId())
+    lengthGroup.check(radioButtons[index].getId())
 
     siteKeyFull = SiteKey.Empty
     if (getIntent()?.getAction() == Intent.ACTION_SEND) {
@@ -268,23 +269,23 @@ class OnePwd :
     }
     val full = siteKeyFull.getFull()
     if (full == "") {
-      siteFull?.setVisibility(View.GONE)
-      site?.setText("")
+      siteFull.setVisibility(View.GONE)
+      site.setText("")
     } else {
-      siteFull?.setText(getString(R.string.site_full, full))
-      siteFull?.setVisibility(View.VISIBLE)
+      siteFull.setText(getString(R.string.site_full, full))
+      siteFull.setVisibility(View.VISIBLE)
 
       SiteKeyPairing.getSiteKey(full) { siteKey ->
         if (siteKey == null) {
-          site?.setText(siteKeyFull.getKey())
+          site.setText(siteKeyFull.getKey())
         } else {
-          site?.setText(siteKey)
+          site.setText(siteKey)
         }
       }
     }
 
-    master?.setText("")
-    password?.setText("")
+    master.setText("")
+    password.setText("")
 
     setMasterHint()
     if (pref.getBoolean(
@@ -312,18 +313,18 @@ class OnePwd :
   override fun onFocusChange(v: View, hasFocus: Boolean) {
     if (hasFocus) {
       when (v.getId()) {
-        master?.getId() -> {
-          if (site?.getText().toString().trim().isEmpty()) {
-            master?.setImeOptions(EditorInfo.IME_ACTION_NEXT)
+        master.getId() -> {
+          if (site.getText().toString().trim().isEmpty()) {
+            master.setImeOptions(EditorInfo.IME_ACTION_NEXT)
           } else {
-            master?.setImeOptions(EditorInfo.IME_ACTION_SEND)
+            master.setImeOptions(EditorInfo.IME_ACTION_SEND)
           }
         }
-        site?.getId() -> {
-          if (master?.getText().toString().isEmpty()) {
-            site?.setImeOptions(EditorInfo.IME_ACTION_NEXT)
+        site.getId() -> {
+          if (master.getText().toString().isEmpty()) {
+            site.setImeOptions(EditorInfo.IME_ACTION_NEXT)
           } else {
-            site?.setImeOptions(EditorInfo.IME_ACTION_SEND)
+            site.setImeOptions(EditorInfo.IME_ACTION_SEND)
           }
         }
       }
@@ -336,7 +337,7 @@ class OnePwd :
     actionId: Int,
     event: KeyEvent?
   ): Boolean {
-    if ((v.getId() == master?.getId() || v.getId() == site?.getId()) &&
+    if ((v.getId() == master.getId() || v.getId() == site.getId()) &&
         actionId == EditorInfo.IME_ACTION_SEND) {
       doGenerate()
       return true
@@ -347,20 +348,20 @@ class OnePwd :
   // for RadioGroup.OnCheckedChangeListener
   override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
     checkedLength = findViewById<RadioButton>(checkedId)
-    checkedIndex = radioButtons.indexOf(checkedLength!!)
+    checkedIndex = radioButtons.indexOf(checkedLength)
   }
 
   private fun setMasterHint() {
     if (loadedMaster.isEmpty()) {
-      master?.setHint(getString(R.string.hint_master))
+      master.setHint(getString(R.string.hint_master))
     } else {
-      master?.setHint(getString(R.string.hint_master_loaded))
+      master.setHint(getString(R.string.hint_master_loaded))
     }
   }
 
   private fun doGenerate() {
-    val length = checkedLength?.getText().toString().toInt()
-    var masterKey = master?.getText().toString()
+    val length = checkedLength.getText().toString().toInt()
+    var masterKey = master.getText().toString()
     if (masterKey.isEmpty()) {
       if (loadedMaster.isEmpty()) {
         showToast(this, R.string.empty_master_toast)
@@ -369,8 +370,8 @@ class OnePwd :
       masterKey = loadedMaster
     }
 
-    val siteKey = site?.getText().toString().trim()
-    site?.setText(siteKey)
+    val siteKey = site.getText().toString().trim()
+    site.setText(siteKey)
     val array = HmacMd5.hmac(masterKey, siteKey)
     val value =
       Base64.encodeToString(array, Base64.URL_SAFE or Base64.NO_PADDING)
@@ -378,7 +379,7 @@ class OnePwd :
         .replace("_", "")
         .substring(0, length)
 
-    password?.setText(value)
+    password.setText(value)
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     val prompt = pref.getBoolean(
       SettingsActivity.KEY_REMEMBER_PROMPT,
@@ -505,7 +506,7 @@ class OnePwd :
         SettingsActivity.DEFAULT_CLEAR_CLIPBOARD
       )?.toLong()
       if (time != null && time > 0) {
-        uiHandler?.postDelayed(
+        uiHandler.postDelayed(
           Runnable() {
             if (clip.hasPrimaryClip()) {
               val item = clip.getPrimaryClip()?.getItemAt(0)
@@ -631,15 +632,15 @@ class OnePwd :
           loadedMaster = String(cipher.doFinal(msg))
           setMasterHint()
           if (!loadedMaster.isEmpty()) {
-            master?.setText("")
+            master.setText("")
           }
-          uiHandler?.post(
+          uiHandler.post(
             Runnable() {
               showToast(this, R.string.load_succeed)
             }
           )
         } else {
-          uiHandler?.post(
+          uiHandler.post(
             Runnable() {
               showToast(this, R.string.load_empty_or_canceled)
             }
@@ -669,7 +670,7 @@ class OnePwd :
       showToast(this, R.string.biometric_unsupported)
       return
     }
-    val masterKey = master?.getText().toString()
+    val masterKey = master.getText().toString()
     if (masterKey.isEmpty()) {
       showToast(this, R.string.empty_master_toast)
       return
@@ -703,7 +704,7 @@ class OnePwd :
             editor.putString(KEY_IV, ivStr)
             editor.commit()
           }
-          uiHandler?.post(
+          uiHandler.post(
             Runnable() {
               showToast(this, R.string.store_succeed)
             }
@@ -821,7 +822,7 @@ class OnePwd :
         override fun onAuthenticationSucceeded(
           res: BiometricPrompt.AuthenticationResult
         ) {
-          uiHandler?.post(
+          uiHandler.post(
             Runnable() {
               callback(res.getCryptoObject()?.getCipher())
             }

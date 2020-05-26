@@ -22,24 +22,24 @@ public class LengthDialog : PreferenceDialogFragmentCompat() {
     }
   }
 
-  private var picker: NumberPicker? = null
+  private lateinit var picker: NumberPicker
 
   override fun onBindDialogView(view: View) {
     super.onBindDialogView(view)
     picker = view.findViewById(R.id.picker)
 
-    picker?.setMinValue(LengthPreference.MIN_VALUE)
-    picker?.setMaxValue(LengthPreference.MAX_VALUE)
-    picker?.setWrapSelectorWheel(WRAP_WHEEL)
+    picker.setMinValue(LengthPreference.MIN_VALUE)
+    picker.setMaxValue(LengthPreference.MAX_VALUE)
+    picker.setWrapSelectorWheel(WRAP_WHEEL)
     getLengthPreference()?.getValue()?.let { value ->
-      picker?.setValue(value)
+      picker.setValue(value)
     }
   }
 
   override fun onDialogClosed(positiveResult: Boolean) {
     if (positiveResult) {
-      picker?.clearFocus()
-      picker?.getValue()?.let { newValue ->
+      picker.clearFocus()
+      picker.getValue().let { newValue ->
         val pref = getLengthPreference()
         if (pref?.callChangeListener(newValue) == true) {
           pref.setValue(newValue)
