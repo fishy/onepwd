@@ -32,6 +32,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.yhsif.onepwd.db.SiteKeyPairing
 import com.yhsif.onepwd.settings.SettingsActivity
@@ -214,9 +215,8 @@ class OnePwd :
         // Clear loaded MasterKey
         loadedMaster = ""
 
-        getSharedPreferences(PREF, 0).edit().let { editor ->
-            editor.putInt(KEY_SELECTED_LENGTH, checkedIndex)
-            editor.commit()
+        getSharedPreferences(PREF, 0).edit {
+            putInt(KEY_SELECTED_LENGTH, checkedIndex)
         }
     }
 
@@ -409,9 +409,8 @@ class OnePwd :
                 val neutral = DialogInterface.OnClickListener() { dialog, _ ->
                     val mutableSet = neverSet.toMutableSet()
                     mutableSet.add(full)
-                    pref.edit().let { editor ->
-                        editor.putStringSet(KEY_NEVER_PAIRINGS, mutableSet)
-                        editor.commit()
+                    pref.edit {
+                        putStringSet(KEY_NEVER_PAIRINGS, mutableSet)
                     }
                     dialog.dismiss()
                 }
@@ -698,10 +697,9 @@ class OnePwd :
                     val msgStr = Base64.encodeToString(message, Base64.DEFAULT)
                     val ivStr = Base64.encodeToString(iv, Base64.DEFAULT)
 
-                    getSharedPreferences(PREF_SECRET, 0).edit().let { editor ->
-                        editor.putString(KEY_MASTER_ENCRYPTED, msgStr)
-                        editor.putString(KEY_IV, ivStr)
-                        editor.commit()
+                    getSharedPreferences(PREF_SECRET, 0).edit {
+                        putString(KEY_MASTER_ENCRYPTED, msgStr)
+                        putString(KEY_IV, ivStr)
                     }
                     uiHandler.post(
                         Runnable() {
@@ -791,20 +789,18 @@ class OnePwd :
                     !encPref.contains(KEY_IV)) {
                 val master = pref.getString(KEY_MASTER_ENCRYPTED, "")
                 val iv = pref.getString(KEY_IV, "")
-                encPref.edit().let { editor ->
-                    editor.putString(KEY_MASTER_ENCRYPTED, master)
-                    editor.putString(KEY_IV, iv)
-                    editor.commit()
+                encPref.edit {
+                    putString(KEY_MASTER_ENCRYPTED, master)
+                    putString(KEY_IV, iv)
                 }
             }
         }
-        pref.edit().let { editor ->
+        pref.edit {
             if (toRemove) {
-                editor.remove(KEY_MASTER_ENCRYPTED)
-                editor.remove(KEY_IV)
+                remove(KEY_MASTER_ENCRYPTED)
+                remove(KEY_IV)
             }
-            editor.putBoolean(KEY_MIGRATED, true)
-            editor.commit()
+            putBoolean(KEY_MIGRATED, true)
         }
     }
 

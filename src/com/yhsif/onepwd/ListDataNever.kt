@@ -1,6 +1,7 @@
 package com.yhsif.onepwd
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 data class ListDataNever(val full: String) : ListDataBase {
@@ -11,9 +12,8 @@ data class ListDataNever(val full: String) : ListDataBase {
         val neverSet = pref.getStringSet(OnePwd.KEY_NEVER_PAIRINGS, setOf())!!
         val mutableSet = neverSet.toMutableSet()
         mutableSet.remove(full)
-        pref.edit().let { editor ->
-            editor.putStringSet(OnePwd.KEY_NEVER_PAIRINGS, mutableSet)
-            editor.commit()
+        pref.edit {
+            putStringSet(OnePwd.KEY_NEVER_PAIRINGS, mutableSet)
         }
     }
 }

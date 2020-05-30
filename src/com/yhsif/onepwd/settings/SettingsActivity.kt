@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -135,11 +136,10 @@ public class SettingsActivity :
                 lengths.add(pref.getInt(keys[i], defaults[i]))
             }
             val sorted = lengths.sorted()
-            pref.edit().let { editor ->
+            pref.edit {
                 for (i in 0 until 4) {
-                    editor.putInt(keys.get(i), sorted.get(i))
+                    putInt(keys.get(i), sorted.get(i))
                 }
-                editor.commit()
             }
         }
     }
