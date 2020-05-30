@@ -5,5 +5,5 @@ import androidx.room.RoomDatabase
 
 @Database(entities = arrayOf(SiteKeyPairing::class), version = 1, exportSchema = false)
 abstract class SiteKeyPairingDatabase : RoomDatabase() {
-  abstract fun dao(): SiteKeyPairingDao
+    abstract fun dao(): SiteKeyPairingDao
 }
