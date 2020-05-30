@@ -41,6 +41,7 @@ kt_android_library(
         "@maven//:androidx_biometric_biometric",
         "@maven//:androidx_cardview_cardview",
         "@maven//:androidx_core_core_ktx",
+        "@maven//:androidx_fragment_fragment_ktx",
         "@maven//:androidx_preference_preference",
         "@maven//:androidx_recyclerview_recyclerview",
     ],

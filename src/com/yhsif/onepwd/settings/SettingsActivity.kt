@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
+import androidx.fragment.app.commit
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -157,9 +158,9 @@ public class SettingsActivity :
                 frag = PrefsFragment()
             }
 
-            getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, frag, PrefsFragment.FRAGMENT_TAG)
-                .commit()
+            getSupportFragmentManager().commit {
+                replace(R.id.fragment_container, frag, PrefsFragment.FRAGMENT_TAG)
+            }
         }
     }
 
@@ -184,7 +185,7 @@ public class SettingsActivity :
         caller: PreferenceFragmentCompat,
         pref: Preference
     ): Boolean {
-        getSupportFragmentManager().beginTransaction().let { ft ->
+        getSupportFragmentManager().commit {
             val key = pref.getKey()
             val args = Bundle()
             args.putString(
@@ -198,7 +199,8 @@ public class SettingsActivity :
                 getString(R.string.pref_tag_clipboard) ->
                     ClipboardPreferenceFragment()
                 getString(R.string.pref_tag_lengths) -> {
-                    sortLengths(PreferenceManager.getDefaultSharedPreferences(this))
+                    sortLengths(PreferenceManager.getDefaultSharedPreferences(
+                        this@SettingsActivity))
                     LengthsPreferenceFragment()
                 }
                 getString(R.string.pref_tag_prefill) -> PrefillPreferenceFragment()
@@ -208,10 +210,9 @@ public class SettingsActivity :
             }
             if (frag != null) {
                 frag.setArguments(args)
-                ft.replace(R.id.fragment_container, frag, key)
+                replace(R.id.fragment_container, frag, key)
             }
-            ft.addToBackStack(key)
-            ft.commit()
+            addToBackStack(key)
         }
         return true
     }

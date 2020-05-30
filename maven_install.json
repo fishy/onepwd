@@ -3,6 +3,47 @@
         "conflict_resolution": {},
         "dependencies": [
             {
+                "coord": "androidx.activity:activity-ktx:aar:1.1.0",
+                "file": "v1/https/maven.google.com/androidx/activity/activity-ktx/1.1.0/activity-ktx-1.1.0.aar",
+                "directDependencies": [
+                    "androidx.activity:activity:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-ktx:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.lifecycle:lifecycle-runtime-ktx:aar:2.2.0",
+                    "androidx.core:core-ktx:aar:1.3.0"
+                ],
+                "dependencies": [
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
+                    "androidx.collection:collection:1.1.0",
+                    "androidx.core:core:aar:1.3.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0",
+                    "androidx.activity:activity:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-ktx:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.lifecycle:lifecycle-runtime-ktx:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
+                    "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
+                    "androidx.core:core-ktx:aar:1.3.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
+                    "org.jetbrains:annotations:13.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+                ],
+                "url": "https://maven.google.com/androidx/activity/activity-ktx/1.1.0/activity-ktx-1.1.0.aar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/activity/activity-ktx/1.1.0/activity-ktx-1.1.0.aar",
+                    "https://jcenter.bintray.com/androidx/activity/activity-ktx/1.1.0/activity-ktx-1.1.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/activity/activity-ktx/1.1.0/activity-ktx-1.1.0.aar"
+                ],
+                "sha256": "1996c36d3d2d62db5020b8ec634b5f854b1a698960c3552e1a00c69221baeabe"
+            },
+            {
                 "coord": "androidx.activity:activity:aar:1.1.0",
                 "file": "v1/https/maven.google.com/androidx/activity/activity/1.1.0/activity-1.1.0.aar",
                 "directDependencies": [
@@ -222,6 +263,28 @@
                 "sha256": "1193c04c22a3d6b5946dae9f4e8c59d6adde6a71b6bd5d87fb99d82dda1afec7"
             },
             {
+                "coord": "androidx.collection:collection-ktx:1.1.0",
+                "file": "v1/https/maven.google.com/androidx/collection/collection-ktx/1.1.0/collection-ktx-1.1.0.jar",
+                "directDependencies": [
+                    "androidx.collection:collection:1.1.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71"
+                ],
+                "dependencies": [
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.collection:collection:1.1.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains:annotations:13.0"
+                ],
+                "url": "https://maven.google.com/androidx/collection/collection-ktx/1.1.0/collection-ktx-1.1.0.jar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/collection/collection-ktx/1.1.0/collection-ktx-1.1.0.jar",
+                    "https://jcenter.bintray.com/androidx/collection/collection-ktx/1.1.0/collection-ktx-1.1.0.jar",
+                    "https://repo1.maven.org/maven2/androidx/collection/collection-ktx/1.1.0/collection-ktx-1.1.0.jar"
+                ],
+                "sha256": "2bfc54475c047131913361f56d0f7f019c6e5bee53eeb0eb7d94a7c499a05227"
+            },
+            {
                 "coord": "androidx.collection:collection:1.1.0",
                 "file": "v1/https/maven.google.com/androidx/collection/collection/1.1.0/collection-1.1.0.jar",
                 "directDependencies": [
@@ -359,6 +422,57 @@
                 "sha256": "9402442cdc5a43cf62fb14f8cf98c63342d4d9d9b805c8033c6cf7e802749ac1"
             },
             {
+                "coord": "androidx.fragment:fragment-ktx:1.2.4",
+                "file": "v1/https/maven.google.com/androidx/fragment/fragment-ktx/1.2.4/fragment-ktx-1.2.4.aar",
+                "directDependencies": [
+                    "androidx.fragment:fragment:aar:1.2.4",
+                    "androidx.activity:activity-ktx:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core-ktx:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-ktx:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.core:core-ktx:aar:1.3.0",
+                    "androidx.collection:collection-ktx:1.1.0"
+                ],
+                "dependencies": [
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.savedstate:savedstate:aar:1.0.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
+                    "androidx.collection:collection:1.1.0",
+                    "androidx.fragment:fragment:aar:1.2.4",
+                    "androidx.core:core:aar:1.3.0",
+                    "androidx.activity:activity-ktx:aar:1.1.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0",
+                    "androidx.activity:activity:aar:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-livedata:aar:2.0.0",
+                    "androidx.lifecycle:lifecycle-livedata-core-ktx:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel-ktx:aar:2.2.0",
+                    "androidx.customview:customview:aar:1.0.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.lifecycle:lifecycle-runtime-ktx:aar:2.2.0",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
+                    "androidx.versionedparcelable:versionedparcelable:aar:1.1.0",
+                    "androidx.viewpager:viewpager:aar:1.0.0",
+                    "androidx.core:core-ktx:aar:1.3.0",
+                    "androidx.collection:collection-ktx:1.1.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
+                    "androidx.loader:loader:aar:1.0.0",
+                    "org.jetbrains:annotations:13.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+                ],
+                "url": "https://maven.google.com/androidx/fragment/fragment-ktx/1.2.4/fragment-ktx-1.2.4.aar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/fragment/fragment-ktx/1.2.4/fragment-ktx-1.2.4.aar",
+                    "https://jcenter.bintray.com/androidx/fragment/fragment-ktx/1.2.4/fragment-ktx-1.2.4.aar",
+                    "https://repo1.maven.org/maven2/androidx/fragment/fragment-ktx/1.2.4/fragment-ktx-1.2.4.aar"
+                ],
+                "sha256": "85df2f19c757593467ba37ecd11c394a9b94361f4325c28c17c370679dfc4e30"
+            },
+            {
                 "coord": "androidx.fragment:fragment:aar:1.2.4",
                 "file": "v1/https/maven.google.com/androidx/fragment/fragment/1.2.4/fragment-1.2.4.aar",
                 "directDependencies": [
@@ -434,6 +548,31 @@
                 "sha256": "63898dabf7cfe5ec5d7ed8b8c2564c1427be876e1496ead95c2703cf59d3734b"
             },
             {
+                "coord": "androidx.lifecycle:lifecycle-livedata-core-ktx:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-livedata-core-ktx/2.2.0/lifecycle-livedata-core-ktx-2.2.0.aar",
+                "directDependencies": [
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71"
+                ],
+                "dependencies": [
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.arch.core:core-common:2.1.0",
+                    "androidx.arch.core:core-runtime:aar:2.1.0",
+                    "org.jetbrains:annotations:13.0"
+                ],
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-livedata-core-ktx/2.2.0/lifecycle-livedata-core-ktx-2.2.0.aar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-livedata-core-ktx/2.2.0/lifecycle-livedata-core-ktx-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-livedata-core-ktx/2.2.0/lifecycle-livedata-core-ktx-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-livedata-core-ktx/2.2.0/lifecycle-livedata-core-ktx-2.2.0.aar"
+                ],
+                "sha256": "5951f882e95b7e05ceb9adfca0fa2ebd511d63ea5a00da4eae6c6d0c1903da18"
+            },
+            {
                 "coord": "androidx.lifecycle:lifecycle-livedata-core:aar:2.2.0",
                 "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-livedata-core/2.2.0/lifecycle-livedata-core-2.2.0.aar",
                 "directDependencies": [
@@ -479,6 +618,34 @@
                 "sha256": "c82609ced8c498f0a701a30fb6771bb7480860daee84d82e0a81ee86edf7ba39"
             },
             {
+                "coord": "androidx.lifecycle:lifecycle-runtime-ktx:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-runtime-ktx/2.2.0/lifecycle-runtime-ktx-2.2.0.aar",
+                "directDependencies": [
+                    "androidx.annotation:annotation:1.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
+                ],
+                "dependencies": [
+                    "androidx.lifecycle:lifecycle-common:2.2.0",
+                    "androidx.annotation:annotation:1.1.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.arch.core:core-common:2.1.0",
+                    "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
+                    "org.jetbrains:annotations:13.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+                ],
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-runtime-ktx/2.2.0/lifecycle-runtime-ktx-2.2.0.aar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-runtime-ktx/2.2.0/lifecycle-runtime-ktx-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-runtime-ktx/2.2.0/lifecycle-runtime-ktx-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-runtime-ktx/2.2.0/lifecycle-runtime-ktx-2.2.0.aar"
+                ],
+                "sha256": "c29fc87694e6ce116b61207221e53ed285862a6628055790b0bcf9ce45d8cc68"
+            },
+            {
                 "coord": "androidx.lifecycle:lifecycle-runtime:aar:2.2.0",
                 "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar",
                 "directDependencies": [
@@ -498,6 +665,31 @@
                     "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-runtime/2.2.0/lifecycle-runtime-2.2.0.aar"
                 ],
                 "sha256": "2f866c07a1f33a8c9bb69a9545d4f20b4f0628cd0a155432386d7cb081e1e0bc"
+            },
+            {
+                "coord": "androidx.lifecycle:lifecycle-viewmodel-ktx:aar:2.2.0",
+                "file": "v1/https/maven.google.com/androidx/lifecycle/lifecycle-viewmodel-ktx/2.2.0/lifecycle-viewmodel-ktx-2.2.0.aar",
+                "directDependencies": [
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
+                ],
+                "dependencies": [
+                    "androidx.annotation:annotation:1.1.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "androidx.lifecycle:lifecycle-viewmodel:aar:2.2.0",
+                    "org.jetbrains:annotations:13.0",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+                ],
+                "url": "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel-ktx/2.2.0/lifecycle-viewmodel-ktx-2.2.0.aar",
+                "mirror_urls": [
+                    "https://maven.google.com/androidx/lifecycle/lifecycle-viewmodel-ktx/2.2.0/lifecycle-viewmodel-ktx-2.2.0.aar",
+                    "https://jcenter.bintray.com/androidx/lifecycle/lifecycle-viewmodel-ktx/2.2.0/lifecycle-viewmodel-ktx-2.2.0.aar",
+                    "https://repo1.maven.org/maven2/androidx/lifecycle/lifecycle-viewmodel-ktx/2.2.0/lifecycle-viewmodel-ktx-2.2.0.aar"
+                ],
+                "sha256": "f791001f2211947e56ad3d96d12c9ae93fc5589b88f08603f69a2265c9a7d702"
             },
             {
                 "coord": "androidx.lifecycle:lifecycle-viewmodel-savedstate:aar:2.2.0",
@@ -1316,6 +1508,47 @@
                 "sha256": "5ace22b102a96425e4ac44e0558b927f3857b56a33cbc289cf1b70aee645e6a7"
             },
             {
+                "coord": "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0",
+                "file": "v1/https/jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.3.0/kotlinx-coroutines-android-1.3.0.jar",
+                "directDependencies": [
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0"
+                ],
+                "dependencies": [
+                    "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0",
+                    "org.jetbrains:annotations:13.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71"
+                ],
+                "url": "https://jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.3.0/kotlinx-coroutines-android-1.3.0.jar",
+                "mirror_urls": [
+                    "https://maven.google.com/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.3.0/kotlinx-coroutines-android-1.3.0.jar",
+                    "https://jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.3.0/kotlinx-coroutines-android-1.3.0.jar",
+                    "https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-android/1.3.0/kotlinx-coroutines-android-1.3.0.jar"
+                ],
+                "sha256": "c80aaadf041f044d324a19a73f88879dfd1e4d026b14e3230075ff9081942ae3"
+            },
+            {
+                "coord": "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.0",
+                "file": "v1/https/jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.3.0/kotlinx-coroutines-core-1.3.0.jar",
+                "directDependencies": [
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71"
+                ],
+                "dependencies": [
+                    "org.jetbrains:annotations:13.0",
+                    "org.jetbrains.kotlin:kotlin-stdlib:1.3.71",
+                    "org.jetbrains.kotlin:kotlin-stdlib-common:1.3.71"
+                ],
+                "url": "https://jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.3.0/kotlinx-coroutines-core-1.3.0.jar",
+                "mirror_urls": [
+                    "https://maven.google.com/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.3.0/kotlinx-coroutines-core-1.3.0.jar",
+                    "https://jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.3.0/kotlinx-coroutines-core-1.3.0.jar",
+                    "https://repo1.maven.org/maven2/org/jetbrains/kotlinx/kotlinx-coroutines-core/1.3.0/kotlinx-coroutines-core-1.3.0.jar"
+                ],
+                "sha256": "6f3a60fea2403b80385b399952aeb3a4cf0985a45b8da04b6f31825171901a1d"
+            },
+            {
                 "coord": "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.0.5",
                 "file": "v1/https/jcenter.bintray.com/org/jetbrains/kotlinx/kotlinx-metadata-jvm/0.0.5/kotlinx-metadata-jvm-0.0.5.jar",
                 "directDependencies": [
@@ -1362,6 +1595,6 @@
             }
         ],
         "version": "0.1.0",
-        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": -689805600
+        "__AUTOGENERATED_FILE_DO_NOT_MODIFY_THIS_FILE_MANUALLY": 1862563292
     }
 }
