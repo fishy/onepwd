@@ -61,6 +61,7 @@
           android:inputType="textPassword"
           android:singleLine="true"
           android:hint="@string/hint_master"
+          android:textAppearance="@style/TextMedium"
         />
       <View
           android:layout_width="match_parent"
@@ -90,6 +91,7 @@
           android:singleLine="true"
           android:hint="@string/hint_site"
           android:selectAllOnFocus="true"
+          android:textAppearance="@style/TextMedium"
         />
       <View
           android:layout_width="match_parent"
@@ -160,6 +162,7 @@
           android:singleLine="true"
           android:hint="@string/hint_password"
           android:inputType="textVisiblePassword"
+          android:textAppearance="@style/TextMedium"
         />
       <View
           android:layout_width="match_parent"
@@ -182,7 +185,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:layout_weight="1"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
       />
     <Button
         android:id="@+id/settings"
@@ -191,7 +194,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:layout_weight="1"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
       />
     <Button
         android:id="@+id/close"
@@ -200,7 +203,7 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:layout_weight="1"
-        style="?android:attr/buttonBarButtonStyle"
+        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
       />
   </LinearLayout>
 </LinearLayout>

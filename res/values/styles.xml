@@ -2,7 +2,7 @@
 <resources>
   <style
       name="DialogMinWidth"
-      parent="Theme.AppCompat.Dialog.MinWidth"
+      parent="Theme.MaterialComponents.DayNight.Dialog.MinWidth"
       >
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -10,7 +10,7 @@
   </style>
   <style
       name="BaseActivity"
-      parent="Theme.AppCompat"
+      parent="Theme.MaterialComponents.DayNight"
       >
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -26,7 +26,7 @@
     />
   <style
       name="AlertDialogTheme"
-      parent="Theme.AppCompat.Dialog.Alert"
+      parent="Theme.MaterialComponents.DayNight.Dialog.Alert"
       >
     <item name="colorPrimary">@color/primary</item>
     <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -35,7 +35,7 @@
 
   <style
       name="TextMedium"
-      parent="TextAppearance.AppCompat.Medium"
+      parent="TextAppearance.MaterialComponents.Body1"
     />
   <style name="TextMedium.Action" >
     <item name="android:textColor">@color/accent</item>
@@ -43,6 +43,6 @@
 
   <style
       name="TextSmall"
-      parent="TextAppearance.AppCompat.Small"
+      parent="TextAppearance.MaterialComponents.Caption"
     />
 </resources>

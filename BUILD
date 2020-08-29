@@ -44,6 +44,7 @@ kt_android_library(
         "@maven//:androidx_fragment_fragment_ktx",
         "@maven//:androidx_preference_preference",
         "@maven//:androidx_recyclerview_recyclerview",
+        "@maven//:com_google_android_material_material",
     ],
 )
 
