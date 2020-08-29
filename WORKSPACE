@@ -76,10 +76,10 @@ maven_install(
         "com.google.truth:truth:1.0.1",
         "junit:junit:4.13",
 
-        "androidx.appcompat:appcompat:1.1.0",
+        "androidx.appcompat:appcompat:1.2.0",
         "androidx.biometric:biometric:1.0.1",
         "androidx.cardview:cardview:1.0.0",
-        "androidx.core:core-ktx:1.3.0",
+        "androidx.core:core-ktx:1.3.1",
         "androidx.fragment:fragment-ktx:1.2.4",
         "androidx.preference:preference:1.1.1",
         "androidx.recyclerview:recyclerview:1.1.0",
