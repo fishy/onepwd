@@ -10,11 +10,13 @@ import androidx.room.Room
 
 @Entity(
     tableName = "site_key_pairings",
-    indices = arrayOf(Index(
-        name = "idx_full",
-        unique = true,
-        value = ["full_site_key"]
-    ))
+    indices = arrayOf(
+        Index(
+            name = "idx_full",
+            unique = true,
+            value = ["full_site_key"]
+        )
+    )
 )
 data class SiteKeyPairing(
     @ColumnInfo(name = "full_site_key") val full: String = "",

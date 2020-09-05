@@ -13,7 +13,7 @@ class ClipboardPreferenceFragment : BasePreferenceFragment() {
         setHasOptionsMenu(true)
 
         val prefCopy: Preference? =
-        findPreference(SettingsActivity.KEY_COPY_CLIPBOARD)
+            findPreference(SettingsActivity.KEY_COPY_CLIPBOARD)
         if (prefCopy != null) {
             SettingsActivity.bindPreferenceSummaryToBoolean(
                 prefCopy,
@@ -21,7 +21,7 @@ class ClipboardPreferenceFragment : BasePreferenceFragment() {
             )
         }
         val prefClear: Preference? =
-        findPreference(SettingsActivity.KEY_CLEAR_CLIPBOARD)
+            findPreference(SettingsActivity.KEY_CLEAR_CLIPBOARD)
         if (prefClear != null) {
             SettingsActivity.bindPreferenceSummaryToString(prefClear)
         }

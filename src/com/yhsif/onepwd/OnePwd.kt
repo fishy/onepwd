@@ -127,13 +127,14 @@ class OnePwd :
                     channel.setDescription(ctx.getString(R.string.channel_desc))
                     channel.setShowBadge(false)
                     val notifManager = ctx.getSystemService(
-                        Context.NOTIFICATION_SERVICE) as NotificationManager
+                        Context.NOTIFICATION_SERVICE
+                    ) as NotificationManager
                     notifManager.createNotificationChannel(channel)
                 }
                 CHANNEL_ID
             }
             val activity =
-            PendingIntent.getActivity(ctx, 0, Intent(ctx, OnePwd::class.java), 0)
+                PendingIntent.getActivity(ctx, 0, Intent(ctx, OnePwd::class.java), 0)
             val notification = NotificationCompat.Builder(ctx, channelId)
                 .setSmallIcon(R.drawable.notify_icon)
                 .setWhen(System.currentTimeMillis())
@@ -284,10 +285,11 @@ class OnePwd :
         password.setText("")
 
         setMasterHint()
-        if (pref.getBoolean(
+        val v = pref.getBoolean(
             SettingsActivity.KEY_BIO_AUTOLOAD,
             SettingsActivity.DEFAULT_BIO_AUTOLOAD
-        )) {
+        )
+        if (v) {
             doLoad(false)
         }
 
@@ -334,8 +336,10 @@ class OnePwd :
         actionId: Int,
         event: KeyEvent?
     ): Boolean {
-        if ((v.getId() == master.getId() || v.getId() == site.getId()) &&
-                actionId == EditorInfo.IME_ACTION_SEND) {
+        if (
+            (v.getId() == master.getId() || v.getId() == site.getId()) &&
+            actionId == EditorInfo.IME_ACTION_SEND
+        ) {
             doGenerate()
             return true
         }
@@ -436,17 +440,20 @@ class OnePwd :
                     } else {
                         builder
                             .setTitle(R.string.title_remember)
-                            .setMessage(getString(
-                                R.string.msg_remember,
-                                getString(R.string.button_never),
-                                full,
-                                siteKey))
-                                .setPositiveButton(
-                                    android.R.string.yes,
-                                    insert
+                            .setMessage(
+                                getString(
+                                    R.string.msg_remember,
+                                    getString(R.string.button_never),
+                                    full,
+                                    siteKey
                                 )
-                                .create()
-                                .show()
+                            )
+                            .setPositiveButton(
+                                android.R.string.yes,
+                                insert
+                            )
+                            .create()
+                            .show()
                     }
                 } else {
                     when (siteKey) {
@@ -454,11 +461,13 @@ class OnePwd :
                         defSiteKey ->
                             builder
                                 .setTitle(R.string.title_delete)
-                                .setMessage(getString(
-                                    R.string.msg_delete,
-                                    getString(R.string.button_never),
-                                    full,
-                                    key)
+                                .setMessage(
+                                    getString(
+                                        R.string.msg_delete,
+                                        getString(R.string.button_never),
+                                        full,
+                                        key
+                                    )
                                 )
                                 .setPositiveButton(
                                     android.R.string.yes,
@@ -469,12 +478,14 @@ class OnePwd :
                         else ->
                             builder
                                 .setTitle(R.string.title_update)
-                                .setMessage(getString(
-                                    R.string.msg_update,
-                                    getString(R.string.button_never),
-                                    full,
-                                    key,
-                                    siteKey)
+                                .setMessage(
+                                    getString(
+                                        R.string.msg_update,
+                                        getString(R.string.button_never),
+                                        full,
+                                        key,
+                                        siteKey
+                                    )
                                 )
                                 .setPositiveButton(
                                     android.R.string.yes,
@@ -491,10 +502,11 @@ class OnePwd :
     }
 
     private fun maybeCopyValueToClip(value: String, pref: SharedPreferences) {
-        if (pref.getBoolean(
+        val v = pref.getBoolean(
             SettingsActivity.KEY_COPY_CLIPBOARD,
             SettingsActivity.DEFAULT_COPY_CLIPBOARD
-        )) {
+        )
+        if (v) {
             val clip = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
             val clipData = ClipData.newPlainText("", value)
             clip.setPrimaryClip(clipData)
@@ -522,10 +534,11 @@ class OnePwd :
 
     private fun getSiteKeyFromForegroundApp(): SiteKey {
         val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        if (!pref.getBoolean(
+        val v = pref.getBoolean(
             SettingsActivity.KEY_PREFILL_USAGE,
             SettingsActivity.DEFAULT_PREFILL_USAGE
-        )) {
+        )
+        if (!v) {
             return SiteKey.Empty
         }
 
@@ -688,7 +701,8 @@ class OnePwd :
             ) { cipher ->
                 if (cipher != null) {
                     val message = cipher.doFinal(
-                        masterKey.toByteArray(charset("UTF-8")))
+                        masterKey.toByteArray(charset("UTF-8"))
+                    )
                     val iv = cipher
                         .getParameters()
                         .getParameterSpec(IvParameterSpec::class.java)
@@ -717,8 +731,8 @@ class OnePwd :
     private fun createCipher(): Cipher {
         return Cipher.getInstance(
             KeyProperties.KEY_ALGORITHM_AES + "/" +
-            KeyProperties.BLOCK_MODE_CBC + "/" +
-            KeyProperties.ENCRYPTION_PADDING_PKCS7
+                KeyProperties.BLOCK_MODE_CBC + "/" +
+                KeyProperties.ENCRYPTION_PADDING_PKCS7
         )
     }
 
@@ -785,8 +799,10 @@ class OnePwd :
         if (pref.contains(KEY_MASTER_ENCRYPTED) && pref.contains(KEY_IV)) {
             toRemove = true
             val encPref = getSharedPreferences(PREF_SECRET, 0)
-            if (!encPref.contains(KEY_MASTER_ENCRYPTED) ||
-                    !encPref.contains(KEY_IV)) {
+            if (
+                !encPref.contains(KEY_MASTER_ENCRYPTED) ||
+                !encPref.contains(KEY_IV)
+            ) {
                 val master = pref.getString(KEY_MASTER_ENCRYPTED, "")
                 val iv = pref.getString(KEY_IV, "")
                 encPref.edit {

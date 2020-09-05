@@ -55,7 +55,7 @@ public class SettingsActivity :
                     when (pref.getKey()) {
                         KEY_COPY_CLIPBOARD -> {
                             val clearClip: Preference? =
-                            pref.getPreferenceManager().findPreference(KEY_CLEAR_CLIPBOARD)
+                                pref.getPreferenceManager().findPreference(KEY_CLEAR_CLIPBOARD)
                             if (value == true) {
                                 pref.setSummary(R.string.pref_desc_copy_clipboard_yes)
                                 clearClip?.setEnabled(true)
@@ -66,7 +66,7 @@ public class SettingsActivity :
                         }
                         KEY_PREFILL_USAGE -> {
                             val settings: Preference? =
-                            pref.getPreferenceManager().findPreference(KEY_SETTINGS_INTENT)
+                                pref.getPreferenceManager().findPreference(KEY_SETTINGS_INTENT)
                             if (value == true) {
                                 pref.setSummary(R.string.pref_desc_usage_yes)
                                 settings?.setEnabled(true)
@@ -193,21 +193,24 @@ public class SettingsActivity :
                 key
             )
             val frag: BasePreferenceFragment? =
-            when (key) {
-                getString(R.string.pref_tag_about) -> AboutPreferenceFragment()
-                getString(R.string.pref_tag_bio) -> BioPreferenceFragment()
-                getString(R.string.pref_tag_clipboard) ->
-                    ClipboardPreferenceFragment()
-                getString(R.string.pref_tag_lengths) -> {
-                    sortLengths(PreferenceManager.getDefaultSharedPreferences(
-                        this@SettingsActivity))
-                    LengthsPreferenceFragment()
+                when (key) {
+                    getString(R.string.pref_tag_about) -> AboutPreferenceFragment()
+                    getString(R.string.pref_tag_bio) -> BioPreferenceFragment()
+                    getString(R.string.pref_tag_clipboard) ->
+                        ClipboardPreferenceFragment()
+                    getString(R.string.pref_tag_lengths) -> {
+                        sortLengths(
+                            PreferenceManager.getDefaultSharedPreferences(
+                                this@SettingsActivity
+                            )
+                        )
+                        LengthsPreferenceFragment()
+                    }
+                    getString(R.string.pref_tag_prefill) -> PrefillPreferenceFragment()
+                    getString(R.string.pref_tag_remember) -> RememberPreferenceFragment()
+                    getString(R.string.pref_tag_service) -> ServicePreferenceFragment()
+                    else -> null
                 }
-                getString(R.string.pref_tag_prefill) -> PrefillPreferenceFragment()
-                getString(R.string.pref_tag_remember) -> RememberPreferenceFragment()
-                getString(R.string.pref_tag_service) -> ServicePreferenceFragment()
-                else -> null
-            }
             if (frag != null) {
                 frag.setArguments(args)
                 replace(R.id.fragment_container, frag, key)
