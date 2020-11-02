@@ -4,11 +4,11 @@ import android.content.Intent
 import android.service.quicksettings.TileService
 
 class QSTileService : TileService() {
-    override fun onClick() {
-        unlockAndRun() {
-            val intent = Intent(this, OnePwd::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivityAndCollapse(intent)
-        }
+  override fun onClick() {
+    unlockAndRun() {
+      val intent = Intent(this, OnePwd::class.java)
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+      startActivityAndCollapse(intent)
     }
+  }
 }

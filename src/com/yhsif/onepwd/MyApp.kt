@@ -4,7 +4,7 @@ import android.app.Application
 import com.yhsif.onepwd.db.SiteKeyPairing
 
 class MyApp : Application() {
-    override fun onCreate() {
-        SiteKeyPairing.initDb(this)
-    }
+  override fun onCreate() {
+    SiteKeyPairing.initDb(this)
+  }
 }
