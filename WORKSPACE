@@ -42,8 +42,8 @@ rules_proto_dependencies()
 rules_proto_toolchains()
 
 
-RULES_PKG_TAG = "0.2.6"
-RULES_PKG_SHA = "aeca78988341a2ee1ba097641056d168320ecc51372ef7ff8e64b139516a4937"
+RULES_PKG_TAG = "0.3.0"
+RULES_PKG_SHA = "6b5969a7acd7b60c02f816773b06fcf32fbe8ba0c7919ccdc2df4f8fb923804a"
 
 http_archive(
     name = "rules_pkg",
@@ -73,19 +73,19 @@ http_archive(
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 maven_install(
     artifacts = [
-        "com.google.truth:truth:1.0.1",
-        "junit:junit:4.13",
+        "com.google.truth:truth:1.1",
+        "junit:junit:4.13.1",
 
         "androidx.appcompat:appcompat:1.2.0",
         "androidx.biometric:biometric:1.0.1",
         "androidx.cardview:cardview:1.0.0",
-        "androidx.core:core-ktx:1.3.1",
-        "androidx.fragment:fragment-ktx:1.2.4",
+        "androidx.core:core-ktx:1.3.2",
+        "androidx.fragment:fragment-ktx:1.2.5",
         "androidx.preference:preference:1.1.1",
         "androidx.recyclerview:recyclerview:1.1.0",
         "androidx.room:room-compiler:2.2.5",
         "androidx.room:room-runtime:2.2.5",
-        "com.google.android.material:material:1.2.0",
+        "com.google.android.material:material:1.2.1",
     ],
     repositories = [
         "https://maven.google.com",
