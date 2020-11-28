@@ -80,7 +80,7 @@ maven_install(
         "androidx.biometric:biometric:1.0.1",
         "androidx.cardview:cardview:1.0.0",
         "androidx.core:core-ktx:1.3.2",
-        "androidx.fragment:fragment-ktx:1.2.5",
+        "androidx.fragment:fragment-ktx:1.2.4",
         "androidx.preference:preference:1.1.1",
         "androidx.recyclerview:recyclerview:1.1.0",
         "androidx.room:room-compiler:2.2.5",
@@ -99,8 +99,9 @@ maven_install(
 load("@maven//:defs.bzl", "pinned_maven_install")
 pinned_maven_install()
 
-RULES_KOTLIN_TAG = "legacy-1.4.0-rc3"
-RULES_KOTLIN_SHA = "c47961a5021e72948c61874ddfc9fd21959ec2742aa67878b94f47308487d773"
+
+RULES_KOTLIN_TAG = "legacy-1.4.0-rc4"
+RULES_KOTLIN_SHA = "7aa74f8a0fbfeb136767c1c56943163d5835cfa0db6fc2b3c2e546197cf4dbcb"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
