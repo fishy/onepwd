@@ -46,13 +46,13 @@ abstract class ListActivityBase(val hintRes: Int) :
           .setTitle(R.string.dialog_title)
           .setMessage(getDialogMessage(data))
           .setNegativeButton(
-            android.R.string.no,
+            R.string.no,
             DialogInterface.OnClickListener() { dialog, _ ->
               dialog.dismiss()
             }
           )
           .setPositiveButton(
-            android.R.string.yes,
+            R.string.yes,
             DialogInterface.OnClickListener() { dialog, _ ->
               data.doRemove(this)
               a.remove(i)

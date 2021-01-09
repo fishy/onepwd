@@ -44,6 +44,9 @@
   <string name="dialog_text_pairing">
     Are you sure you want to remove the pairing from site/package \"%1$s\"?
   </string>
+  <string name="toast_text_template">%1$s: %2$s</string>
+  <string name="yes">Yes</string>
+  <string name="no">No</string>
 
   <!-- Save pairing dialogs -->
   <string name="title_remember">Remember this pairing?</string>

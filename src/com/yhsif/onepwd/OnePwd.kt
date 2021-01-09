@@ -15,6 +15,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
@@ -79,20 +80,12 @@ class OnePwd :
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
     fun showToast(ctx: Context, text: String) {
-      val toast = Toast.makeText(ctx, text, Toast.LENGTH_LONG)
-      toast.getView()?.findViewById<TextView>(android.R.id.message)?.let { tv ->
-        val iconSize = ctx.getResources()
-          .getDimensionPixelSize(R.dimen.toast_icon_size)
-        val icon = ctx.getDrawable(R.mipmap.icon_round)
-        icon?.setBounds(0, 0, iconSize, iconSize)
-
-        // App icon on the right
-        tv.setCompoundDrawables(null, null, icon, null)
-        tv.setCompoundDrawablePadding(
-          ctx.getResources().getDimensionPixelSize(R.dimen.toast_padding)
-        )
-      }
-      toast.show()
+      val msg = ctx.getString(
+        R.string.toast_text_template,
+        ctx.getString(R.string.app_name),
+        text,
+      )
+      Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show()
     }
 
     fun showToast(ctx: Context, rscId: Int) {
@@ -171,7 +164,7 @@ class OnePwd :
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
 
-    uiHandler = Handler()
+    uiHandler = Handler(Looper.getMainLooper())
 
     migrateEncryptedPrefs()
 
@@ -431,7 +424,7 @@ class OnePwd :
             neutral
           )
           .setNegativeButton(
-            android.R.string.no,
+            R.string.no,
             negative
           )
         if (key == null) {
@@ -449,7 +442,7 @@ class OnePwd :
                 )
               )
               .setPositiveButton(
-                android.R.string.yes,
+                R.string.yes,
                 insert
               )
               .create()
@@ -470,7 +463,7 @@ class OnePwd :
                   )
                 )
                 .setPositiveButton(
-                  android.R.string.yes,
+                  R.string.yes,
                   delete
                 )
                 .create()
@@ -488,7 +481,7 @@ class OnePwd :
                   )
                 )
                 .setPositiveButton(
-                  android.R.string.yes,
+                  R.string.yes,
                   update
                 )
                 .create()

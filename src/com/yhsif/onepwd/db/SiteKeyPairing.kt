@@ -1,12 +1,15 @@
 package com.yhsif.onepwd.db
 
 import android.content.Context
-import android.os.AsyncTask
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import androidx.room.Room
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @Entity(
   tableName = "site_key_pairings",
@@ -40,72 +43,62 @@ data class SiteKeyPairing(
 
     // callback arg is the new unique id
     fun insert(full: String, siteKey: String, callback: (Long) -> Unit) {
-      val task = object : AsyncTask<Unit, Unit, Long>() {
-        override fun doInBackground(vararg unused: Unit): Long {
-          return db.dao().insert(SiteKeyPairing(full, siteKey))
-        }
-
-        override fun onPostExecute(id: Long) {
-          callback(id)
+      GlobalScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.Default) {
+          val id = db.dao().insert(SiteKeyPairing(full, siteKey))
+          withContext(Dispatchers.Main) {
+            callback(id)
+          }
         }
       }
-      task.execute()
     }
 
     // callback arg is the number of rows deleted
     fun delete(full: String, callback: (Int) -> Unit) {
-      val task = object : AsyncTask<Unit, Unit, Int>() {
-        override fun doInBackground(vararg unused: Unit): Int {
-          return db.dao().delete(full)
-        }
-
-        override fun onPostExecute(rows: Int) {
-          callback(rows)
+      GlobalScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.Default) {
+          val rows = db.dao().delete(full)
+          withContext(Dispatchers.Main) {
+            callback(rows)
+          }
         }
       }
-      task.execute()
     }
 
     // callback arg is the number of rows updated
     fun update(full: String, siteKey: String, callback: (Int) -> Unit) {
-      val task = object : AsyncTask<Unit, Unit, Int>() {
-        override fun doInBackground(vararg unused: Unit): Int {
-          return db.dao().update(full, siteKey)
-        }
-
-        override fun onPostExecute(rows: Int) {
-          callback(rows)
+      GlobalScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.Default) {
+          val rows = db.dao().update(full, siteKey)
+          withContext(Dispatchers.Main) {
+            callback(rows)
+          }
         }
       }
-      task.execute()
     }
 
     // callback arg is the site key, or null if pairing not found
     fun getSiteKey(full: String, callback: (String?) -> Unit) {
-      val task = object : AsyncTask<Unit, Unit, String?>() {
-        override fun doInBackground(vararg unused: Unit): String? {
-          return db.dao().getSiteKey(full)?.siteKey
-        }
-
-        override fun onPostExecute(siteKey: String?) {
-          callback(siteKey)
+      GlobalScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.Default) {
+          val siteKey = db.dao().getSiteKey(full)?.siteKey
+          withContext(Dispatchers.Main) {
+            callback(siteKey)
+          }
         }
       }
-      task.execute()
     }
 
     // callback arg is the list of pairings
     fun listAll(callback: (List<SiteKeyPairing>) -> Unit) {
-      val task = object : AsyncTask<Unit, Unit, List<SiteKeyPairing>>() {
-        override fun doInBackground(vararg unused: Unit): List<SiteKeyPairing> {
-          return db.dao().listAll()
-        }
-
-        override fun onPostExecute(pairings: List<SiteKeyPairing>) {
-          callback(pairings)
+      GlobalScope.launch(Dispatchers.Default) {
+        withContext(Dispatchers.Default) {
+          val pairings = db.dao().listAll()
+          withContext(Dispatchers.Main) {
+            callback(pairings)
+          }
         }
       }
-      task.execute()
     }
   }
 }

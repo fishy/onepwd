@@ -2,7 +2,7 @@ workspace(name = "onepwd")
 
 android_sdk_repository(
     name = "androidsdk",
-    api_level = 29,
+    api_level = 30,
 )
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
@@ -86,6 +86,8 @@ maven_install(
         "androidx.room:room-compiler:2.2.6",
         "androidx.room:room-runtime:2.2.6",
         "com.google.android.material:material:1.2.1",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2",
     ],
     repositories = [
         "https://maven.google.com",
