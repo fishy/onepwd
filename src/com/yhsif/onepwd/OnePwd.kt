@@ -14,8 +14,6 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
@@ -37,10 +35,14 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.yhsif.onepwd.db.SiteKeyPairing
 import com.yhsif.onepwd.settings.SettingsActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.asExecutor
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.security.InvalidAlgorithmParameterException
 import java.security.KeyStore
-import java.util.concurrent.Executor
-import java.util.concurrent.Executors
 import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -80,12 +82,14 @@ class OnePwd :
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
     fun showToast(ctx: Context, text: String) {
-      val msg = ctx.getString(
-        R.string.toast_text_template,
-        ctx.getString(R.string.app_name),
-        text,
-      )
-      Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show()
+      GlobalScope.launch(Dispatchers.Main) {
+        val msg = ctx.getString(
+          R.string.toast_text_template,
+          ctx.getString(R.string.app_name),
+          text,
+        )
+        Toast.makeText(ctx, msg, Toast.LENGTH_LONG).show()
+      }
     }
 
     fun showToast(ctx: Context, rscId: Int) {
@@ -151,8 +155,6 @@ class OnePwd :
   lateinit var loadButton: TextView
   lateinit var storeButton: TextView
 
-  lateinit var uiHandler: Handler
-
   lateinit var radioButtons: List<RadioButton>
   lateinit var checkedLength: RadioButton
   var checkedIndex: Int = 0
@@ -163,8 +165,6 @@ class OnePwd :
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
-
-    uiHandler = Handler(Looper.getMainLooper())
 
     migrateEncryptedPrefs()
 
@@ -509,8 +509,9 @@ class OnePwd :
         SettingsActivity.DEFAULT_CLEAR_CLIPBOARD,
       )?.toLong()
       if (time != null && time > 0) {
-        uiHandler.postDelayed(
-          Runnable() {
+        GlobalScope.launch(Dispatchers.Default) {
+          delay(time * 1000)
+          withContext(Dispatchers.Main) {
             if (clip.hasPrimaryClip()) {
               val item = clip.getPrimaryClip()?.getItemAt(0)
               if (item?.getText().toString() == value) {
@@ -518,9 +519,8 @@ class OnePwd :
                 showToast(this@OnePwd, R.string.clear_clip_toast)
               }
             }
-          },
-          time * 1000,
-        )
+          }
+        }
       }
     }
   }
@@ -584,7 +584,6 @@ class OnePwd :
     return SiteKey.Empty
   }
 
-  private val executor: Executor by lazy { Executors.newCachedThreadPool() }
   private val keyguardManager: KeyguardManager by lazy {
     getSystemService(KeyguardManager::class.java)
   }
@@ -632,31 +631,22 @@ class OnePwd :
         R.string.load_title,
         initCipher,
       ) { cipher ->
-        if (cipher != null) {
-          loadedMaster = String(cipher.doFinal(msg))
-          setMasterHint()
-          if (!loadedMaster.isEmpty()) {
-            master.setText("")
+        try {
+          if (cipher != null) {
+            loadedMaster = String(cipher.doFinal(msg))
+            setMasterHint()
+            if (!loadedMaster.isEmpty()) {
+              master.setText("")
+            }
+            showToast(this, R.string.load_succeed)
+          } else {
+            showToast(this, R.string.load_empty_or_canceled)
           }
-          uiHandler.post(
-            Runnable() {
-              showToast(this, R.string.load_succeed)
-            }
-          )
-        } else {
-          uiHandler.post(
-            Runnable() {
-              showToast(this, R.string.load_empty_or_canceled)
-            }
-          )
+        } catch (e: BadPaddingException) {
+          showToast(this, R.string.biometric_invalid)
         }
       }
     } catch (e: KeyPermanentlyInvalidatedException) {
-      if (toast) {
-        showToast(this, R.string.biometric_invalid)
-      }
-      return
-    } catch (e: BadPaddingException) {
       if (toast) {
         showToast(this, R.string.biometric_invalid)
       }
@@ -708,11 +698,7 @@ class OnePwd :
             putString(KEY_MASTER_ENCRYPTED, msgStr)
             putString(KEY_IV, ivStr)
           }
-          uiHandler.post(
-            Runnable() {
-              showToast(this, R.string.store_succeed)
-            }
-          )
+          showToast(this, R.string.store_succeed)
         }
       }
     } catch (e: InvalidAlgorithmParameterException) {
@@ -825,16 +811,14 @@ class OnePwd :
 
     BiometricPrompt(
       this@OnePwd,
-      executor,
+      Dispatchers.IO.asExecutor(),
       object : BiometricPrompt.AuthenticationCallback() {
         override fun onAuthenticationSucceeded(
           res: BiometricPrompt.AuthenticationResult,
         ) {
-          uiHandler.post(
-            Runnable() {
-              callback(res.getCryptoObject()?.getCipher())
-            }
-          )
+          GlobalScope.launch(Dispatchers.Main) {
+            callback(res.getCryptoObject()?.getCipher())
+          }
         }
       }
     ).authenticate(
