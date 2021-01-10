@@ -23,7 +23,7 @@ public class LengthPreference : DialogPreference {
   public constructor(
     ctx: Context,
     attrs: AttributeSet,
-    defStyleAttr: Int
+    defStyleAttr: Int,
   ) : super(ctx, attrs, defStyleAttr) {}
 
   override fun onGetDefaultValue(a: TypedArray, index: Int): Any {
@@ -32,7 +32,7 @@ public class LengthPreference : DialogPreference {
 
   override fun onSetInitialValue(
     restorePersistedValue: Boolean,
-    defaultValue: Any?
+    defaultValue: Any?,
   ) {
     setValue(
       if (restorePersistedValue) getPersistedInt(MIN_VALUE)

@@ -49,7 +49,7 @@ abstract class ListActivityBase(val hintRes: Int) :
             R.string.no,
             DialogInterface.OnClickListener() { dialog, _ ->
               dialog.dismiss()
-            }
+            },
           )
           .setPositiveButton(
             R.string.yes,
@@ -57,7 +57,7 @@ abstract class ListActivityBase(val hintRes: Int) :
               data.doRemove(this)
               a.remove(i)
               dialog.dismiss()
-            }
+            },
           )
           .create()
           .show()

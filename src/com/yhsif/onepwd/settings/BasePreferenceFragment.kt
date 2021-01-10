@@ -20,7 +20,7 @@ abstract class BasePreferenceFragment : PreferenceFragmentCompat() {
       frag.setTargetFragment(this, 0)
       frag.show(
         getParentFragmentManager(),
-        "androidx.preference.PreferenceFragment.DIALOG"
+        "androidx.preference.PreferenceFragment.DIALOG",
       )
     } else {
       super.onDisplayPreferenceDialog(pref)

@@ -17,14 +17,14 @@ import kotlinx.coroutines.withContext
     Index(
       name = "idx_full",
       unique = true,
-      value = ["full_site_key"]
-    )
-  )
+      value = ["full_site_key"],
+    ),
+  ),
 )
 data class SiteKeyPairing(
   @ColumnInfo(name = "full_site_key") val full: String = "",
   @ColumnInfo(name = "site_key") val siteKey: String = "",
-  @PrimaryKey @ColumnInfo(name = "_id", autoGenerate = true) val id: Long? = null
+  @PrimaryKey @ColumnInfo(name = "_id", autoGenerate = true) val id: Long? = null,
 ) {
   companion object {
     private lateinit var db: SiteKeyPairingDatabase
@@ -33,7 +33,7 @@ data class SiteKeyPairing(
       db = Room.databaseBuilder(
         context,
         SiteKeyPairingDatabase::class.java,
-        "SiteKeyPairings.db"
+        "SiteKeyPairings.db",
       ).build()
     }
 

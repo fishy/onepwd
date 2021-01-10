@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ListAdapter(
   var list: MutableList<ListDataBase>,
-  val listener: View.OnClickListener
+  val listener: View.OnClickListener,
 ) : RecyclerView.Adapter<ListViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, vt: Int): ListViewHolder {

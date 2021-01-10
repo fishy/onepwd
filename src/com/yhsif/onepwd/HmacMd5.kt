@@ -36,7 +36,7 @@ object HmacMd5 {
       0,
       iKeyBuf,
       BLOCK_SIZE,
-      message.length
+      message.length,
     )
     System.arraycopy(md5(iKeyBuf), 0, oKeyBuf, BLOCK_SIZE, HASH_SIZE)
     return md5(oKeyBuf)

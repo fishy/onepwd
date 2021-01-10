@@ -7,7 +7,7 @@ import com.yhsif.onepwd.R
 class ClipboardPreferenceFragment : BasePreferenceFragment() {
   override fun onCreatePreferences(
     savedInstanceState: Bundle?,
-    rootKey: String?
+    rootKey: String?,
   ) {
     setPreferencesFromResource(R.xml.pref_clipboard, rootKey)
     setHasOptionsMenu(true)
@@ -17,7 +17,7 @@ class ClipboardPreferenceFragment : BasePreferenceFragment() {
     if (prefCopy != null) {
       SettingsActivity.bindPreferenceSummaryToBoolean(
         prefCopy,
-        SettingsActivity.DEFAULT_COPY_CLIPBOARD
+        SettingsActivity.DEFAULT_COPY_CLIPBOARD,
       )
     }
     val prefClear: Preference? =

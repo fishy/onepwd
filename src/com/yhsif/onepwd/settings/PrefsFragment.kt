@@ -10,7 +10,7 @@ class PrefsFragment : BasePreferenceFragment() {
 
   override fun onCreatePreferences(
     savedInstanceState: Bundle?,
-    rootKey: String?
+    rootKey: String?,
   ) {
     setPreferencesFromResource(R.xml.pref_headers, rootKey)
     setHasOptionsMenu(true)

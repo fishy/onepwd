@@ -46,7 +46,7 @@ public class SettingsActivity :
     val prefBinder = object : Preference.OnPreferenceChangeListener {
       override fun onPreferenceChange(
         pref: Preference,
-        value: Any
+        value: Any,
       ): Boolean {
         if (pref is ListPreference) {
           val index = pref.findIndexOfValue(value.toString())
@@ -94,33 +94,33 @@ public class SettingsActivity :
         preference,
         PreferenceManager
           .getDefaultSharedPreferences(preference.getContext())
-          .getString(preference.getKey(), "")
+          .getString(preference.getKey(), ""),
       )
     }
 
     fun bindPreferenceSummaryToInt(
       preference: Preference,
-      defaultValue: Int
+      defaultValue: Int,
     ) {
       preference.setOnPreferenceChangeListener(prefBinder)
       prefBinder.onPreferenceChange(
         preference,
         PreferenceManager
           .getDefaultSharedPreferences(preference.getContext())
-          .getInt(preference.getKey(), defaultValue)
+          .getInt(preference.getKey(), defaultValue),
       )
     }
 
     fun bindPreferenceSummaryToBoolean(
       preference: Preference,
-      defaultValue: Boolean
+      defaultValue: Boolean,
     ) {
       preference.setOnPreferenceChangeListener(prefBinder)
       prefBinder.onPreferenceChange(
         preference,
         PreferenceManager
           .getDefaultSharedPreferences(preference.getContext())
-          .getBoolean(preference.getKey(), defaultValue)
+          .getBoolean(preference.getKey(), defaultValue),
       )
     }
 
@@ -131,7 +131,7 @@ public class SettingsActivity :
         DEFAULT_LENGTH1,
         DEFAULT_LENGTH2,
         DEFAULT_LENGTH3,
-        DEFAULT_LENGTH4
+        DEFAULT_LENGTH4,
       )
       for (i in 0 until 4) {
         lengths.add(pref.getInt(keys[i], defaults[i]))
@@ -183,14 +183,14 @@ public class SettingsActivity :
 
   override fun onPreferenceStartFragment(
     caller: PreferenceFragmentCompat,
-    pref: Preference
+    pref: Preference,
   ): Boolean {
     getSupportFragmentManager().commit {
       val key = pref.getKey()
       val args = Bundle()
       args.putString(
         PreferenceFragmentCompat.ARG_PREFERENCE_ROOT,
-        key
+        key,
       )
       val frag: BasePreferenceFragment? =
         when (key) {

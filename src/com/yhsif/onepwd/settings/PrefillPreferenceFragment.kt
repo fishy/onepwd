@@ -7,7 +7,7 @@ import com.yhsif.onepwd.R
 class PrefillPreferenceFragment : BasePreferenceFragment() {
   override fun onCreatePreferences(
     savedInstanceState: Bundle?,
-    rootKey: String?
+    rootKey: String?,
   ) {
     setPreferencesFromResource(R.xml.pref_prefill, rootKey)
     setHasOptionsMenu(true)
@@ -16,7 +16,7 @@ class PrefillPreferenceFragment : BasePreferenceFragment() {
     if (pref != null) {
       SettingsActivity.bindPreferenceSummaryToBoolean(
         pref,
-        SettingsActivity.DEFAULT_PREFILL_USAGE
+        SettingsActivity.DEFAULT_PREFILL_USAGE,
       )
     }
   }

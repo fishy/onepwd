@@ -96,8 +96,8 @@ class OnePwd :
       ctx,
       PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(
         SettingsActivity.KEY_USE_SERVICE,
-        SettingsActivity.DEFAULT_USE_SERVICE
-      )
+        SettingsActivity.DEFAULT_USE_SERVICE,
+      ),
     )
 
     fun showNotification(ctx: Context, show: Boolean) {
@@ -115,7 +115,7 @@ class OnePwd :
           val channel = NotificationChannel(
             CHANNEL_ID,
             ctx.getString(R.string.channel_name),
-            NotificationManager.IMPORTANCE_MIN
+            NotificationManager.IMPORTANCE_MIN,
           )
           channel.setDescription(ctx.getString(R.string.channel_desc))
           channel.setShowBadge(false)
@@ -195,7 +195,7 @@ class OnePwd :
       findViewById<RadioButton>(R.id.length1),
       findViewById<RadioButton>(R.id.length2),
       findViewById<RadioButton>(R.id.length3),
-      findViewById<RadioButton>(R.id.length4)
+      findViewById<RadioButton>(R.id.length4),
     )
     checkedIndex = radioButtons.size - 1
     checkedLength = radioButtons[checkedIndex]
@@ -220,25 +220,25 @@ class OnePwd :
     radioButtons[0].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH1,
-        SettingsActivity.DEFAULT_LENGTH1
+        SettingsActivity.DEFAULT_LENGTH1,
       ).toString(10)
     )
     radioButtons[1].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH2,
-        SettingsActivity.DEFAULT_LENGTH2
+        SettingsActivity.DEFAULT_LENGTH2,
       ).toString(10)
     )
     radioButtons[2].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH3,
-        SettingsActivity.DEFAULT_LENGTH3
+        SettingsActivity.DEFAULT_LENGTH3,
       ).toString(10)
     )
     radioButtons[3].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH4,
-        SettingsActivity.DEFAULT_LENGTH4
+        SettingsActivity.DEFAULT_LENGTH4,
       ).toString(10)
     )
 
@@ -280,7 +280,7 @@ class OnePwd :
     setMasterHint()
     val v = pref.getBoolean(
       SettingsActivity.KEY_BIO_AUTOLOAD,
-      SettingsActivity.DEFAULT_BIO_AUTOLOAD
+      SettingsActivity.DEFAULT_BIO_AUTOLOAD,
     )
     if (v) {
       doLoad(false)
@@ -327,7 +327,7 @@ class OnePwd :
   override fun onEditorAction(
     v: TextView,
     actionId: Int,
-    event: KeyEvent?
+    event: KeyEvent?,
   ): Boolean {
     if (
       (v.getId() == master.getId() || v.getId() == site.getId()) &&
@@ -377,7 +377,7 @@ class OnePwd :
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     val prompt = pref.getBoolean(
       SettingsActivity.KEY_REMEMBER_PROMPT,
-      SettingsActivity.DEFAULT_REMEMBER_PROMPT
+      SettingsActivity.DEFAULT_REMEMBER_PROMPT,
     )
     val neverSet = pref.getStringSet(KEY_NEVER_PAIRINGS, setOf())!!
     val full = siteKeyFull.getFull()
@@ -421,11 +421,11 @@ class OnePwd :
           )
           .setNeutralButton(
             R.string.button_never,
-            neutral
+            neutral,
           )
           .setNegativeButton(
             R.string.no,
-            negative
+            negative,
           )
         if (key == null) {
           if (siteKey == defSiteKey) {
@@ -438,12 +438,12 @@ class OnePwd :
                   R.string.msg_remember,
                   getString(R.string.button_never),
                   full,
-                  siteKey
+                  siteKey,
                 )
               )
               .setPositiveButton(
                 R.string.yes,
-                insert
+                insert,
               )
               .create()
               .show()
@@ -459,12 +459,12 @@ class OnePwd :
                     R.string.msg_delete,
                     getString(R.string.button_never),
                     full,
-                    key
+                    key,
                   )
                 )
                 .setPositiveButton(
                   R.string.yes,
-                  delete
+                  delete,
                 )
                 .create()
                 .show()
@@ -477,12 +477,12 @@ class OnePwd :
                     getString(R.string.button_never),
                     full,
                     key,
-                    siteKey
+                    siteKey,
                   )
                 )
                 .setPositiveButton(
                   R.string.yes,
-                  update
+                  update,
                 )
                 .create()
                 .show()
@@ -497,7 +497,7 @@ class OnePwd :
   private fun maybeCopyValueToClip(value: String, pref: SharedPreferences) {
     val v = pref.getBoolean(
       SettingsActivity.KEY_COPY_CLIPBOARD,
-      SettingsActivity.DEFAULT_COPY_CLIPBOARD
+      SettingsActivity.DEFAULT_COPY_CLIPBOARD,
     )
     if (v) {
       val clip = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
@@ -506,7 +506,7 @@ class OnePwd :
       showToast(this, R.string.clip_toast)
       val time = pref.getString(
         SettingsActivity.KEY_CLEAR_CLIPBOARD,
-        SettingsActivity.DEFAULT_CLEAR_CLIPBOARD
+        SettingsActivity.DEFAULT_CLEAR_CLIPBOARD,
       )?.toLong()
       if (time != null && time > 0) {
         uiHandler.postDelayed(
@@ -519,7 +519,7 @@ class OnePwd :
               }
             }
           },
-          time * 1000
+          time * 1000,
         )
       }
     }
@@ -529,7 +529,7 @@ class OnePwd :
     val pref = PreferenceManager.getDefaultSharedPreferences(this)
     val v = pref.getBoolean(
       SettingsActivity.KEY_PREFILL_USAGE,
-      SettingsActivity.DEFAULT_PREFILL_USAGE
+      SettingsActivity.DEFAULT_PREFILL_USAGE,
     )
     if (!v) {
       return SiteKey.Empty
@@ -552,7 +552,7 @@ class OnePwd :
     val apps = manager.queryUsageStats(
       UsageStatsManager.INTERVAL_DAILY,
       time - USAGE_TIMEFRAME,
-      time
+      time,
     )
     var max: Long = 0
     var result: String = ""
@@ -630,7 +630,7 @@ class OnePwd :
 
       BioAuthHelper(
         R.string.load_title,
-        initCipher
+        initCipher,
       ) { cipher ->
         if (cipher != null) {
           loadedMaster = String(cipher.doFinal(msg))
@@ -684,13 +684,13 @@ class OnePwd :
       .getDefaultSharedPreferences(this)
       .getBoolean(
         SettingsActivity.KEY_BIO_INVALIDATE,
-        SettingsActivity.DEFAULT_BIO_INVALIDATE
+        SettingsActivity.DEFAULT_BIO_INVALIDATE,
       )
 
     try {
       BioAuthHelper(
         R.string.store_title,
-        encryptionCipher(KEY_STORE_KEY, invalidate)
+        encryptionCipher(KEY_STORE_KEY, invalidate),
       ) { cipher ->
         if (cipher != null) {
           val message = cipher.doFinal(
@@ -762,7 +762,7 @@ class OnePwd :
 
     val builder = KeyGenParameterSpec.Builder(
       name,
-      KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+      KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT,
     )
     builder.apply {
       setBlockModes(KeyProperties.BLOCK_MODE_CBC)
@@ -773,7 +773,7 @@ class OnePwd :
 
     KeyGenerator.getInstance(
       KeyProperties.KEY_ALGORITHM_AES,
-      ANDROID_KEY_STORE
+      ANDROID_KEY_STORE,
     ).apply {
       init(builder.build())
       generateKey()
@@ -816,7 +816,7 @@ class OnePwd :
   private fun BioAuthHelper(
     title: Int,
     initCipher: Cipher,
-    callback: (Cipher?) -> Unit
+    callback: (Cipher?) -> Unit,
   ) {
     val builder = BiometricPrompt.PromptInfo.Builder()
       .setTitle(getString(title))
@@ -828,7 +828,7 @@ class OnePwd :
       executor,
       object : BiometricPrompt.AuthenticationCallback() {
         override fun onAuthenticationSucceeded(
-          res: BiometricPrompt.AuthenticationResult
+          res: BiometricPrompt.AuthenticationResult,
         ) {
           uiHandler.post(
             Runnable() {
@@ -839,7 +839,7 @@ class OnePwd :
       }
     ).authenticate(
       builder.build(),
-      BiometricPrompt.CryptoObject(initCipher)
+      BiometricPrompt.CryptoObject(initCipher),
     )
   }
 }
