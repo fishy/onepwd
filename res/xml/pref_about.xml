@@ -9,6 +9,7 @@
     <Preference
         android:title="@string/about"
         android:summary="@string/about_github"
+        android:icon="@drawable/adaptive_icon"
         >
       <intent
           android:action="android.intent.action.VIEW"
