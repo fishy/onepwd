@@ -19,4 +19,8 @@
       android:title="@string/pref_title_clear_time"
       android:dependency="copy_clipboard"
     />
+  <Preference
+      android:enabled="false"
+      android:summary="@string/pref_desc_clipboard_access"
+    />
 </androidx.preference.PreferenceScreen>

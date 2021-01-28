@@ -494,6 +494,13 @@ class OnePwd :
     }
   }
 
+  private fun clearClipboard(clip: ClipboardManager) {
+    GlobalScope.launch(Dispatchers.Main) {
+      clip.setPrimaryClip(EMPTY_CLIP)
+      showToast(this@OnePwd, R.string.clear_clip_toast)
+    }
+  }
+
   private fun maybeCopyValueToClip(value: String, pref: SharedPreferences) {
     val v = pref.getBoolean(
       SettingsActivity.KEY_COPY_CLIPBOARD,
@@ -511,14 +518,15 @@ class OnePwd :
       if (time != null && time > 0) {
         GlobalScope.launch(Dispatchers.Default) {
           delay(time * 1000)
-          withContext(Dispatchers.Main) {
-            if (clip.hasPrimaryClip()) {
-              val item = clip.getPrimaryClip()?.getItemAt(0)
-              if (item?.getText().toString() == value) {
-                clip.setPrimaryClip(EMPTY_CLIP)
-                showToast(this@OnePwd, R.string.clear_clip_toast)
-              }
+          if (clip.hasPrimaryClip()) {
+            val item = clip.getPrimaryClip()?.getItemAt(0)
+            if (item == null || item.getText().toString() == value) {
+              clearClipboard(clip)
             }
+          } else {
+            // This most likely means we are not in foreground and thus denied
+            // clipboard access, not really that there's no clip data.
+            clearClipboard(clip)
           }
         }
       }
