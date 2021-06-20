@@ -58,7 +58,6 @@ kt_android_library(
         "@maven//:androidx_recyclerview_recyclerview",
         "@maven//:com_google_android_material_material",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_android",
-        "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_core",
     ],
 )
 

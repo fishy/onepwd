@@ -58,8 +58,8 @@ load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
 rules_pkg_dependencies()
 
 
-RULES_JVM_EXTERNAL_TAG = "4.0"
-RULES_JVM_EXTERNAL_SHA = "31701ad93dbfe544d597dbe62c9a1fdd76d81d8a9150c2bf1ecf928ecdf97169"
+RULES_JVM_EXTERNAL_TAG = "4.1"
+RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
 
 http_archive(
     name = "rules_jvm_external",
@@ -73,21 +73,20 @@ http_archive(
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 maven_install(
     artifacts = [
-        "com.google.truth:truth:1.1",
-        "junit:junit:4.13.1",
+        "com.google.truth:truth:1.1.3",
+        "junit:junit:4.13.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3",
 
         "androidx.appcompat:appcompat:1.2.0",
-        "androidx.biometric:biometric:1.0.1",
+        "androidx.biometric:biometric:1.1.0",
         "androidx.cardview:cardview:1.0.0",
-        "androidx.core:core-ktx:1.3.2",
+        "androidx.core:core-ktx:1.5.0",
         "androidx.fragment:fragment-ktx:1.2.5",
         "androidx.preference:preference:1.1.1",
-        "androidx.recyclerview:recyclerview:1.1.0",
+        "androidx.recyclerview:recyclerview:1.2.1",
         "androidx.room:room-compiler:2.2.6",
         "androidx.room:room-runtime:2.2.6",
-        "com.google.android.material:material:1.2.1",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2",
+        "com.google.android.material:material:1.3.0",
     ],
     repositories = [
         "https://maven.google.com",
