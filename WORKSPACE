@@ -1,10 +1,5 @@
 workspace(name = "onepwd")
 
-android_sdk_repository(
-    name = "androidsdk",
-    api_level = 30,
-)
-
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 
@@ -42,8 +37,8 @@ rules_proto_dependencies()
 rules_proto_toolchains()
 
 
-RULES_PKG_TAG = "0.3.0"
-RULES_PKG_SHA = "6b5969a7acd7b60c02f816773b06fcf32fbe8ba0c7919ccdc2df4f8fb923804a"
+RULES_PKG_TAG = "0.5.0"
+RULES_PKG_SHA = "353b20e8b093d42dd16889c7f918750fb8701c485ac6cceb69a5236500507c27"
 
 http_archive(
     name = "rules_pkg",
@@ -77,22 +72,23 @@ maven_install(
         "junit:junit:4.13.2",
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3",
 
-        "androidx.appcompat:appcompat:1.2.0",
+        "androidx.activity:activity:1.2.4",
+        "androidx.appcompat:appcompat:1.3.1",
         "androidx.biometric:biometric:1.1.0",
         "androidx.cardview:cardview:1.0.0",
-        "androidx.core:core-ktx:1.5.0",
-        "androidx.fragment:fragment-ktx:1.2.5",
+        "androidx.core:core-ktx:1.6.0",
+        "androidx.fragment:fragment-ktx:1.3.6",
         "androidx.preference:preference:1.1.1",
         "androidx.recyclerview:recyclerview:1.2.1",
         "androidx.room:room-compiler:2.2.6",
         "androidx.room:room-runtime:2.2.6",
-        "com.google.android.material:material:1.3.0",
+        "com.google.android.material:material:1.4.0",
     ],
     repositories = [
         "https://maven.google.com",
-        "https://jcenter.bintray.com/",
         "https://repo1.maven.org/maven2",
     ],
+    version_conflict_policy = "pinned",
     maven_install_json = "@onepwd//:maven_install.json",
 )
 
@@ -101,8 +97,29 @@ load("@maven//:defs.bzl", "pinned_maven_install")
 pinned_maven_install()
 
 
-RULES_KOTLIN_TAG = "v1.5.0-alpha-3"
-RULES_KOTLIN_SHA = "eeae65f973b70896e474c57aa7681e444d7a5446d9ec0a59bb88c59fc263ff62"
+RULES_ANDROID_TAG = "v0.1.1"
+RULES_ANDROID_SHA = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806"
+
+http_archive(
+    name = "rules_android",
+    urls = [
+        "https://github.com/bazelbuild/rules_android/archive/%s.zip" % RULES_ANDROID_TAG,
+    ],
+    sha256 = RULES_ANDROID_SHA,
+    strip_prefix = "rules_android-%s" % RULES_ANDROID_TAG[1:],
+)
+
+load("@rules_android//android:rules.bzl", "android_sdk_repository")
+android_sdk_repository(
+    name = "androidsdk",
+    api_level = 31,
+    # This is the latest version with dx.jar
+    build_tools_version = "30.0.3",
+)
+
+
+RULES_KOTLIN_TAG = "v1.5.0-beta-2"
+RULES_KOTLIN_SHA = "e4185409c787c18f332ae83a73827aab6e77058a48ffee0cac01123408cbc89a"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
