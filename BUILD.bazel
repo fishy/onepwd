@@ -9,12 +9,14 @@ load("@rules_android//android:rules.bzl", "android_binary")
 define_kt_toolchain(
     name = "kotlin_toolchain",
     api_version = "1.4",  # "1.1", "1.2", "1.3", or "1.4"
-    jvm_target = "11", # "1.6", "1.8", "9", "10", "11", "12", or "13",
+    jvm_target = "11",  # "1.6", "1.8", "9", "10", "11", "12", or "13",
     language_version = "1.4",  # "1.1", "1.2", "1.3", or "1.4"
 )
 
 PACKAGE = "com.yhsif.onepwd"
+
 MANIFEST = "AndroidManifest.xml"
+
 MANIFEST_VALUES = {"PACKAGE": PACKAGE}
 
 HMAC_SRCS = ["src/com/yhsif/onepwd/HmacMd5.kt"]
@@ -45,11 +47,12 @@ kt_android_library(
     ),
     custom_package = PACKAGE,
     manifest = MANIFEST,
+    plugins = [
+        ":room_compiler",
+    ],
     resource_files = glob(["res/**/*"]),
     deps = [
         ":hmac_md5",
-        ":room",
-
         "@maven//:androidx_appcompat_appcompat",
         "@maven//:androidx_biometric_biometric",
         "@maven//:androidx_cardview_cardview",
@@ -57,6 +60,7 @@ kt_android_library(
         "@maven//:androidx_fragment_fragment_ktx",
         "@maven//:androidx_preference_preference",
         "@maven//:androidx_recyclerview_recyclerview",
+        "@maven//:androidx_room_room_runtime",
         "@maven//:com_google_android_material_material",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_android",
     ],
@@ -67,15 +71,5 @@ java_plugin(
     processor_class = "androidx.room.RoomProcessor",
     deps = [
         "@maven//:androidx_room_room_compiler",
-    ],
-)
-
-java_library(
-    name = "room",
-    exported_plugins = [
-        ":room_compiler",
-    ],
-    exports = [
-        "@maven//:androidx_room_room_runtime",
     ],
 )

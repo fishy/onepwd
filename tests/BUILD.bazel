@@ -8,7 +8,6 @@ kt_jvm_test(
     test_class = "com.yhsif.onepwd.HmacMd5Test",
     deps = [
         "//:hmac_md5",
-
         artifact("com.google.truth:truth"),
         artifact("junit:junit"),
     ],
