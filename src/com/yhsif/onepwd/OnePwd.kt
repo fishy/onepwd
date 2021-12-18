@@ -133,8 +133,12 @@ class OnePwd :
         }
         CHANNEL_ID
       }
-      val activity =
-        PendingIntent.getActivity(ctx, 0, Intent(ctx, OnePwd::class.java), 0)
+      val activity = PendingIntent.getActivity(
+        ctx,
+        0,
+        Intent(ctx, OnePwd::class.java),
+        PendingIntent.FLAG_IMMUTABLE,
+      )
       val notification = NotificationCompat.Builder(ctx, channelId)
         .setSmallIcon(R.drawable.notify_icon)
         .setWhen(System.currentTimeMillis())
