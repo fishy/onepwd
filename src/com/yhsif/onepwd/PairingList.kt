@@ -17,7 +17,7 @@ class PairingList : ListActivityBase(R.string.pairing_list_hint) {
         adapter?.let { a ->
           a.list = prev
             .map() { it }
-            .sortedBy() { it.getText().toLowerCase() }
+            .sortedBy() { it.getText().lowercase() }
             .toMutableList()
           a.notifyDataSetChanged()
         }

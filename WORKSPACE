@@ -1,64 +1,17 @@
 workspace(name = "onepwd")
 
+android_sdk_repository(
+    name = "androidsdk",
+    api_level = 31,
+    # This is the latest version with dx.jar
+    build_tools_version = "30.0.3",
+)
+
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-STARDOC_TAG = "0.4.0"
+RULES_JVM_EXTERNAL_TAG = "4.2"
 
-STARDOC_SHA = "36b8d6c2260068b9ff82faea2f7add164bf3436eac9ba3ec14809f335346d66a"
-
-http_archive(
-    name = "io_bazel_stardoc",
-    sha256 = STARDOC_SHA,
-    strip_prefix = "stardoc-%s" % STARDOC_TAG,
-    urls = [
-        "https://github.com/bazelbuild/stardoc/archive/%s.zip" % STARDOC_TAG,
-    ],
-)
-
-load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
-
-stardoc_repositories()
-
-RULES_PROTO_VERSION = "97d8af4dc474595af3900dd85cb3a29ad28cc313"
-
-RULES_PROTO_SHA = "602e7161d9195e50246177e7c55b2f39950a9cf7366f74ed5f22fd45750cd208"
-
-http_archive(
-    name = "rules_proto",
-    sha256 = RULES_PROTO_SHA,
-    strip_prefix = "rules_proto-%s" % RULES_PROTO_VERSION,
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_proto/archive/%s.tar.gz" % RULES_PROTO_VERSION,
-        "https://github.com/bazelbuild/rules_proto/archive/%s.tar.gz" % RULES_PROTO_VERSION,
-    ],
-)
-
-load("@rules_proto//proto:repositories.bzl", "rules_proto_dependencies", "rules_proto_toolchains")
-
-rules_proto_dependencies()
-
-rules_proto_toolchains()
-
-RULES_PKG_TAG = "0.5.0"
-
-RULES_PKG_SHA = "353b20e8b093d42dd16889c7f918750fb8701c485ac6cceb69a5236500507c27"
-
-http_archive(
-    name = "rules_pkg",
-    sha256 = RULES_PKG_SHA,
-    urls = [
-        "https://mirror.bazel.build/github.com/bazelbuild/rules_pkg/releases/download/%s/rules_pkg-%s.tar.gz" % (RULES_PKG_TAG, RULES_PKG_TAG),
-        "https://github.com/bazelbuild/rules_pkg/releases/download/%s/rules_pkg-%s.tar.gz" % (RULES_PKG_TAG, RULES_PKG_TAG),
-    ],
-)
-
-load("@rules_pkg//:deps.bzl", "rules_pkg_dependencies")
-
-rules_pkg_dependencies()
-
-RULES_JVM_EXTERNAL_TAG = "4.1"
-
-RULES_JVM_EXTERNAL_SHA = "f36441aa876c4f6427bfb2d1f2d723b48e9d930b62662bf723ddfb8fc80f0140"
+RULES_JVM_EXTERNAL_SHA = "cd1a77b7b02e8e008439ca76fd34f5b07aecb8c752961f9640dea15e9e5ba1ca"
 
 http_archive(
     name = "rules_jvm_external",
@@ -73,9 +26,6 @@ load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 maven_install(
     artifacts = [
-        "com.google.truth:truth:1.1.3",
-        "junit:junit:4.13.2",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3",
         "androidx.activity:activity:1.2.4",
         "androidx.appcompat:appcompat:1.3.1",
         "androidx.biometric:biometric:1.1.0",
@@ -87,6 +37,9 @@ maven_install(
         "androidx.sqlite:sqlite:2.2.0",
         "androidx.sqlite:sqlite-framework:2.2.0",
         "com.google.android.material:material:1.4.0",
+        "com.google.truth:truth:1.1.3",
+        "junit:junit:4.13.2",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3",
     ],
     maven_install_json = "@onepwd//:maven_install.json",
     repositories = [
@@ -100,31 +53,9 @@ load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()
 
-RULES_ANDROID_TAG = "v0.1.1"
+RULES_KOTLIN_TAG = "1.6.0-RC-1"
 
-RULES_ANDROID_SHA = "cd06d15dd8bb59926e4d65f9003bfc20f9da4b2519985c27e190cddc8b7a7806"
-
-http_archive(
-    name = "rules_android",
-    sha256 = RULES_ANDROID_SHA,
-    strip_prefix = "rules_android-%s" % RULES_ANDROID_TAG[1:],
-    urls = [
-        "https://github.com/bazelbuild/rules_android/archive/%s.zip" % RULES_ANDROID_TAG,
-    ],
-)
-
-load("@rules_android//android:rules.bzl", "android_sdk_repository")
-
-android_sdk_repository(
-    name = "androidsdk",
-    api_level = 31,
-    # This is the latest version with dx.jar
-    build_tools_version = "30.0.3",
-)
-
-RULES_KOTLIN_TAG = "v1.5.0-alpha-3"
-
-RULES_KOTLIN_SHA = "eeae65f973b70896e474c57aa7681e444d7a5446d9ec0a59bb88c59fc263ff62"
+RULES_KOTLIN_SHA = "f1a4053eae0ea381147f5056bb51e396c5c494c7f8d50d0dee4cc2f9d5c701b0"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
@@ -134,7 +65,7 @@ http_archive(
     ],
 )
 
-load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kotlin_repositories")
+load("@io_bazel_rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories")
 
 kotlin_repositories()
 

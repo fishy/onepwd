@@ -14,7 +14,7 @@ class NeverList : ListActivityBase(R.string.never_list_hint) {
       adapter?.let { a ->
         a.list = prev
           .map() { ListDataNever(it) }
-          .sortedBy() { it.getText().toLowerCase() }
+          .sortedBy() { it.getText().lowercase() }
           .toMutableList()
         a.notifyDataSetChanged()
       }

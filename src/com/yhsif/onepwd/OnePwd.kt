@@ -590,7 +590,7 @@ class OnePwd :
     var result: String = ""
     if (apps != null) {
       for (app in apps) {
-        val pkg = app.getPackageName().toLowerCase()
+        val pkg = app.getPackageName().lowercase()
         val timestamp = app.getLastTimeUsed()
         if (pkg == PKG_SELF) {
           continue
