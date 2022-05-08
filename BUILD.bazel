@@ -47,9 +47,6 @@ kt_android_library(
     ),
     custom_package = PACKAGE,
     manifest = MANIFEST,
-    plugins = [
-        ":room_compiler",
-    ],
     resource_files = glob(["res/**/*"]),
     deps = [
         ":hmac_md5",
@@ -60,16 +57,9 @@ kt_android_library(
         "@maven//:androidx_fragment_fragment_ktx",
         "@maven//:androidx_preference_preference",
         "@maven//:androidx_recyclerview_recyclerview",
-        "@maven//:androidx_room_room_runtime",
+        "@maven//:androidx_sqlite_sqlite",
+        "@maven//:androidx_sqlite_sqlite_framework",
         "@maven//:com_google_android_material_material",
         "@maven//:org_jetbrains_kotlinx_kotlinx_coroutines_android",
-    ],
-)
-
-java_plugin(
-    name = "room_compiler",
-    processor_class = "androidx.room.RoomProcessor",
-    deps = [
-        "@maven//:androidx_room_room_compiler",
     ],
 )

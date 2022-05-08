@@ -33,7 +33,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.yhsif.onepwd.db.SiteKeyPairing
+import com.yhsif.onepwd.db.SiteKeyPairings
 import com.yhsif.onepwd.settings.SettingsActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -272,7 +272,10 @@ class OnePwd :
       siteFull.setText(getString(R.string.site_full, full))
       siteFull.setVisibility(View.VISIBLE)
 
-      SiteKeyPairing.getSiteKey(full) { siteKey ->
+      SiteKeyPairings.getSiteKey(
+        MyApp.pairingHelper!!,
+        full,
+      ) { siteKey ->
         if (siteKey == null) {
           site.setText(siteKeyFull.getKey())
         } else {
@@ -391,19 +394,33 @@ class OnePwd :
     val afterwork = { -> maybeCopyValueToClip(value, pref) }
     if (prompt && siteKeyFull != SiteKey.Empty && !neverSet.contains(full)) {
       val defSiteKey = siteKeyFull.getKey()
-      SiteKeyPairing.getSiteKey(full) { key ->
+      SiteKeyPairings.getSiteKey(
+        MyApp.pairingHelper!!,
+        full,
+      ) { key ->
         val insert = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairing.insert(full, siteKey) {
+          SiteKeyPairings.insert(
+            MyApp.pairingHelper!!,
+            full,
+            siteKey,
+          ) {
             dialog.dismiss()
           }
         }
         val update = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairing.update(full, siteKey) {
+          SiteKeyPairings.update(
+            MyApp.pairingHelper!!,
+            full,
+            siteKey,
+          ) {
             dialog.dismiss()
           }
         }
         val delete = DialogInterface.OnClickListener() { dialog, _ ->
-          SiteKeyPairing.delete(full) {
+          SiteKeyPairings.delete(
+            MyApp.pairingHelper!!,
+            full,
+          ) {
             dialog.dismiss()
           }
         }
