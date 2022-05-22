@@ -2,9 +2,9 @@ load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "define_kt_toolchain")
 
 define_kt_toolchain(
     name = "kotlin_toolchain",
-    api_version = "1.6",  # "1.1", "1.2", "1.3", or "1.4"
-    jvm_target = "11",  # "1.6", "1.8", "9", "10", "11", "12", or "13",
-    language_version = "1.6",  # "1.1", "1.2", "1.3", or "1.4"
+    api_version = "1.6",
+    jvm_target = "11",
+    language_version = "1.6",
 )
 
 PACKAGE = "com.yhsif.onepwd"
@@ -12,6 +12,34 @@ PACKAGE = "com.yhsif.onepwd"
 MANIFEST = "AndroidManifest.xml"
 
 MANIFEST_VALUES = {"PACKAGE": PACKAGE}
+
+load(
+    "@rules_oppia_android//:oppia_android_application.bzl",
+    "declare_deployable_application",
+    "oppia_android_application",
+)
+
+declare_deployable_application(
+    name = "install",
+    aab_target = "//:debug",
+)
+
+[
+    oppia_android_application(
+        name = name,
+        config_file = "//:bundle_config.pb.json",
+        custom_package = PACKAGE,
+        dexopts = ["--force-jumbo"],
+        manifest = MANIFEST,
+        manifest_values = MANIFEST_VALUES,
+        proguard_generate_mapping = False,
+        shrink_resources = release,
+        deps = [
+            ":onepwd",
+        ],
+    )
+    for name, release in (("debug", False), ("release", True))
+]
 
 HMAC_SRCS = ["src/com/yhsif/onepwd/HmacMd5.kt"]
 
@@ -22,16 +50,6 @@ kt_jvm_library(
     srcs = HMAC_SRCS,
     visibility = [
         "//tests:__pkg__",
-    ],
-)
-
-android_binary(
-    name = "app",
-    custom_package = PACKAGE,
-    manifest = MANIFEST,
-    manifest_values = MANIFEST_VALUES,
-    deps = [
-        ":onepwd",
     ],
 )
 
