@@ -171,7 +171,7 @@ public class SettingsActivity :
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     if (item.getItemId() == android.R.id.home) {
-      onBackPressed()
+      getOnBackPressedDispatcher().onBackPressed()
     }
     return super.onOptionsItemSelected(item)
   }

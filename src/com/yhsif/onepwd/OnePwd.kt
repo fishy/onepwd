@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.usage.UsageStatsManager
 import android.content.ClipData
+import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.DialogInterface
@@ -14,6 +15,7 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyPermanentlyInvalidatedException
 import android.security.keystore.KeyProperties
@@ -521,7 +523,10 @@ class OnePwd :
   private fun clearClipboard(clip: ClipboardManager) {
     GlobalScope.launch(Dispatchers.Main) {
       clip.setPrimaryClip(EMPTY_CLIP)
-      showToast(this@OnePwd, R.string.clear_clip_toast)
+      // Only show a toast for Android 12 and lower.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        showToast(this@OnePwd, R.string.clear_clip_toast)
+      }
     }
   }
 
@@ -533,8 +538,16 @@ class OnePwd :
     if (v) {
       val clip = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
       val clipData = ClipData.newPlainText("", value)
+      clipData.apply {
+        description.extras = PersistableBundle().apply {
+          putBoolean(ClipDescription.EXTRA_IS_SENSITIVE, true)
+        }
+      }
       clip.setPrimaryClip(clipData)
-      showToast(this, R.string.clip_toast)
+      // Only show a toast for Android 12 and lower.
+      if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+        showToast(this, R.string.clip_toast)
+      }
       val time = pref.getString(
         SettingsActivity.KEY_CLEAR_CLIPBOARD,
         SettingsActivity.DEFAULT_CLEAR_CLIPBOARD,

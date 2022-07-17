@@ -2,7 +2,7 @@ workspace(name = "onepwd")
 
 android_sdk_repository(
     name = "androidsdk",
-    api_level = 31,
+    api_level = 33,
     # This is the latest version with dx.jar
     build_tools_version = "30.0.3",
 )
