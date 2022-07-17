@@ -53,9 +53,9 @@ load("@maven//:defs.bzl", "pinned_maven_install")
 
 pinned_maven_install()
 
-RULES_KOTLIN_TAG = "1.6.0-RC-1"
+RULES_KOTLIN_TAG = "v1.7.0-RC-2"
 
-RULES_KOTLIN_SHA = "f1a4053eae0ea381147f5056bb51e396c5c494c7f8d50d0dee4cc2f9d5c701b0"
+RULES_KOTLIN_SHA = "946747acdbeae799b085d12b240ec346f775ac65236dfcf18aa0cd7300f6de78"
 
 http_archive(
     name = "io_bazel_rules_kotlin",
