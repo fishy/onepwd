@@ -17,7 +17,6 @@
   <string name="hint_password">
     (Click \"Generate\" to get your password)
   </string>
-  <string name="ticker">Click to generate password</string>
   <string name="chrome_toast">
     Looks like you are using Chrome.
     Try share the URL to OneKey to get your SiteKey prefilled.
@@ -92,19 +91,12 @@
     You do not have a MasterKey stored, or biometric process was canceled.
   </string>
 
-  <!-- Notification channel -->
-  <string name="channel_name">Quick access</string>
-  <string name="channel_desc">
-    The notification for quick access to OneKey app.
-  </string>
-
   <!-- Preference tags -->
   <string name="pref_tag_bio">pref_bio</string>
   <string name="pref_tag_prefill">pref_prefill</string>
   <string name="pref_tag_remember">pref_remember</string>
   <string name="pref_tag_clipboard">pref_clipboard</string>
   <string name="pref_tag_lengths">pref_lengths</string>
-  <string name="pref_tag_service">pref_service</string>
   <string name="pref_tag_about">pref_about</string>
 
   <!-- Preference headers -->
@@ -113,7 +105,6 @@
   <string name="pref_header_remember">Remember SiteKey</string>
   <string name="pref_header_clipboard">Clipboard</string>
   <string name="pref_header_lengths">Password Lengths</string>
-  <string name="pref_header_service">Show Notification</string>
   <string name="pref_header_about">About</string>
   <string name="pref_header_about_summary">OneKey v1.6.1</string>
 
@@ -205,16 +196,6 @@
   <string name="pref_title_length4">Length 4</string>
   <string name="pref_desc_length">
     ProTip: You don\'t have to keep them sorted.
-  </string>
-
-  <!-- Service preference -->
-  <string name="pref_title_service">Show notification</string>
-  <string name="pref_desc_service">
-    Show a notification to quickly access OneKey.
-  </string>
-  <string name="pref_desc_service_tip">
-    "ProTip: If you are on Nougat or newer,"
-    "you can add a QuickTile for quick access to OneKey."
   </string>
 
   <!-- About screen -->

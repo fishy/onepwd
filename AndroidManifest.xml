@@ -7,7 +7,6 @@
     >
   <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="33" />
   <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
   <uses-permission android:name="android.permission.USE_BIOMETRIC" />
   <uses-permission
       android:name="android.permission.USE_FINGERPRINT"
@@ -54,7 +53,7 @@
     <service
         android:name=".QSTileService"
         android:label="@string/app_name"
-        android:icon="@drawable/notify_icon"
+        android:icon="@drawable/qs_icon"
         android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
         android:exported="true"
         >
@@ -62,13 +61,5 @@
         <action android:name="android.service.quicksettings.action.QS_TILE" />
       </intent-filter>
     </service>
-    <receiver
-        android:name=".BootupReceiver"
-        android:exported="true"
-        >
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED"/>
-      </intent-filter>
-    </receiver>
   </application>
 </manifest>

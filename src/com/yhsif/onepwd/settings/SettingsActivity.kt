@@ -10,7 +10,6 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
-import com.yhsif.onepwd.OnePwd
 import com.yhsif.onepwd.R
 
 public class SettingsActivity :
@@ -40,8 +39,6 @@ public class SettingsActivity :
     public const val DEFAULT_LENGTH3 = 15
     public const val KEY_LENGTH4 = "length4"
     public const val DEFAULT_LENGTH4 = 20
-    public const val KEY_USE_SERVICE = "use_service"
-    public const val DEFAULT_USE_SERVICE = true
 
     val prefBinder = object : Preference.OnPreferenceChangeListener {
       override fun onPreferenceChange(
@@ -74,10 +71,6 @@ public class SettingsActivity :
                 pref.setSummary(R.string.pref_desc_usage_no)
                 settings?.setEnabled(false)
               }
-            }
-            KEY_USE_SERVICE -> {
-              pref.setSummary(R.string.pref_desc_service)
-              OnePwd.showNotification(pref.getContext(), value as Boolean)
             }
             // For all other preferences, set the summary to the value's
             // simple string representation.
@@ -208,7 +201,6 @@ public class SettingsActivity :
           }
           getString(R.string.pref_tag_prefill) -> PrefillPreferenceFragment()
           getString(R.string.pref_tag_remember) -> RememberPreferenceFragment()
-          getString(R.string.pref_tag_service) -> ServicePreferenceFragment()
           else -> null
         }
       if (frag != null) {

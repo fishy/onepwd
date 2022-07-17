@@ -28,11 +28,6 @@
       android:fragment="com.yhsif.onepwd.settings.LengthsPreferenceFragment"
     />
   <Preference
-      android:key="@string/pref_tag_service"
-      android:title="@string/pref_header_service"
-      android:fragment="com.yhsif.onepwd.settings.ServicePreferenceFragment"
-    />
-  <Preference
       android:key="@string/pref_tag_about"
       android:title="@string/pref_header_about"
       android:summary="@string/pref_header_about_summary"

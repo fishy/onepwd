@@ -1,9 +1,6 @@
 package com.yhsif.onepwd
 
 import android.app.KeyguardManager
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.app.usage.UsageStatsManager
 import android.content.ClipData
 import android.content.ClipDescription
@@ -31,8 +28,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
-import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.yhsif.onepwd.db.SiteKeyPairings
@@ -66,8 +61,6 @@ class OnePwd :
     private const val KEY_MASTER_ENCRYPTED = "encrypted_master"
     private const val KEY_IV = "encrypted_iv"
 
-    private const val NOTIFICATION_ID = 1
-    private const val CHANNEL_ID = "quick_access"
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
     private const val PREF = "com.yhsif.onepwd"
     private const val KEY_SELECTED_LENGTH = "selected_length"
@@ -99,59 +92,6 @@ class OnePwd :
 
     fun showToast(ctx: Context, rscId: Int) {
       showToast(ctx, ctx.getString(rscId))
-    }
-
-    fun showNotification(ctx: Context) = showNotification(
-      ctx,
-      PreferenceManager.getDefaultSharedPreferences(ctx).getBoolean(
-        SettingsActivity.KEY_USE_SERVICE,
-        SettingsActivity.DEFAULT_USE_SERVICE,
-      ),
-    )
-
-    fun showNotification(ctx: Context, show: Boolean) {
-      val manager = NotificationManagerCompat.from(ctx)
-      if (!show) {
-        manager.cancel(NOTIFICATION_ID)
-        return
-      }
-      if (!manager.areNotificationsEnabled()) {
-        return
-      }
-      val channelId: String by lazy {
-        // Lazy create the notification channel
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-          val channel = NotificationChannel(
-            CHANNEL_ID,
-            ctx.getString(R.string.channel_name),
-            NotificationManager.IMPORTANCE_MIN,
-          )
-          channel.setDescription(ctx.getString(R.string.channel_desc))
-          channel.setShowBadge(false)
-          val notifManager = ctx.getSystemService(
-            Context.NOTIFICATION_SERVICE
-          ) as NotificationManager
-          notifManager.createNotificationChannel(channel)
-        }
-        CHANNEL_ID
-      }
-      val activity = PendingIntent.getActivity(
-        ctx,
-        0,
-        Intent(ctx, OnePwd::class.java),
-        PendingIntent.FLAG_IMMUTABLE,
-      )
-      val notification = NotificationCompat.Builder(ctx, channelId)
-        .setSmallIcon(R.drawable.notify_icon)
-        .setWhen(System.currentTimeMillis())
-        .setTicker(ctx.getText(R.string.ticker))
-        .setContentTitle(ctx.getText(R.string.ticker))
-        .setContentIntent(activity)
-        .setCategory(NotificationCompat.CATEGORY_STATUS)
-        .setOngoing(true)
-        .setPriority(NotificationCompat.PRIORITY_MIN)
-        .build()
-      manager.notify(NOTIFICATION_ID, notification)
     }
   }
 
@@ -208,8 +148,6 @@ class OnePwd :
     )
     checkedIndex = radioButtons.size - 1
     checkedLength = radioButtons[checkedIndex]
-
-    showNotification(this)
   }
 
   override fun onPause() {
