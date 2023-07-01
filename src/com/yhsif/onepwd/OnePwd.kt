@@ -76,6 +76,8 @@ class OnePwd :
     )
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
+    private var visible = false
+
     fun showToast(ctx: Context, text: String) {
       GlobalScope.launch(Dispatchers.Main) {
         val msg = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -153,6 +155,8 @@ class OnePwd :
 
   override fun onPause() {
     super.onPause()
+
+    visible = false
 
     // Clear loaded MasterKey
     loadedMaster = ""
@@ -234,9 +238,18 @@ class OnePwd :
       SettingsActivity.DEFAULT_BIO_AUTOLOAD,
     )
     if (v) {
-      doLoad(false)
+      GlobalScope.launch(Dispatchers.Default) {
+        // delay for half second to work around the biometric prompt being dismissed.
+        delay(500)
+        if (visible) {
+          GlobalScope.launch(Dispatchers.Main) {
+            doLoad(false)
+          }
+        }
+      }
     }
 
+    visible = true
     super.onResume()
   }
 
