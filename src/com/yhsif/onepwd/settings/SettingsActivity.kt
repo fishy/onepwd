@@ -145,7 +145,7 @@ public class SettingsActivity :
 
     if (savedInstanceState == null) {
       var frag = getSupportFragmentManager().findFragmentByTag(
-        PrefsFragment.FRAGMENT_TAG
+        PrefsFragment.FRAGMENT_TAG,
       )
       if (frag == null) {
         frag = PrefsFragment()
@@ -194,8 +194,8 @@ public class SettingsActivity :
           getString(R.string.pref_tag_lengths) -> {
             sortLengths(
               PreferenceManager.getDefaultSharedPreferences(
-                this@SettingsActivity
-              )
+                this@SettingsActivity,
+              ),
             )
             LengthsPreferenceFragment()
           }

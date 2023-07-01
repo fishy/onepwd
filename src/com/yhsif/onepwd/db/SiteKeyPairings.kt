@@ -52,7 +52,7 @@ public class SiteKeyPairings {
           override fun onUpgrade(
             db: SupportSQLiteDatabase,
             oldVersion: Int,
-            newVersion: Int
+            newVersion: Int,
           ) {
             // do nothing
           }
@@ -66,7 +66,7 @@ public class SiteKeyPairings {
       full: String,
       siteKey: String,
       // arg is the new unique id
-      callback: (Long) -> Unit
+      callback: (Long) -> Unit,
     ) {
       GlobalScope.launch(Dispatchers.Default) {
         val db = helper.getWritableDatabase()
@@ -77,7 +77,7 @@ public class SiteKeyPairings {
         val id = db.insert(
           PairingEntry.TABLE_NAME,
           SQLiteDatabase.CONFLICT_ROLLBACK,
-          values
+          values,
         )
         withContext(Dispatchers.Main) {
           callback(id)
@@ -90,7 +90,7 @@ public class SiteKeyPairings {
       full: String,
       siteKey: String,
       // arg is the number of rows deleted
-      callback: (Int) -> Unit
+      callback: (Int) -> Unit,
     ) {
       GlobalScope.launch(Dispatchers.Default) {
         val db = helper.getWritableDatabase()
@@ -103,7 +103,7 @@ public class SiteKeyPairings {
           SQLiteDatabase.CONFLICT_ROLLBACK,
           values,
           selection,
-          arrayOf(full)
+          arrayOf(full),
         )
         withContext(Dispatchers.Main) {
           callback(rows)
@@ -115,7 +115,7 @@ public class SiteKeyPairings {
       helper: SupportSQLiteOpenHelper,
       vararg full: String,
       // arg is the number of rows deleted
-      callback: (Int) -> Unit
+      callback: (Int) -> Unit,
     ) {
       GlobalScope.launch(Dispatchers.Default) {
         val db = helper.getWritableDatabase()
@@ -131,7 +131,7 @@ public class SiteKeyPairings {
       helper: SupportSQLiteOpenHelper,
       full: String,
       // arg is the site key, or null if pairing not found
-      callback: (String?) -> Unit
+      callback: (String?) -> Unit,
     ) {
       GlobalScope.launch(Dispatchers.Default) {
         val db = helper.getReadableDatabase()
@@ -141,8 +141,8 @@ public class SiteKeyPairings {
           .columns(
             arrayOf(
               PairingEntry.COLUMN_NAME_FULL,
-              PairingEntry.COLUMN_NAME_SITE_KEY
-            )
+              PairingEntry.COLUMN_NAME_SITE_KEY,
+            ),
           )
           .limit("1")
           .create()
@@ -169,7 +169,7 @@ public class SiteKeyPairings {
     public fun listAll(
       helper: SupportSQLiteOpenHelper,
       // arg is list of pairs of (full, site_key)
-      callback: (List<Pair<String, String>>) -> Unit
+      callback: (List<Pair<String, String>>) -> Unit,
     ) {
       GlobalScope.launch(Dispatchers.Default) {
         val db = helper.getReadableDatabase()
@@ -178,8 +178,8 @@ public class SiteKeyPairings {
           .columns(
             arrayOf(
               PairingEntry.COLUMN_NAME_FULL,
-              PairingEntry.COLUMN_NAME_SITE_KEY
-            )
+              PairingEntry.COLUMN_NAME_SITE_KEY,
+            ),
           )
           .create()
 

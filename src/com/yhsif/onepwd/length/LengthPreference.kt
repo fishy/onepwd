@@ -35,8 +35,13 @@ public class LengthPreference : DialogPreference {
     defaultValue: Any?,
   ) {
     setValue(
-      if (restorePersistedValue) getPersistedInt(MIN_VALUE)
-      else if (defaultValue != null) defaultValue as Int else 0
+      if (restorePersistedValue) {
+        getPersistedInt(MIN_VALUE)
+      } else if (defaultValue != null) {
+        defaultValue as Int
+      } else {
+        0
+      },
     )
   }
 

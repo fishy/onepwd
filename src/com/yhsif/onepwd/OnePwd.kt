@@ -71,7 +71,7 @@ class OnePwd :
       "com.chrome.canary", // canary
       "com.chrome.dev", // dev
       "com.chrome.beta", // beta
-      "com.android.chrome" // stable
+      "com.android.chrome", // stable
     )
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
@@ -168,25 +168,25 @@ class OnePwd :
       pref.getInt(
         SettingsActivity.KEY_LENGTH1,
         SettingsActivity.DEFAULT_LENGTH1,
-      ).toString(10)
+      ).toString(10),
     )
     radioButtons[1].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH2,
         SettingsActivity.DEFAULT_LENGTH2,
-      ).toString(10)
+      ).toString(10),
     )
     radioButtons[2].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH3,
         SettingsActivity.DEFAULT_LENGTH3,
-      ).toString(10)
+      ).toString(10),
     )
     radioButtons[3].setText(
       pref.getInt(
         SettingsActivity.KEY_LENGTH4,
         SettingsActivity.DEFAULT_LENGTH4,
-      ).toString(10)
+      ).toString(10),
     )
 
     val defaultIndex = radioButtons.size - 1
@@ -381,7 +381,7 @@ class OnePwd :
           .setOnDismissListener(
             DialogInterface.OnDismissListener() { _ ->
               afterwork()
-            }
+            },
           )
           .setNeutralButton(
             R.string.button_never,
@@ -403,7 +403,7 @@ class OnePwd :
                   getString(R.string.button_never),
                   full,
                   siteKey,
-                )
+                ),
               )
               .setPositiveButton(
                 R.string.yes,
@@ -424,7 +424,7 @@ class OnePwd :
                     getString(R.string.button_never),
                     full,
                     key,
-                  )
+                  ),
                 )
                 .setPositiveButton(
                   R.string.yes,
@@ -442,7 +442,7 @@ class OnePwd :
                     full,
                     key,
                     siteKey,
-                  )
+                  ),
                 )
                 .setPositiveButton(
                   R.string.yes,
@@ -667,7 +667,7 @@ class OnePwd :
       ) { cipher ->
         if (cipher != null) {
           val message = cipher.doFinal(
-            masterKey.toByteArray(charset("UTF-8"))
+            masterKey.toByteArray(charset("UTF-8")),
           )
           val iv = cipher
             .getParameters()
@@ -694,7 +694,7 @@ class OnePwd :
     return Cipher.getInstance(
       KeyProperties.KEY_ALGORITHM_AES + "/" +
         KeyProperties.BLOCK_MODE_CBC + "/" +
-        KeyProperties.ENCRYPTION_PADDING_PKCS7
+        KeyProperties.ENCRYPTION_PADDING_PKCS7,
     )
   }
 
@@ -803,7 +803,7 @@ class OnePwd :
             callback(res.getCryptoObject()?.getCipher())
           }
         }
-      }
+      },
     ).authenticate(
       builder.build(),
       BiometricPrompt.CryptoObject(initCipher),
