@@ -4,6 +4,8 @@ An Android app and Python companion script to calculate unique passwords
 for different sites/apps. Compatible with and inspired by Chrome
 extension [123 Password](https://chrome.google.com/webstore/detail/pahmlghhaoabdlhnkmmjbkcmdamjccjj)
 
+[![Get it on Google Play](https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png)](https://play.google.com/store/apps/details?id=com.yhsif.onepwd)
+
 ## Building
 
 ### Bazel
@@ -23,3 +25,5 @@ To run unit tests, run `bazel test ...`.
 ## License
 
 BSD 3-Clause, refer to [LICENSE file](LICENSE) for more details.
+
+Google Play and the Google Play logo are trademarks of Google LLC.
