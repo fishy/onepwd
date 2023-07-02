@@ -40,6 +40,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.security.InvalidAlgorithmParameterException
 import java.security.KeyStore
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -76,7 +77,7 @@ class OnePwd :
     )
     private val EMPTY_CLIP = ClipData.newPlainText("", "")
 
-    private var visible = false
+    private val visible = AtomicBoolean(false)
 
     fun showToast(ctx: Context, text: String) {
       GlobalScope.launch(Dispatchers.Main) {
@@ -156,7 +157,7 @@ class OnePwd :
   override fun onPause() {
     super.onPause()
 
-    visible = false
+    visible.set(false)
 
     // Clear loaded MasterKey
     loadedMaster = ""
@@ -241,7 +242,7 @@ class OnePwd :
       GlobalScope.launch(Dispatchers.Default) {
         // delay for half second to work around the biometric prompt being dismissed.
         delay(500)
-        if (visible) {
+        if (visible.get()) {
           GlobalScope.launch(Dispatchers.Main) {
             doLoad(false)
           }
@@ -249,7 +250,7 @@ class OnePwd :
       }
     }
 
-    visible = true
+    visible.set(true)
     super.onResume()
   }
 
