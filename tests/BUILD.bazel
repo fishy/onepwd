@@ -1,5 +1,5 @@
-load("@io_bazel_rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_test")
 load("@rules_jvm_external//:defs.bzl", "artifact")
+load("@rules_kotlin//kotlin:kotlin.bzl", "kt_jvm_test")
 
 kt_jvm_test(
     name = "hmac_md5_test",
