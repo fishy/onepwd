@@ -28,6 +28,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager.Authenticators
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
@@ -62,6 +63,7 @@ class OnePwd :
     private const val PREF_SECRET = "encrypted"
     private const val KEY_MASTER_ENCRYPTED = "encrypted_master"
     private const val KEY_IV = "encrypted_iv"
+    private const val KEY_DEVICE_CREDENTIAL = "encrypted_allow_device_credential"
 
     private const val USAGE_TIMEFRAME = 24 * 60 * 60 * 1000 // 24 hours
     private const val PREF = "com.yhsif.onepwd"
@@ -757,6 +759,12 @@ class OnePwd :
       setUserAuthenticationRequired(true)
       setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
       setInvalidatedByBiometricEnrollment(invalidate)
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        setUserAuthenticationParameters(0, KeyProperties.AUTH_BIOMETRIC_STRONG or KeyProperties.AUTH_DEVICE_CREDENTIAL)
+        getSharedPreferences(PREF_SECRET, 0).edit {
+          putBoolean(KEY_DEVICE_CREDENTIAL, true)
+        }
+      }
     }
 
     KeyGenerator.getInstance(
@@ -807,9 +815,17 @@ class OnePwd :
     callback: (Cipher?) -> Unit,
   ) {
     val builder = BiometricPrompt.PromptInfo.Builder()
-      .setTitle(getString(title))
-      .setNegativeButtonText(getString(android.R.string.cancel))
-      .setConfirmationRequired(true)
+    builder.apply {
+      setTitle(getString(title))
+      setConfirmationRequired(true)
+      var allowedAuthenticators = Authenticators.BIOMETRIC_STRONG
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && getSharedPreferences(PREF_SECRET, 0).getBoolean(KEY_DEVICE_CREDENTIAL, false)) {
+        allowedAuthenticators = allowedAuthenticators or Authenticators.DEVICE_CREDENTIAL
+      } else {
+        setNegativeButtonText(getString(android.R.string.cancel))
+      }
+      setAllowedAuthenticators(allowedAuthenticators)
+    }
 
     BiometricPrompt(
       this@OnePwd,
