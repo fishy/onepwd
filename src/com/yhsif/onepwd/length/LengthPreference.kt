@@ -31,18 +31,14 @@ public class LengthPreference : DialogPreference {
   }
 
   override fun onSetInitialValue(
-    restorePersistedValue: Boolean,
     defaultValue: Any?,
   ) {
-    setValue(
-      if (restorePersistedValue) {
-        getPersistedInt(MIN_VALUE)
-      } else if (defaultValue != null) {
-        defaultValue as Int
-      } else {
-        0
-      },
-    )
+    val def = if (defaultValue != null) {
+      defaultValue as Int
+    } else {
+      MIN_VALUE
+    }
+    setValue(getPersistedInt(def))
   }
 
   fun setValue(value: Int) {
