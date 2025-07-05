@@ -2,7 +2,7 @@ workspace(name = "onepwd")
 
 android_sdk_repository(
     name = "androidsdk",
-    api_level = 34,
+    api_level = 36,
 )
 
 register_toolchains("//:kotlin_toolchain")
